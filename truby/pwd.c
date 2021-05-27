@@ -4,10 +4,9 @@
 int main(void)
 {
 	char *dir = NULL;
-	size_t len = 0;
 
-	while (!dir)
-		dir = getcwd(dir, ++len);
+	dir = getcwd(dir, 0);
 	printf("%s\n", dir);
+	free(dir);
 	return 0;
 }
