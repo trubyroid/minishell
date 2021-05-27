@@ -18,5 +18,7 @@ typedef struct	s_all
 
 void	start(t_all *tmp);
 void	command_name(t_all *tmp, int i);
+void	error(int i);
+void	prepars(t_all *tmp);
 
 #endif

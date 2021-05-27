@@ -3,7 +3,7 @@
 int main(int argc, char **argv, char **env)
 {
 	t_all *tmp;
-	char ss[10] = "   ls ";
+	char ss[10] = "  'cd'    ";
 	int i = 0;
 
 	tmp = (t_all*)malloc(sizeof(t_all));
@@ -14,6 +14,7 @@ int main(int argc, char **argv, char **env)
 		tmp->str[i] = ss[i];
 		i++;
 	}
+	prepars(tmp);
 	start(tmp);
 	printf("%s", tmp->command_name);
 	free(tmp);
