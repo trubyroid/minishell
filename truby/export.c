@@ -3,6 +3,11 @@
 #include <string.h>
 #include <unistd.h>
 
+static char *find_next_line1(char *previous, char **env)
+{
+	
+}
+
 static char *find_next_line(char *previous, char **env)
 {
 	char *next;
@@ -218,98 +223,99 @@ static char	*find_first_line(char **env)
 	return (first);
 }
 
+
 int	main(int ac, char **av, char **env)
 {
 	int i = -1;
 	char *line;
 
-	line = find_first_line(env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
-	line = find_next_line(line, env);
-	write(1, line, strlen(line));
-	write(1, "\n", 1);
+	// line = find_first_line(env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
+	// line = find_next_line(line, env);
+	// write(1, line, strlen(line));
+	// write(1, "\n", 1);
 	// while (line != NULL)
 	// {
 	// 	write(1, "\n", 1);
