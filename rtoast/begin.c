@@ -1,21 +1,26 @@
 #include "shell.h"
+#include "../libft/get_next_line.h"
+
+void string_creating(t_all *tmp)
+{
+	write(1, "write command ", 14);
+	get_next_line(0, &tmp->str);
+}
 
 int main(int argc, char **argv, char **env)
 {
 	t_all *tmp;
-	char ss[10] = "  'cd'    ";
-	int i = 0;
 
-	tmp = (t_all*)malloc(sizeof(t_all));
-	tmp->str = (char*)malloc(10 * sizeof(char*));
-	tmp->str[9] = '\0';
-	while (ss[i] != '\0')
-	{
-		tmp->str[i] = ss[i];
-		i++;
-	}
+	tmp = (t_all *)malloc(sizeof(tmp));
+	tmp->arg = NULL;
+	string_creating(tmp);
 	prepars(tmp);
 	start(tmp);
-	printf("%s", tmp->command_name);
+	printf("name = %s\n", tmp->command_name);
+	printf("argument = %s\n", tmp->arg[0]);
+	printf("argument = %s\n", tmp->arg[1]);
+	free(tmp->arg);
+	free(tmp->str);
+	free(tmp->command_name);
 	free(tmp);
 }
