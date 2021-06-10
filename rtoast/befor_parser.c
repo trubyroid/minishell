@@ -41,9 +41,9 @@ void prepars(t_all *tmp)
 		two_e = 0;
 	if (one_e < 0)
 		one_e = 0;
-	if (two_e % 2 != 0)
+	if (two_e % 2 != 0 && two_e > 0)
 		error(1);
-	if (one_e % 2 != 0)
+	if (one_e % 2 != 0 && one_e > 0)
 		error(1);
 	if (tmp->str[i - 1] == '\\')
 		error(1);
