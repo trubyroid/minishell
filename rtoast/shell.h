@@ -29,4 +29,6 @@ void	arg(t_all *tmp, int i);
 int		malloc_arg(t_all *tmp, int i, t_add *add);
 int		block(t_all *tmp, int i);
 int		character_checking(char symbol);
+int		creating_the_first_argument(t_all *tmp, t_add *add, int i, int j);
+int		creating_next_argument(t_all *tmp, t_add *add, int i, int j);
 #endif
