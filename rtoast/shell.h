@@ -13,6 +13,7 @@ typedef struct	s_all
 		char	**arg;
 		int		flag_dollar;
 		int		flag_pipe;
+		int		flag_redirect;
 		// t_all	*baby;
 
 }				t_all;

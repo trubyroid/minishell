@@ -1,15 +1,15 @@
 #include "shell.h"
 #include "../libft/get_next_line.h"
 
-void string_creating(t_all *tmp)
+void	string_creating(t_all *tmp)
 {
 	write(1, "write command ", 14);
 	get_next_line(0, &tmp->str);
 }
 
-int main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
-	t_all *tmp;
+	t_all	*tmp;
 
 	tmp = (t_all *)malloc(sizeof(tmp));
 	tmp->arg = NULL;

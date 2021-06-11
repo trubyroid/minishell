@@ -1,9 +1,9 @@
 #include "shell.h"
 
-void command_name(t_all *tmp)
+void	command_name(t_all *tmp)
 {
-	int j;
-	int i;
+	int	j;
+	int	i;
 
 	j = 0;
 	i = 0;
@@ -27,9 +27,9 @@ void command_name(t_all *tmp)
 	arg(tmp, i);
 }
 
-void arg(t_all *tmp, int i)
+void	arg(t_all *tmp, int i)
 {
-	t_add *add;
+	t_add	*add;
 
 	add = (t_add *)malloc(sizeof(add));
 	while (tmp->str[i] != '\0')
@@ -37,15 +37,15 @@ void arg(t_all *tmp, int i)
 		while ((character_checking(tmp->str[i])) == 1)
 			i++;
 		if (block(tmp, i) == 1)
-			break ;///
+			break ;
 		i = malloc_arg(tmp, i, add);
 	}
 	free(add);
 }
 
-int malloc_arg(t_all *tmp, int i, t_add *add)
+int	malloc_arg(t_all *tmp, int i, t_add *add)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while ((character_checking(tmp->str[i])) == 0 && block(tmp, i) == 0)
@@ -57,5 +57,5 @@ int malloc_arg(t_all *tmp, int i, t_add *add)
 		i = creating_the_first_argument(tmp, add, i, j);
 	else
 		i = creating_next_argument(tmp, add, i, j);
-	return(i);
+	return (i);
 }
