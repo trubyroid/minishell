@@ -1,21 +1,37 @@
 #include "shell.h"
+#include "../libft/get_next_line.h"
 
-int main(int argc, char **argv, char **env)
+void	string_creating(t_all *tmp)
 {
-	t_all *tmp;
-	char ss[10] = "  'cd'    ";
-	int i = 0;
+	write(1, "write command ", 14);
+	get_next_line(0, &tmp->str);
+}
 
-	tmp = (t_all*)malloc(sizeof(t_all));
-	tmp->str = (char*)malloc(10 * sizeof(char*));
-	tmp->str[9] = '\0';
-	while (ss[i] != '\0')
-	{
-		tmp->str[i] = ss[i];
-		i++;
-	}
+int	main(int argc, char **argv, char **env)
+{
+	t_all	*tmp;
+
+	tmp = (t_all *)malloc(sizeof(tmp));
+	tmp->arg = NULL;
+	tmp->command_name = NULL;
+	string_creating(tmp);
 	prepars(tmp);
-	start(tmp);
-	printf("%s", tmp->command_name);
+	command_name(tmp);
+	printf("name = %s\n", tmp->command_name);
+	printf("argument = %s\n", tmp->arg[0]);
+	printf("argument = %s\n", tmp->arg[1]);
+	printf("argument = %s\n", tmp->arg[2]);
+	printf("argument = %s\n", tmp->arg[3]);
+	printf("argument = %s\n", tmp->arg[4]);
+	printf("argument = %s\n", tmp->arg[5]);
+	free(tmp->str);
+	free(tmp->command_name);
+	free(tmp->arg[0]);
+	free(tmp->arg[1]);
+	free(tmp->arg[2]);
+	free(tmp->arg[3]);
+	free(tmp->arg[4]);
+	free(tmp->arg[5]);
+	free(tmp->arg);
 	free(tmp);
 }
