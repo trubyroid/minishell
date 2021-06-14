@@ -2,6 +2,7 @@
 
 void error(int i)
 {
+	i = 4;
 	printf("Error");
 	exit(1);
 }

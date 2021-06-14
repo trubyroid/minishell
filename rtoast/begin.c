@@ -1,4 +1,5 @@
 #include "../shell.h"
+#include "../truby/shell_truby.h"
 #include "../libft/get_next_line.h"
 
 t_env	*creating_list(char **env)
@@ -7,7 +8,6 @@ t_env	*creating_list(char **env)
 	int		j;
 	t_env	*lst;
 	t_env	*new;
-	char	*s;
 	i = 0;
 	j = 0;
 	lst = NULL;
@@ -45,22 +45,24 @@ int	main(int argc, char **argv, char **env)
 	t_all	*tmp;
 	t_env	*lst;
 
+	(void)argc;
+	(void)argv;
 	tmp = (t_all *)malloc(sizeof(tmp));
 	tmp->arg = NULL;
 	tmp->command_name = NULL;
-	creating_list(env);
+	lst = creating_list(env);
 	string_creating(tmp);
 	prepars(tmp);
 	command_name(tmp);
 	processor(tmp, lst);
-	printf("name = %s\n", tmp->command_name);
-	printf("argument = %s\n", tmp->arg[0]);
-	printf("argument = %s\n", tmp->arg[1]);
-	printf("arg_num = %d\n", tmp->num_arg);
+	// printf("name = %s\n", tmp->command_name);
+	// printf("argument = %s\n", tmp->arg[0]);
+	// printf("argument = %s\n", tmp->arg[1]);
+	// printf("arg_num = %d\n", tmp->num_arg);
 	free(tmp->str);
 	free(tmp->command_name);
 	free(tmp->arg[0]);
-	free(tmp->arg[1]);
+	// free(tmp->arg[1]);
 	free(tmp->arg);
 	free(tmp);
 }

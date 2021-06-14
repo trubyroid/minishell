@@ -10,12 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-typedef struct 	s_env
-{
-	char				*str;
-	struct s_env		*next;
-}				t_env;
-
 #include "../shell.h"
 #include <unistd.h>
 #include <stdio.h>

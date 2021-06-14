@@ -1,9 +1,12 @@
 NAME = minishell
-HEAD = ./rtoast/shell.h
+HEAD = ./shell.h
 SRCS = ./rtoast/
+SRCS_1 = ./truby/
 GNL = ./libft/
 CFLAGS = -Wall -Wextra -Werror
 C_FILE =	$(SRCS)begin.c $(SRCS)additionally.c $(SRCS)befor_parser.c $(SRCS)parser.c\
+			$(SRCS_1)cd.c $(SRCS_1)echo.c $(SRCS_1)env.c $(SRCS_1)exp.c\
+			$(SRCS_1)pwd.c $(SRCS_1)processor.c\
 			$(GNL)get_next_line.c $(GNL)get_next_line_utils.c
 O_FILE = $(C_FILE:.c=.o)
 all:
