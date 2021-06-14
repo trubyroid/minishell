@@ -16,7 +16,7 @@ int use_cd(char *str)
 	int i;
 	char *dir = NULL;
 
-	change_dir("..");		//перемещает
+	change_dir(str);		//перемещает
 	dir = getcwd(dir, 0);   //определяет нынешнюю директорию
 	printf("%s\n", dir);    // показывает, что было осуществлено перемещение
 	free(dir);
