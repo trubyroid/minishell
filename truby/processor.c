@@ -8,8 +8,8 @@ int		processor(t_all *command, t_env *env)
 		use_echo(command);
 	if (strcmp("pwd", command->command_name) == 0)
 		use_pwd();
-	if (strcmp("unset", command->command_name) == 0)
-		delete_enviroment_variable(env);				//create a function
+	// if (strcmp("unset", command->command_name) == 0)
+	// 	delete_enviroment_variable(env);				//create a function
 	if (strcmp("cd", command->command_name) == 0)
 		use_cd(command->arg[0]);
 	if (strcmp("exit", command->command_name) == 0)
@@ -18,7 +18,8 @@ int		processor(t_all *command, t_env *env)
 	{
 		if (command->arg == NULL)
 			print_export(env);
-		else
-			add_enviroment_variable(env);				//create a function
+		//else
+			//add_enviroment_variable(env);				//create a function
 	}
+	return (0);
 }
