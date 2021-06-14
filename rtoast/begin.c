@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "../shell.h"
 #include "../libft/get_next_line.h"
 
 t_env	*creating_list(char **env)
