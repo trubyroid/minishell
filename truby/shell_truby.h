@@ -6,15 +6,9 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 20:57:17 by truby             #+#    #+#             */
-/*   Updated: 2021/06/14 21:11:42 by truby            ###   ########.fr       */
+/*   Updated: 2021/06/14 21:34:54 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-typedef struct 	s_env
-{
-	char				*str;
-	struct s_env		*next;
-}				t_env;
 
 #include "../shell.h"
 #include <unistd.h>

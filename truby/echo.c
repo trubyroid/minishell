@@ -4,9 +4,9 @@ int use_echo(t_all *command)
 {
 	int i = 0;
 
-	if (command->ac > 1)
+	if (command->num_arg > 1)
 	{
-		while (++i < command->ac - 1)
+		while (++i < command->num_arg - 1)
 			printf("%s ", command->arg[i]);
 		printf("%s\n", command->arg[i]);
 	}
