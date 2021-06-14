@@ -8,6 +8,8 @@ void	command_name(t_all *tmp)
 
 	i = 0;
 	i = skipping_spaces(tmp, i);
+	if (tmp->str[i] == '\\')
+		i++;
 	q = quotes_checking(tmp->str[i]);
 	if (q != 0)
 		colnum = amount_of_elements(tmp, ++i, q);
