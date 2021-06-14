@@ -21,10 +21,6 @@ void prepars(t_all *tmp)
 			two_e++;
 		if (tmp->str[i] == '\'')
 			one_e++;
-		if (tmp->str[i] == '\\' && tmp->str[i + 1] == '\'')
-			one_e--;
-		if (tmp->str[i] == '\\' && tmp->str[i + 1] == '\"')
-			two_e--;
 		if (tmp->str[i] == ';' && tmp->str[i + 1] == ';')
 			error(1);
 		if (tmp->str[i] == '<' && tmp->str[i + 1] == '<' && tmp->str[i + 2] == '<')

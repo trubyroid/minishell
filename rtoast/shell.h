@@ -14,7 +14,7 @@ typedef struct	s_all
 		int		flag_dollar;
 		int		flag_pipe;
 		int		flag_redirect;
-		// t_all	*baby;
+		// t_all	*baby_pipe;
 
 }				t_all;
 
@@ -28,8 +28,10 @@ void	error(int i);
 void	prepars(t_all *tmp);
 void	arg(t_all *tmp, int i);
 int		malloc_arg(t_all *tmp, int i, t_add *add);
-int		block(t_all *tmp, int i);
-int		character_checking(char symbol);
+int		block_checking(char symbol);
+int		quotes_checking(char symbol);
+int		skipping_spaces(t_all *tmp, int i);
 int		creating_the_first_argument(t_all *tmp, t_add *add, int i, int j);
 int		creating_next_argument(t_all *tmp, t_add *add, int i, int j);
+int		amount_of_elements(t_all *tmp, int i, int quotes);
 #endif
