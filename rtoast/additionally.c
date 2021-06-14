@@ -4,6 +4,7 @@ int	amount_of_elements(t_all *tmp, int i, int quotes)
 {
 	int colnum;
 
+	colnum = 0;
 	if (quotes != 0)
 		while (quotes_checking(tmp->str[i]) != quotes)
 		{
@@ -46,8 +47,6 @@ int	block_checking(char symbol)
 		return (1);
 	if (symbol == '|')
 		return (1);
-	if (symbol == '$')
-		return (1);
 	if (symbol == '>')
 		return (1);
 	if (symbol == '<')
@@ -55,45 +54,48 @@ int	block_checking(char symbol)
 	return (0);
 }
 
-// int	creating_the_first_argument(t_all *tmp, t_add *add, int i, int j)
-// {
-// 	add->num = 0;
-// 	tmp->arg = (char **)malloc(sizeof(char *));
-// 	tmp->arg[add->num] = (char *)malloc(sizeof(char) * (j + 1));
-// 	tmp->arg[add->num][j] = '\0';
-// 	i = i - j;
-// 	j = 0;
-// 	while ((character_checking(tmp->str[i])) == 0 && block(tmp, i) == 0)
-// 	{
-// 		tmp->arg[add->num][j] = tmp->str[i];
-// 		i++;
-// 		j++;
-// 	}
-// 	add->num++;
-// 	return (i);
-// }
+int	creating_the_first_argument(t_all *tmp, int i, int colnum)
+{
+	int j;
 
-// int	creating_next_argument(t_all *tmp, t_add *add, int i, int j)
-// {
-// 	int		count;
-// 	char	**new_arg;
+	j = 0;
+	tmp->num_arg = 0;
+	tmp->arg = (char **)malloc(sizeof(char *));
+	tmp->arg[tmp->num_arg] = (char *)malloc(sizeof(char) * (colnum + 1));
+	tmp->arg[tmp->num_arg][colnum] = '\0';
+	colnum = i + colnum;
+	while (i < colnum)
+	{
+		tmp->arg[tmp->num_arg][j] = tmp->str[i];
+		i++;
+		j++;
+	}
+	tmp->num_arg++;
+	return (i);
+}
 
-// 	count = -1;
-// 	new_arg = (char **)malloc(sizeof(char *) * (add->num + 1));
-// 	while (++count < add->num)
-// 		new_arg[count] = tmp->arg[count];
-// 	free(tmp->arg);
-// 	tmp->arg = new_arg;
-// 	tmp->arg[add->num] = (char *)malloc(sizeof(char) * (j + 1));
-// 	tmp->arg[add->num][j] = '\0';
-// 	i = i - j;
-// 	j = 0;
-// 	while ((character_checking(tmp->str[i])) == 0 && block(tmp, i) == 0)
-// 	{
-// 		tmp->arg[add->num][j] = tmp->str[i];
-// 		i++;
-// 		j++;
-// 	}
-// 	add->num++;
-// 	return (i);
-// }
+int	creating_next_argument(t_all *tmp, int i, int colnum)
+{
+	int		count;
+	int		j;
+	char	**new_arg;
+
+	count = -1;
+	j = 0;
+	new_arg = (char **)malloc(sizeof(char *) * (tmp->num_arg + 1));
+	while (++count < tmp->num_arg)
+		new_arg[count] = tmp->arg[count];
+	free(tmp->arg);
+	tmp->arg = new_arg;
+	tmp->arg[tmp->num_arg] = (char *)malloc(sizeof(char) * (colnum + 1));
+	tmp->arg[tmp->num_arg][colnum] = '\0';
+	colnum = i + colnum;
+	while (i < colnum)
+	{
+		tmp->arg[tmp->num_arg][j] = tmp->str[i];
+		i++;
+		j++;
+	}
+	tmp->num_arg++;
+	return (i);
+}

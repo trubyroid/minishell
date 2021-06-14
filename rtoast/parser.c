@@ -7,7 +7,7 @@ void	command_name(t_all *tmp)
 	int	q;
 
 	i = 0;
-	skipping_spaces(tmp, i);
+	i = skipping_spaces(tmp, i);
 	q = quotes_checking(tmp->str[i]);
 	if (q != 0)
 		colnum = amount_of_elements(tmp, ++i, q);
@@ -23,39 +23,37 @@ void	command_name(t_all *tmp)
 		i++;
 		q++;
 	}
-	//arg(tmp, i);
+	if (tmp->str[i] == '\"' || tmp->str[i] == '\'')
+		i++;
+	arg(tmp, i);
 }
 
-// void	arg(t_all *tmp, int i)
-// {
-// 	t_add	*add;
+void	arg(t_all *tmp, int i)
+{
+	int		q;
+	int		colnum;
 
-// 	add = (t_add *)malloc(sizeof(add));
-// 	while (tmp->str[i] != '\0')
-// 	{
-// 		while ((character_checking(tmp->str[i])) == 1)
-// 			i++;
-// 		if (block(tmp, i) == 1)
-// 			break ;
-// 		i = malloc_arg(tmp, i, add);
-// 	}
-// 	free(add);
-// }
+	while (tmp->str[i] != '\0')
+	{
+		i = skipping_spaces(tmp, i);
+		q = quotes_checking(tmp->str[i]);
+		if (block_checking(tmp->str[i]) == 1)
+			break ;
+		if (q != 0)
+			colnum = amount_of_elements(tmp, ++i, q);
+		else
+			colnum = amount_of_elements(tmp, i, 0);
+		i = malloc_arg(tmp, i, colnum);
+		if (tmp->str[i] == '\"' || tmp->str[i] == '\'')
+			i++;
+	}
+}
 
-// int	malloc_arg(t_all *tmp, int i, t_add *add)
-// {
-// 	int	j;
-
-// 	j = 0;
-// 	while ((character_checking(tmp->str[i])) == 0 && block(tmp, i) == 0)
-// 	{
-// 		j++;
-// 		i++;
-// 	}
-// 	printf("%d\n", i);
-// 	if (tmp->arg == NULL)
-// 		i = creating_the_first_argument(tmp, add, i, j);
-// 	else
-// 		i = creating_next_argument(tmp, add, i, j);
-// 	return (i);
-// }
+int	malloc_arg(t_all *tmp, int i, int num)
+{
+	if (tmp->arg == NULL)
+		i = creating_the_first_argument(tmp, i, num);
+	else
+		i = creating_next_argument(tmp, i, num);
+	return (i);
+}
