@@ -20,6 +20,6 @@
 int 	use_cd(char *str);
 void 	use_pwd(void);
 int 	use_echo(t_all *command);
-int		print_env(char **env);
+int		print_env(t_env *env);
 void	print_export(t_env *env);
 int		processor(t_all *command, t_env *env);

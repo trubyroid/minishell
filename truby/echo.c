@@ -12,4 +12,5 @@ int use_echo(t_all *command)
 	}
 	else
 		printf("\n");
+	return (0);
 }
