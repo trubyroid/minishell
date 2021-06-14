@@ -1,12 +1,8 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <errno.h>
-#include <string.h>
-#include <stdlib.h>
+#include "shell_truby.h"
 
 int g_status;
 
-void change_dir(char *dir)
+static void change_dir(char *dir)
 {
 	if (chdir(dir) == -1)
 	{
@@ -15,7 +11,7 @@ void change_dir(char *dir)
 	}
 }
 
-int main(void)
+int use_cd(char *str)
 {
 	int i;
 	char *dir = NULL;

@@ -1,14 +1,14 @@
-#include <stdio.h>
+#include "shell_truby.h"
 
-int main(int ac, char **av)
+int use_echo(t_all *command)
 {
 	int i = 0;
 
-	if (ac > 1)
+	if (command->ac > 1)
 	{
-		while (++i < ac - 1)
-			printf("%s ", av[i]);
-		printf("%s\n", av[i]);
+		while (++i < command->ac - 1)
+			printf("%s ", command->arg[i]);
+		printf("%s\n", command->arg[i]);
 	}
 	else
 		printf("\n");

@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <unistd.h>
+#include "shell_truby.h"
 
 int main(int ac, char **av)
 {

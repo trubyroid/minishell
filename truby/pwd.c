@@ -1,7 +1,6 @@
-#include <stdio.h>
-#include <unistd.h>
+#include "shell_truby.h"
 
-int main(void)
+void use_pwd(void)
 {
 	char *dir = NULL;
 

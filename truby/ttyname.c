@@ -1,6 +1,5 @@
 #define _POSIX_SOURCE
-#include <unistd.h>
-#include <stdio.h>
+#include "shell_truby.h"
 
 // определяет терминал
 
