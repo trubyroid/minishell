@@ -2,9 +2,9 @@
 
 int use_echo(t_all *command)
 {
-	int i = 0;
+	int i = -1;
 
-	if (command->num_arg > 1)
+	if (command->num_arg > 0)
 	{
 		while (++i < command->num_arg - 1)
 			printf("%s ", command->arg[i]);
