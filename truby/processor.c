@@ -12,7 +12,7 @@ int		processor(t_all *command, t_env *env)
 	// 	delete_enviroment_variable(env);				//create a function
 	if (strcmp("cd", command->command_name) == 0)
 	{
-		use_cd(command->arg[1]);
+		use_cd(command->arg[0]);
 	}
 	if (strcmp("exit", command->command_name) == 0)
 		exit(0);

@@ -34,7 +34,7 @@ t_env	*creating_list(char **env)
 
 void	string_creating(t_all *tmp)
 {
-	write(1, "write command ", 14);
+	write(1, "ya_bash: ", 9);
 	get_next_line(0, &tmp->str);
 }
 
@@ -61,8 +61,9 @@ int	main(int argc, char **argv, char **env)
 	// printf("arg_num = %d\n", tmp->num_arg);
 	free(tmp->str);
 	free(tmp->command_name);
-	free(tmp->arg[0]);
-	// free(tmp->arg[1]);
-	free(tmp->arg);
-	free(tmp);
+	// free(tmp->arg[0]);
+	// // free(tmp->arg[1]);
+	// free(tmp->arg);
+	// free(tmp);
+	return (0);
 }
