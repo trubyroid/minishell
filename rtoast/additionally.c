@@ -60,8 +60,9 @@ int	creating_the_first_argument(t_all *tmp, int i, int colnum)
 
 	j = 0;
 	tmp->num_arg = 0;
-	tmp->arg = (char **)malloc(sizeof(char *));
+	tmp->arg = (char **)malloc((sizeof(char **)) + 1);
 	tmp->arg[tmp->num_arg] = (char *)malloc(sizeof(char) * (colnum + 1));
+	tmp->arg[tmp->num_arg + 1] = NULL;
 	tmp->arg[tmp->num_arg][colnum] = '\0';
 	colnum = i + colnum;
 	while (i < colnum)
@@ -82,11 +83,12 @@ int	creating_next_argument(t_all *tmp, int i, int colnum)
 
 	count = -1;
 	j = 0;
-	new_arg = (char **)malloc(sizeof(char *) * (tmp->num_arg + 1));
+	new_arg = (char **)malloc(sizeof(char *) * (tmp->num_arg + 2));
 	while (++count < tmp->num_arg)
 		new_arg[count] = tmp->arg[count];
 	free(tmp->arg);
 	tmp->arg = new_arg;
+	tmp->arg[tmp->num_arg + 2] = NULL;
 	tmp->arg[tmp->num_arg] = (char *)malloc(sizeof(char) * (colnum + 1));
 	tmp->arg[tmp->num_arg][colnum] = '\0';
 	colnum = i + colnum;
