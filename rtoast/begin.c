@@ -44,26 +44,36 @@ int	main(int argc, char **argv, char **env)
 {
 	t_all	*tmp;
 	t_env	*lst;
+	int		i;
 
 	(void)argc;
 	(void)argv;
-	tmp = (t_all *)malloc(sizeof(t_all));
-	tmp->arg = NULL;
-	tmp->command_name = NULL;
+	tmp = NULL;
+	lst = NULL;
+	i = -1;
 	lst = creating_list(env);
-	string_creating(tmp);
-	prepars(tmp);
-	command_name(tmp);
-	processor(tmp, lst);
-	// printf("name = %s\n", tmp->command_name);
-	// printf("argument = %s\n", tmp->arg[0]);
-	// printf("argument = %s\n", tmp->arg[1]);
-	// printf("arg_num = %d\n", tmp->num_arg);
-	free(tmp->str);
-	free(tmp->command_name);
-	// free(tmp->arg[0]);
-	// // free(tmp->arg[1]);
-	// free(tmp->arg);
-	// free(tmp);
+	while (1)
+	{
+		tmp = (t_all *)malloc(sizeof(t_all));
+		tmp->arg = NULL;
+		tmp->command_name = NULL;
+		string_creating(tmp);
+		prepars(tmp);
+		command_name(tmp);
+		processor(tmp, lst);
+		// printf("name = %s\n", tmp->command_name);
+		// printf("argument = %s\n", tmp->arg[0]);
+		// printf("argument = %s\n", tmp->arg[1]);
+		// printf("arg_num = %d\n", tmp->num_arg);
+		free(tmp->str);
+		free(tmp->command_name);
+		if (tmp->arg != NULL)
+		{
+			while (tmp->arg[++i] != NULL)
+				free(tmp->arg[i]);
+			free(tmp->arg);
+		}
+		free(tmp);
+	}
 	return (0);
 }

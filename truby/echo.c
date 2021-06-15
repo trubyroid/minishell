@@ -2,7 +2,7 @@
 
 int use_echo(t_all *command)
 {
-	int i = -1;
+	int i =-1;
 
 	if (command->num_arg > 0)
 	{
@@ -12,5 +12,5 @@ int use_echo(t_all *command)
 	}
 	else
 		printf("\n");
-	return (0);
+	return (1);
 }
