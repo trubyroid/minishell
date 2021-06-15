@@ -2,25 +2,56 @@
 
 // int g_status;
 
+static char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char		*b;
+	size_t		z;
+
+	z = 0;
+	if (s == 0)
+		return (NULL);
+	if (start >= strlen(s))
+		len = 0;
+	b = (char *)malloc(sizeof(char) * (len + 1));
+	if (b == NULL)
+		return (NULL);
+	while (z < len)
+	{
+		b[z] = s[start];
+		z++;
+		start++;
+	}
+	b[z] = '\0';
+	return (b);
+}
+
 static void change_dir(char **dir)
 {
-	char *str;
+	char *pwd;
+	char *new_str;
 	int	i;
 	int fl;
 
-	str = NULL;
+	pwd = NULL;
+	new_str = NULL;
 	i = -1;
-	i = 0;
-	if (dir == NULL)
+	fl = 0;
+	if (dir == NULL || dir[0][0] == '~')
 	{
-		str = getcwd(str, 0);
-		while (str[++i] != "\0")
+		pwd = getcwd(pwd, 0);
+		while (pwd[++i] != '\0')
 		{
-			if (str[i] == '/')
+			if (pwd[i] == '/')
 				fl++;
 			if (fl == 3)
-				ft_substr(str, 0, i);
+			{
+				new_str = ft_substr(pwd, 0, i);
+				break ;
+			}
 		}
+		chdir(new_str);
+		free(new_str);
+		free(pwd);
 	}
 	else if (chdir(dir[0]) == -1)
 	{
