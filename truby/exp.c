@@ -52,7 +52,7 @@ static t_env	*delete_previous_lst(t_env *lst, t_env *first)
 	return (first);
 }
 
-static int	create_new_lsts(t_env *env)
+static t_env	*create_new_lsts(t_env *env)
 {
 	// int i;
 	// int j;

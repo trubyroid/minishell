@@ -11,7 +11,9 @@ int		processor(t_all *command, t_env *env)
 	// if (strcmp("unset", command->command_name) == 0)
 	// 	delete_enviroment_variable(env);				//create a function
 	if (strcmp("cd", command->command_name) == 0)
-		use_cd(command->arg[0]);
+	{
+		use_cd(command->arg[1]);
+	}
 	if (strcmp("exit", command->command_name) == 0)
 		exit(0);
 	if (strcmp("export", command->command_name) == 0)

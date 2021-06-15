@@ -4,6 +4,14 @@ int g_status;
 
 static void change_dir(char *dir)
 {
+	// if (dir == NULL)
+	// {
+	// 	if (chdir("~") == -1)
+	// 	{
+	// 		printf("cd: %s: %s\n", strerror(errno), dir);
+	// 		g_status = 1;
+	// 	}
+	// }
 	if (chdir(dir) == -1)
 	{
 		printf("cd: %s: %s\n", strerror(errno), dir);
@@ -16,6 +24,7 @@ int use_cd(char *str)
 	int i;
 	char *dir = NULL;
 
+	write(1, "nnn\n", 4);
 	change_dir(str);		//перемещает
 	dir = getcwd(dir, 0);   //определяет нынешнюю директорию
 	printf("%s\n", dir);    // показывает, что было осуществлено перемещение

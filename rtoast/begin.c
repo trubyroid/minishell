@@ -47,7 +47,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	tmp = (t_all *)malloc(sizeof(tmp));
+	tmp = (t_all *)malloc(sizeof(t_all));
 	tmp->arg = NULL;
 	tmp->command_name = NULL;
 	lst = creating_list(env);
