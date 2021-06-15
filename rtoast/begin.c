@@ -55,8 +55,8 @@ void	string_creating(t_all *tmp)
 	get_next_line(0, &tmp->str);
 }
 
+//exit
 // проверить доллар
-// "'" && '"'
 int	main(int argc, char **argv, char **env)
 {
 	t_all	*tmp;
@@ -67,7 +67,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	tmp = NULL;
 	lst = NULL;
-	i = -1;
+	i = 0;
 	lst = creating_list(env);
 	while (1)
 	{
@@ -82,8 +82,11 @@ int	main(int argc, char **argv, char **env)
 		free(tmp->command_name);
 		if (tmp->arg != NULL)
 		{
-			while (tmp->arg[++i] != NULL)
+			while (tmp->arg[i] != NULL)
+			{
 				free(tmp->arg[i]);
+				i++;
+			}
 			free(tmp->arg);
 		}
 		free(tmp);

@@ -38,4 +38,6 @@ int		creating_the_first_argument(t_all *tmp, int i, int colnum);
 int		creating_next_argument(t_all *tmp, int i, int colnum);
 int		amount_of_elements(t_all *tmp, int i, int quotes);
 t_env	*creating_list(char **env);
+int		quotes_in_quotes(t_all *tmp, int i);
+
 #endif

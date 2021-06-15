@@ -1,13 +1,13 @@
 #include "../shell.h"
 
-void error(int i)
+void	error(int i)
 {
 	i = 4;
 	printf("Error");
 	exit(1);
 }
 
-void prepars(t_all *tmp)
+void	prepars(t_all *tmp)
 {
 	int i;
 	int two_e;
@@ -18,9 +18,9 @@ void prepars(t_all *tmp)
 	one_e = 0;
 	while (tmp->str[i] != '\0')
 	{
-		if (tmp->str[i] == '"')
+		if (tmp->str[i] == '"' && quotes_in_quotes(tmp, i) == 0)
 			two_e++;
-		if (tmp->str[i] == '\'')
+		if (tmp->str[i] == '\'' && quotes_in_quotes(tmp, i) == 0)
 			one_e++;
 		if (tmp->str[i] == ';' && tmp->str[i + 1] == ';')
 			error(1);
@@ -44,4 +44,13 @@ void prepars(t_all *tmp)
 		error(1);
 	if (tmp->str[i - 1] == '\\')
 		error(1);
+}
+
+int		quotes_in_quotes(t_all *tmp, int i)
+{
+	if (tmp->str[i - 1] == '\'' && tmp->str[i + 1] == '\'')
+		return (1);
+	if (tmp->str[i - 1] == '"' && tmp->str[i + 1] == '"')
+		return (1);
+	return (0);
 }
