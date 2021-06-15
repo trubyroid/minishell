@@ -2,6 +2,23 @@
 #include "../truby/shell_truby.h"
 #include "../libft/get_next_line.h"
 
+void	close_minishell(t_env *env)
+{
+	t_env *lst;
+	int	i;
+
+	i = -1;
+	while (env->next != NULL)
+	{
+		lst = env;
+		env = env->next;
+		lst->next = NULL;
+		free(lst);
+	}
+	free(env);
+	exit(0);
+}
+
 t_env	*creating_list(char **env)
 {
 	int		i;

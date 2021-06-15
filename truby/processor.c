@@ -15,7 +15,7 @@ int		processor(t_all *command, t_env *env)
 		use_cd(command->arg[0]);
 	}
 	if (strcmp("exit", command->command_name) == 0)
-		exit(0);
+		close_minishell(env);
 	if (strcmp("export", command->command_name) == 0)
 	{
 		if (command->arg == NULL)
