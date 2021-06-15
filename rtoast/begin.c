@@ -78,10 +78,6 @@ int	main(int argc, char **argv, char **env)
 		prepars(tmp);
 		command_name(tmp);
 		processor(tmp, lst);
-		// printf("name = %s\n", tmp->command_name);
-		// printf("argument = %s\n", tmp->arg[0]);
-		// printf("argument = %s\n", tmp->arg[1]);
-		// printf("arg_num = %d\n", tmp->num_arg);
 		free(tmp->str);
 		free(tmp->command_name);
 		if (tmp->arg != NULL)

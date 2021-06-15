@@ -2,7 +2,7 @@
 
 int use_echo(t_all *command)
 {
-	int i =-1;
+	int i = -1;
 
 	if (command->num_arg > 0)
 	{

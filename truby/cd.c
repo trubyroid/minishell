@@ -2,24 +2,34 @@
 
 // int g_status;
 
-static void change_dir(char *dir)
+static void change_dir(char **dir)
 {
-	// if (dir == NULL)
-	// {
-	// 	if (chdir("..") == -1)
-	// 	{
-	// 		printf("cd: %s: %s\n", strerror(errno), dir);
-	// 		g_status = 1;
-	// 	}
-	// }
-	if (chdir(dir) == -1)
+	char *str;
+	int	i;
+	int fl;
+
+	str = NULL;
+	i = -1;
+	i = 0;
+	if (dir == NULL)
 	{
-		printf("cd: %s: %s\n", strerror(errno), dir);
+		str = getcwd(str, 0);
+		while (str[++i] != "\0")
+		{
+			if (str[i] == '/')
+				fl++;
+			if (fl == 3)
+				ft_substr(str, 0, i);
+		}
+	}
+	else if (chdir(dir[0]) == -1)
+	{
+		printf("cd: %s: %s\n", strerror(errno), dir[0]);
 		// g_status = 1;
 	}
 }
 
-int use_cd(char *str)
+int use_cd(char **str)
 {
 	int i;
 	char *dir = NULL;
