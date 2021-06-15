@@ -28,6 +28,7 @@ static t_env	*delete_previous_lst(t_env *lst, t_env *first)
 {
 	t_env	*extra;
 
+	extra = first;
     if (lst == first)
     {
         first = lst->next;
@@ -36,17 +37,28 @@ static t_env	*delete_previous_lst(t_env *lst, t_env *first)
     }
     else
     {
-	    while (lst->next != NULL)
+	    // while (lst->next != NULL)
+	    // {
+	    // 	if (lst->next == first)
+	    // 	{
+	    // 		extra = lst->next;
+	    // 		lst->next = extra->next;
+	    // 		extra->next = NULL;
+	    // 		free(extra);
+        //         break;
+	    // 	}
+	    // 	lst = lst->next;
+	    // }
+		while (extra->next != NULL)
 	    {
-	    	if (lst->next == first)
+	    	if (extra->next == lst)
 	    	{
-	    		extra = lst->next;
-	    		lst->next = extra->next;
-	    		extra->next = NULL;
-	    		free(extra);
+	    		extra->next = lst->next;
+	    		lst->next = NULL;
+	    		free(lst);
                 break;
 	    	}
-	    	lst = lst->next;
+	    	extra = extra->next;
 	    }
     }
 	return (first);
@@ -54,33 +66,6 @@ static t_env	*delete_previous_lst(t_env *lst, t_env *first)
 
 static t_env	*create_new_lsts(t_env *env)
 {
-	// int i;
-	// int j;
-	// t_env	*lst;
-	// t_env	*new;
-	// char	*s;
-
-	// i = 0;
-	// j = 0;
-	// lst = NULL;
-	// new = NULL;
-	// while (env[i + 1] != NULL)
-	// 	i++;
-	// j = i;
-	// lst = malloc(sizeof(t_env *));					//send it to begin of programm
-	// if (!lst)
-	// 	return (0);
-	// lst->str = env[i];
-	// lst->next = NULL;
-	// while (--i >= 0)
-	// {
-	// 	new = malloc(sizeof(t_env *));
-	// 	if (!new)
-	// 		return (0);
-	// 	new->str = env[i];
-	// 	new->next = lst;
-	// 	lst = new;
-	// }
 	t_env	*new;
 	t_env	*extra;
 	t_env	*first;
@@ -125,4 +110,5 @@ void	print_export(t_env *env)
 		write(1, "\n", 1);
 		first_lst = delete_previous_lst(next, first_lst);
 	}
+	free(first_lst);
 }
