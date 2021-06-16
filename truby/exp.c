@@ -10,7 +10,7 @@ static t_env    *ft_find_next_lst(t_env *lst)
 	extra = lst->next;
 	first = lst;
 	first_one = lst;
-	while (extra->next != NULL)
+	while (extra->str)
 	{
 		k = strcmp(first->str, extra->str);			//заменить на свою функцию
 		if (k <= 0)
@@ -20,6 +20,8 @@ static t_env    *ft_find_next_lst(t_env *lst)
 			first = extra;
 			extra = extra->next;
 		}
+		if (extra == NULL)
+			break ;
 	}
 	return (first);
 }
@@ -37,19 +39,7 @@ static t_env	*delete_previous_lst(t_env *lst, t_env *first)
     }
     else
     {
-	    // while (lst->next != NULL)
-	    // {
-	    // 	if (lst->next == first)
-	    // 	{
-	    // 		extra = lst->next;
-	    // 		lst->next = extra->next;
-	    // 		extra->next = NULL;
-	    // 		free(extra);
-        //         break;
-	    // 	}
-	    // 	lst = lst->next;
-	    // }
-		while (extra->next != NULL)
+		while (extra->str)
 	    {
 	    	if (extra->next == lst)
 	    	{
@@ -59,6 +49,8 @@ static t_env	*delete_previous_lst(t_env *lst, t_env *first)
                 break;
 	    	}
 	    	extra = extra->next;
+			if (extra == NULL)
+				break ;
 	    }
     }
 	return (first);
@@ -102,7 +94,7 @@ void	print_export(t_env *env)
 	t_env	*next;
 	t_env	*first_lst;
 
-	first_lst = create_new_lsts(env);
+	first_lst = create_new_lsts(env);							//какая-то дыра с переменными в нижнем регистре
 	while (first_lst->next != NULL)
 	{
 		next = ft_find_next_lst(first_lst);

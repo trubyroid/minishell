@@ -1,8 +1,6 @@
 #include "shell_truby.h"
 
-// int g_status;
-
-static char	*ft_strjoin(char *s1, char *s2)																		//надо подключить либу и удалить  эти статик функции
+static char	*ft_strjoin_for_cd(char *s1, char *s2)																		//надо подключить либу и удалить  эти статик функции
 {
 	char	*new;
 	size_t	i;
@@ -27,12 +25,11 @@ static char	*ft_strjoin(char *s1, char *s2)																		//надо подк
 		j++;
 	}
 	new[i] = '\0';
-	if (s2)
-		free(s2);
+	free(s2);
 	return (new);
 }
 
-static char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char		*b;
 	size_t		z;
@@ -87,7 +84,7 @@ int use_cd(char **dir)
 		else
 		{
 			new_str = ft_substr(dir[1], 1, strlen(dir[1]) - 1);
-			new_str = ft_strjoin(root, new_str);										//strjoin фришит старый new_str
+			new_str = ft_strjoin_for_cd(root, new_str);										//strjoin фришит старый new_str
 			chdir(new_str);
 			free(new_str);
 		}
