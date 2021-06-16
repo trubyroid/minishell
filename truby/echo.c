@@ -2,17 +2,36 @@
 
 int use_echo(t_all *command)
 {
-	int i = 0;
+	int i;
 
+	i = 1;
 	if (command->num_arg > 1)
 	{
-		while (++i < command->num_arg - 1)
-			printf("%s ", command->arg[i]);
-		printf("%s", command->arg[i]);
-		if (command->arg[1][1] == 'n')
-			printf("\n");
+		if (strcmp(command->arg[i], "-n") == 0)
+		{
+			while (strcmp(command->arg[i], "-n") == 0)
+				i++;
+			while (i < command->num_arg - 1)
+			{
+				write(1, command->arg[i], ft_strlen(command->arg[i]));
+				write(1, " ", 1);
+				i++;
+			}
+			write(1, command->arg[i], ft_strlen(command->arg[i]));
+		}
+		else
+		{
+			while (i < command->num_arg - 1)
+			{
+				write(1, command->arg[i], ft_strlen(command->arg[i]));
+				write(1, " ", 1);
+				i++;
+			}
+			write(1, command->arg[i], ft_strlen(command->arg[i]));
+			write(1, "\n", 1);
+		}
 	}
 	else
-		printf("\n");
+		write(1, "\n", 1);
 	return (1);
 }
