@@ -2,6 +2,36 @@
 
 // int g_status;
 
+static char	*ft_strjoin(char *s1, char *s2)																		//надо подключить либу и удалить  эти статик функции
+{
+	char	*new;
+	size_t	i;
+	size_t	j;
+
+	if (s1 == 0 || s2 == 0)
+		return (NULL);
+	i = 0;
+	j = 0;
+	new = (char *)malloc(sizeof(char) * (strlen(s1) + strlen(s2) + 1));
+	if (new == NULL)
+		return (NULL);
+	while (i < strlen(s1))
+	{
+		new[i] = s1[i];
+		i++;
+	}
+	while (i < strlen(s1) + strlen(s2))
+	{
+		new[i] = s2[j];
+		i++;
+		j++;
+	}
+	new[i] = '\0';
+	if (s2)
+		free(s2);
+	return (new);
+}
+
 static char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char		*b;
@@ -25,49 +55,49 @@ static char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (b);
 }
 
-static void change_dir(char **dir)
+int use_cd(char **dir)
 {
 	char *pwd;
+	char *root;
 	char *new_str;
 	int	i;
 	int fl;
 
 	pwd = NULL;
+	root = NULL;
 	new_str = NULL;
-	i = -1;
+	i = 0;
 	fl = 0;
-	if (dir == NULL || strcmp("~", dir[1]) == 0)
+	if (dir == NULL || dir[1][0] == '~')
 	{
 		pwd = getcwd(pwd, 0);
-		while (pwd[++i] != '\0')
+		while (i < strlen(pwd) + 1)
 		{
 			if (pwd[i] == '/')
 				fl++;
-			if (fl == 3)
+			if (fl == 3 || pwd[i] == '\0')
 			{
-				new_str = ft_substr(pwd, 0, i);
+				root = ft_substr(pwd, 0, i);
 				break ;
 			}
+			i++;
 		}
-		chdir(new_str);
-		free(new_str);
+		if (dir == NULL || dir[1][1] == '\0')
+			chdir(root);
+		else
+		{
+			new_str = ft_substr(dir[1], 1, strlen(dir[1]) - 1);
+			new_str = ft_strjoin(root, new_str);										//strjoin фришит старый new_str
+			chdir(new_str);
+			free(new_str);
+		}
+		free(root);
 		free(pwd);
 	}
-	else if (chdir(dir[0]) == -1)
+	else if (chdir(dir[1]) == -1)
 	{
 		printf("cd: %s: %s\n", strerror(errno), dir[0]);
 		// g_status = 1;
 	}
-}
-
-int use_cd(char **str)
-{
-	int i;
-	char *dir = NULL;
-
-	change_dir(str);		//перемещает
-	dir = getcwd(dir, 0);   //определяет нынешнюю директорию
-	printf("%s\n", dir);    // показывает, что было осуществлено перемещение
-	free(dir);
 	return (0);
 }
