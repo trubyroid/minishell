@@ -36,7 +36,7 @@ static void change_dir(char **dir)
 	new_str = NULL;
 	i = -1;
 	fl = 0;
-	if (dir == NULL || dir[0][0] == '~')
+	if (dir == NULL || strcmp("~", dir[1]) == 0)
 	{
 		pwd = getcwd(pwd, 0);
 		while (pwd[++i] != '\0')
