@@ -15,6 +15,7 @@ typedef struct	s_all
 		int		flag_dollar;
 		int		flag_pipe;
 		int		flag_redirect;
+		int		ret_$;
 		// t_all	*baby_pipe;
 
 }				t_all;

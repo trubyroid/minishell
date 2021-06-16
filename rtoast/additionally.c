@@ -59,8 +59,9 @@ int	creating_the_first_argument(t_all *tmp, int i, int colnum)
 	int j;
 
 	j = 0;
-	tmp->num_arg = 0;
-	tmp->arg = (char **)malloc((sizeof(char **)) + 1);
+	tmp->num_arg = 1;
+	tmp->arg = (char **)malloc((sizeof(char *)) * 3);
+	tmp->arg[0] = tmp->command_name;
 	tmp->arg[tmp->num_arg] = (char *)malloc(sizeof(char) * (colnum + 1));
 	tmp->arg[tmp->num_arg + 1] = NULL;
 	tmp->arg[tmp->num_arg][colnum] = '\0';
@@ -88,7 +89,7 @@ int	creating_next_argument(t_all *tmp, int i, int colnum)
 		new_arg[count] = tmp->arg[count];
 	free(tmp->arg);
 	tmp->arg = new_arg;
-	tmp->arg[tmp->num_arg + 2] = NULL;
+	tmp->arg[tmp->num_arg + 1] = NULL;
 	tmp->arg[tmp->num_arg] = (char *)malloc(sizeof(char) * (colnum + 1));
 	tmp->arg[tmp->num_arg][colnum] = '\0';
 	colnum = i + colnum;

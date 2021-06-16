@@ -79,7 +79,6 @@ int	main(int argc, char **argv, char **env)
 		command_name(tmp);
 		processor(tmp, lst);
 		free(tmp->str);
-		free(tmp->command_name);
 		if (tmp->arg != NULL)
 		{
 			while (tmp->arg[i] != NULL)
