@@ -51,7 +51,7 @@ t_env	*creating_list(char **env)
 
 void	string_creating(t_all *tmp)
 {
-	write(1, "ya_bash: ", 9);
+	write(1, ANSI_COLOR_MAGENTA "💜ya_bash: " ANSI_COLOR_RESET, 23);
 	get_next_line(0, &tmp->str);
 }
 
