@@ -1,6 +1,5 @@
 #include "../shell.h"
 #include "../truby/shell_truby.h"
-#include "../libft/get_next_line.h"
 
 void	close_minishell(t_env *env)
 {
@@ -77,7 +76,7 @@ int	main(int argc, char **argv, char **env)
 		string_creating(tmp);
 		prepars(tmp);
 		command_name(tmp);
-		processor(tmp, lst);
+		lst = processor(tmp, lst);
 		free(tmp->str);
 		if (tmp->arg != NULL)
 		{

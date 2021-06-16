@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 20:35:57 by truby             #+#    #+#             */
-/*   Updated: 2021/06/16 22:25:23 by truby            ###   ########.fr       */
+/*   Updated: 2021/06/17 01:42:06 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	add_enviroment_variable(t_all *command, t_env *env)
 	if (!new)
 		return (-1);										//error
 	env->next = new;
-	new->str = malloc(sizeof(char) * strlen(command->arg[1]));
+	new->str = malloc(sizeof(char) * ft_strlen(command->arg[1]));
 	if (!new->str)
 		return (-1);
 	while (command->arg[1][++i] != '\0')
@@ -34,22 +34,47 @@ int	add_enviroment_variable(t_all *command, t_env *env)
 	return (0);
 }
 
-// int	delete_enviroment_variable(t_all *command, t_env *env)
-// {
-// 	size_t	i;
-// 	char *key;
+t_env	*delete_enviroment_variable(t_all *command, t_env *env)
+{
+	size_t	i;
+	t_env	*extra;
+	t_env	*previous;
+	t_env	*first;
+	char *key;
 
-// 	i = 0;
-// 	while (command->arg[1][i] != '=')
-// 		i++;
-// 	key = ft_substr(command->arg[1], 0, i++);
-// 	if (key == NULL)
-// 		return (-1);
-// 	while (env->str)
-// 	{
-// 		if (ft_strnstr(env->str, key, strlen(env->str)) != NULL)
-
-
-// 	}
-
-// }
+	i = 0;
+	first = env;
+	extra = env;
+	previous = extra;
+	while (command->arg[1][i] != '\0')
+		i++;
+	key = ft_strjoin(command->arg[1], "=");
+	if (key == NULL)
+		return (NULL);
+	if (ft_strnstr(env->str, key, ft_strlen(env->str)) != NULL)
+	{
+		extra = env;
+		env = env->next;
+		extra->next = NULL;
+		free(extra);
+		free(key);
+		return (env);	
+	}
+	else
+	{
+		while (env->next != NULL)
+		{
+			previous = env;
+			env = env->next;
+			if (ft_strnstr(env->str, key, ft_strlen(env->str)) != NULL)
+			{
+				previous->next = env->next;
+				env->next = NULL;
+				free(env);
+				free(key);
+				break;
+			}
+		}
+		return (first);
+	}
+}

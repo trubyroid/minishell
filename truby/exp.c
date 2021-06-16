@@ -98,7 +98,7 @@ void	print_export(t_env *env)
 	while (first_lst->next != NULL)
 	{
 		next = ft_find_next_lst(first_lst);
-		write(1, next->str, strlen(next->str));			//заменить strlen
+		write(1, next->str, ft_strlen(next->str));			//заменить strlen
 		write(1, "\n", 1);
 		first_lst = delete_previous_lst(next, first_lst);
 	}

@@ -8,7 +8,9 @@ int use_echo(t_all *command)
 	{
 		while (++i < command->num_arg - 1)
 			printf("%s ", command->arg[i]);
-		printf("%s\n", command->arg[i]);
+		printf("%s", command->arg[i]);
+		if (command->arg[1][1] == 'n')
+			printf("\n");
 	}
 	else
 		printf("\n");

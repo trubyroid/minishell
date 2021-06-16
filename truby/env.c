@@ -7,11 +7,11 @@ int		print_env(t_env *env)
 	i = -1;
 	while (env->next != NULL)
 	{
-		write(1, env->str, strlen(env->str));
+		write(1, env->str, ft_strlen(env->str));
 		write(1, "\n", 1);
 		env = env->next;
 	}
-	write(1, env->str, strlen(env->str));
+	write(1, env->str, ft_strlen(env->str));
 	write(1, "\n", 1);
 	return (0);
 }

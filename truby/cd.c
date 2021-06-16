@@ -10,15 +10,15 @@ static char	*ft_strjoin_for_cd(char *s1, char *s2)																		//надо �
 		return (NULL);
 	i = 0;
 	j = 0;
-	new = (char *)malloc(sizeof(char) * (strlen(s1) + strlen(s2) + 1));
+	new = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (new == NULL)
 		return (NULL);
-	while (i < strlen(s1))
+	while (i < ft_strlen(s1))
 	{
 		new[i] = s1[i];
 		i++;
 	}
-	while (i < strlen(s1) + strlen(s2))
+	while (i < ft_strlen(s1) + ft_strlen(s2))
 	{
 		new[i] = s2[j];
 		i++;
@@ -27,29 +27,6 @@ static char	*ft_strjoin_for_cd(char *s1, char *s2)																		//надо �
 	new[i] = '\0';
 	free(s2);
 	return (new);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char		*b;
-	size_t		z;
-
-	z = 0;
-	if (s == 0)
-		return (NULL);
-	if (start >= strlen(s))
-		len = 0;
-	b = (char *)malloc(sizeof(char) * (len + 1));
-	if (b == NULL)
-		return (NULL);
-	while (z < len)
-	{
-		b[z] = s[start];
-		z++;
-		start++;
-	}
-	b[z] = '\0';
-	return (b);
 }
 
 int use_cd(char **dir)
@@ -68,7 +45,7 @@ int use_cd(char **dir)
 	if (dir == NULL || dir[1][0] == '~')
 	{
 		pwd = getcwd(pwd, 0);
-		while (i < strlen(pwd) + 1)
+		while (i < ft_strlen(pwd) + 1)
 		{
 			if (pwd[i] == '/')
 				fl++;
@@ -83,7 +60,7 @@ int use_cd(char **dir)
 			chdir(root);
 		else
 		{
-			new_str = ft_substr(dir[1], 1, strlen(dir[1]) - 1);
+			new_str = ft_substr(dir[1], 1, ft_strlen(dir[1]) - 1);
 			new_str = ft_strjoin_for_cd(root, new_str);										//strjoin фришит старый new_str
 			chdir(new_str);
 			free(new_str);

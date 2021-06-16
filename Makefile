@@ -12,12 +12,15 @@ O_FILE = $(C_FILE:.c=.o)
 all:
 	$(MAKE) $(NAME) -j 4
 $(NAME): $(O_FILE)
-	gcc $(O_FILE) -o $(NAME)
+	@make -C ./libft 
+	gcc $(O_FILE) ./libft/libft.a -o $(NAME)
 %.o: %.c $(HEAD)
 	gcc -c $(СFLAGS) $< -o $@
 clean:
+	@make clean -C ./libft
 	@rm -f $(O_FILE)
 fclean: clean
+	@make fclean -C ./libft
 	@rm -f $(NAME)
 re: fclean all
 .PHONY: all clean fclean re
