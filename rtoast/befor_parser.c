@@ -7,7 +7,7 @@ void	error(int i)
 	exit(1);
 }
 
-void	prepars(t_all *tmp)
+void	prepars(t_all *tmp, char **env)
 {
 	int i;
 	int two_e;
@@ -22,6 +22,8 @@ void	prepars(t_all *tmp)
 			two_e++;
 		if (tmp->str[i] == '\'' && quotes_in_quotes(tmp, i) == 0)
 			one_e++;
+		if (tmp->str[i] == '$')
+			dollar_make(tmp, ++i, env);
 		if (tmp->str[i] == ';' && tmp->str[i + 1] == ';')
 			error(1);
 		if (tmp->str[i] == '<' && tmp->str[i + 1] == '<' && tmp->str[i + 2] == '<')

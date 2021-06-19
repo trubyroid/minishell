@@ -20,7 +20,7 @@ int	ft_tenthou(char *line, int *i, int *rgb)
 		if (*rgb > 10000)
 			return (-1);
 	}
-	if (rgb <= 0)
+	if (*rgb <= 0)
 		return (-1);
 	return (1);
 }

@@ -74,7 +74,7 @@ int	main(int argc, char **argv, char **env)
 		tmp->arg = NULL;
 		tmp->command_name = NULL;
 		string_creating(tmp);
-		prepars(tmp);
+		prepars(tmp, env);
 		command_name(tmp);
 		lst = processor(tmp, lst);
 		free(tmp->str);

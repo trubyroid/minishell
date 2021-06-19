@@ -19,6 +19,7 @@
 typedef struct	s_all
 {
 		char	*str;
+		char	*temporary_array;
 		char	*command_name;
 		char	**arg;
 		int		num_arg;
@@ -39,7 +40,7 @@ typedef struct		s_env
 void	close_minishell(t_env *env);
 void	command_name(t_all *tmp);
 void	error(int i);
-void	prepars(t_all *tmp);
+void	prepars(t_all *tmp, char **env);
 void	arg(t_all *tmp, int i);
 int		malloc_arg(t_all *tmp, int i, int num);
 int		block_checking(char symbol);
@@ -50,5 +51,10 @@ int		creating_next_argument(t_all *tmp, int i, int colnum);
 int		amount_of_elements(t_all *tmp, int i, int quotes);
 t_env	*creating_list(char **env);
 int		quotes_in_quotes(t_all *tmp, int i);
+int     check_for_dollar(char symbol);
+void    dollar_make(t_all *tmp, int i, char **env);
+void    search(t_all *tmp, char **env, int count);
+void    create_new_str(t_all *tmp, char **env, int i);
+void	create_array(t_all *tmp, char **env, int i, int count, int c);
 
 #endif
