@@ -95,12 +95,18 @@ void	print_export(t_env *env)
 	t_env	*first_lst;
 
 	first_lst = create_new_lsts(env);							//какая-то дыра с переменными в нижнем регистре
-	while (first_lst->next != NULL)
+	while (first_lst->str)
 	{
 		next = ft_find_next_lst(first_lst);
 		write(1, next->str, ft_strlen(next->str));			//заменить strlen
 		write(1, "\n", 1);
 		first_lst = delete_previous_lst(next, first_lst);
+		if (first_lst->next == NULL)
+		{
+			write(1, first_lst->str, ft_strlen(first_lst->str));
+			write(1, "\n", 1);
+			break ;
+		}
 	}
 	free(first_lst);
 }
