@@ -16,97 +16,90 @@ int     check_for_dollar(char symbol)
     return (res);
 }
 
-void    dollar_make(t_all *tmp, int i, char **env)
+int    dollar_make(t_all *tmp, int i, char **env)
 {
-    int     j;
-    int     count;
+    t_dollar    *d;
 
-    j = i;
-    count = 0;
-    while (check_for_dollar(tmp->str[j]) == 0)
+    d = (t_dollar *)malloc(sizeof(t_dollar));
+    d->i_str = i - 1;
+    d->remember = i - 1;
+    d->count = 0;
+    while (check_for_dollar(tmp->str[++(d->i_str)]) == 0)
+        d->count++;
+    tmp->temporary_array = (char *)malloc(sizeof(char) * (d->count + 2));
+    tmp->temporary_array[d->count] = '=';
+    tmp->temporary_array[d->count + 1] = '\0';
+    d->i_str = 0;
+    while (d->i_str < d->count)
     {
-        j++;
-        count++;
-    }
-    tmp->temporary_array = (char *)malloc(sizeof(char) * (count + 2));
-    tmp->temporary_array[count] = '=';
-    tmp->temporary_array[count + 1] = '\0';
-    j = 0;
-    while (j < count)
-    {
-        tmp->temporary_array[j] = tmp->str[i];
-        j++;
+        tmp->temporary_array[d->i_str] = tmp->str[i];
+        d->i_str++;
         i++;
     }
-    search(tmp, env, count + 1);
+    d->count++;
+    search(tmp, env, d);
     free(tmp->temporary_array);
+    free(d);
+    return (d->remember);
 }
 
-void    search(t_all *tmp, char **env, int count)
+void    search(t_all *tmp, char **env, t_dollar *d)
 {
-    int     i;
-    int     j;
-    int     symbol;
-
-    i = 0;
-    j = 0;
-    symbol = 0;
-    while (env[i] != NULL)
+    d->i_env = 0;
+    while (env[d->i_env] != NULL)
     {
-        if(ft_strncmp(env[i], tmp->temporary_array, count) == 0)
+        if(ft_strncmp(env[d->i_env], tmp->temporary_array, d->count) == 0)
         {
-            create_new_str(tmp, env, i);
+            create_new_str(tmp, env, d);
             break ;
         }
-        i++;
+        d->i_env++;
     }
 }
 
-void    create_new_str(t_all *tmp, char **env, int i)
+void    create_new_str(t_all *tmp, char **env, t_dollar *d)
 {
-    int count;
-    int t_c;
-    int e_c;
+    int temp;
 
-    e_c = 0;
-    count = ft_strlen(tmp->str);
-    count = count - ft_strlen(tmp->temporary_array);
-    t_c = ft_strlen(env[i]) - ft_strlen(tmp->temporary_array);
-    count = count + t_c;
-    while (env[i][e_c] != '=')
-        e_c++;
-    create_array(tmp, env, i, count, ++e_c);
+    d->j_env = 0;
+    d->count = ft_strlen(tmp->str);
+    d->count = d->count - ft_strlen(tmp->temporary_array);
+    temp = ft_strlen(env[d->i_env]) - ft_strlen(tmp->temporary_array);
+    d->count = d->count + temp;
+    while (env[d->i_env][d->j_env] != '=')
+        d->j_env++;
+    d->j_env++;
+    create_array(tmp, env, d);
 }
 
-void    create_array(t_all *tmp, char **env, int i, int count, int c)
+void    create_array(t_all *tmp, char **env, t_dollar *d)
 {
     char *new_str;
-    int j;
-    int i_s;
 
-    j = 0;
-    i_s = 0;
-    new_str = (char *)malloc(sizeof(char) * count + 1);
-    new_str[count] = '\0';
-    while (tmp->str[i_s] != '$' && j < count)
+    d->i_new = 0;
+    d->i_str = 0;
+    new_str = (char *)malloc(sizeof(char) * d->count + 1);
+    new_str[d->count] = '\0';
+    while (d->i_str < d->remember && d->i_new < d->count)
     {
-        new_str[j] = tmp->str[i_s];
-        j++;
-        i_s++;
+        new_str[d->i_new] = tmp->str[d->i_str];
+        d->i_new++;
+        d->i_str++;
     }
-    while (env[i][c] != '\0' && j < count)
+    while (env[d->i_env][d->j_env] != '\0' && d->i_new < d->count)
     {
-        new_str[j] = env[i][c];
-        j++;
-        c++;
+        new_str[d->i_new] = env[d->i_env][d->j_env];
+        d->i_new++;
+        d->j_env++;
     }
-    while (check_for_dollar(tmp->str[i_s]) == 0)
-        i_s++;
-    while (tmp->str[i_s] != '\0' && j < count)
+    d->i_str++;
+    while (check_for_dollar(tmp->str[d->i_str]) == 0)
+        d->i_str++;
+    while (tmp->str[d->i_str] != '\0' && d->i_new < d->count)
     {
-        new_str[j] = tmp->str[i_s];
-        j++;
-        i_s++;
+        new_str[d->i_new] = tmp->str[d->i_str];
+        d->i_new++;
+        d->i_str++;
     }
     free(tmp->str);
     tmp->str = new_str;

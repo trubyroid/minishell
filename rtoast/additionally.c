@@ -8,15 +8,42 @@ int	amount_of_elements(t_all *tmp, int i, int quotes)
 	if (quotes != 0)
 		while (quotes_checking(tmp->str[i]) != quotes)
 		{
-			colnum++;
 			i++;
+			colnum++;
 		}
 	else
-	{
-		while (block_checking(tmp->str[i]) == 0 && tmp->str[i] != ' ')
+		while (block_checking(tmp->str[i] == 0) && tmp->str[i] != ' ')
 		{
-			colnum++;
 			i++;
+			colnum++;
+		}
+				
+	return (colnum);
+}
+
+int argc_amount_of_elements(t_all *tmp, int i)
+{
+	int colnum;
+	int	quotes;
+
+	colnum = 0;
+	while (tmp->str[i] != ' ' && tmp->str[i] != '\0')
+	{
+		quotes = quotes_checking(tmp->str[i]);
+		if (quotes != 0)
+		{
+			i++;
+			colnum++;
+			while (quotes_checking(tmp->str[i]) != quotes && tmp->str[i] != '\0')
+			{
+				i++;
+				colnum++;
+			}
+		}
+		else
+		{
+			i++;
+			colnum++;
 		}
 	}
 	return (colnum);
@@ -54,26 +81,12 @@ int	block_checking(char symbol)
 	return (0);
 }
 
-int	creating_the_first_argument(t_all *tmp, int i, int colnum)
+void creating_name_argument(t_all *tmp)
 {
-	int j;
-
-	j = 0;
 	tmp->num_arg = 1;
-	tmp->arg = (char **)malloc((sizeof(char *)) * 3);
+	tmp->arg = (char **)malloc((sizeof(char *)) * 2);
 	tmp->arg[0] = tmp->command_name;
-	tmp->arg[tmp->num_arg] = (char *)malloc(sizeof(char) * (colnum + 1));
-	tmp->arg[tmp->num_arg + 1] = NULL;
-	tmp->arg[tmp->num_arg][colnum] = '\0';
-	colnum = i + colnum;
-	while (i < colnum)
-	{
-		tmp->arg[tmp->num_arg][j] = tmp->str[i];
-		i++;
-		j++;
-	}
-	tmp->num_arg++;
-	return (i);
+	tmp->arg[1] = '\0';
 }
 
 int	creating_next_argument(t_all *tmp, int i, int colnum)
@@ -99,6 +112,30 @@ int	creating_next_argument(t_all *tmp, int i, int colnum)
 		i++;
 		j++;
 	}
+	remove_quotes(tmp, tmp->num_arg);
 	tmp->num_arg++;
 	return (i);
+}
+
+void	remove_quotes(t_all *tmp, int i)
+{
+	int s;
+	int quotes;
+
+	s = 0;
+	while (tmp->arg[i][s] != '\0')
+	{
+		quotes = quotes_checking(tmp->arg[i][s]);
+		if (quotes != 0)
+		{
+			remove_symbol_arguments(tmp, i, s);
+			while (quotes_checking(tmp->arg[i][s]) != quotes && tmp->arg[i][s] != '\0')
+			{
+				s++;
+			}
+			remove_symbol_arguments(tmp, i, s);
+		}
+		else
+			s++;
+	}
 }
