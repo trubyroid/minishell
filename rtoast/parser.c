@@ -40,7 +40,12 @@ void	arg(t_all *tmp, int i)
 		i = skipping_spaces(tmp, i);
 		if (block_checking(tmp->str[i]) == 1)
 			break ;
-		colnum = argc_amount_of_elements(tmp, i);
+		if (block_checking(tmp->str[i]) == 2)
+		{
+			//write(1, "###", 3);
+			i = redirect(tmp, i);
+		
+		}colnum = argc_amount_of_elements(tmp, i);
 		i = creating_next_argument(tmp, i, colnum);
 		if (tmp->str[i] == '\"' || tmp->str[i] == '\'')
 			i++;

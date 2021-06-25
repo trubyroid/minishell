@@ -1,29 +1,33 @@
 #include "../shell.h"
 
-void	redirect_flag(t_all *tmp)
+///massiv int fd
+int		redirect(t_all *tmp, int i)
 {
-	int	i;
+	int j;
+	int count;
+	char *file_name;
 
-	i = -1;
-	while (tmp->str[++i] != '\0')
-		if (tmp->str[i] == '<' || tmp->str[i] == '>')
-		{
-			tmp->flag_redirect = 1;
-			what_is_redirect(tmp);
-		}
-}
-
-void	what_is_redirect(t_all *tmp)
-{
-	int	i;
-
-	i = 0;
-	while (tmp->str[i] != '<' && tmp->str[i] != '>')
+	count = 0;
+	if (tmp->str[i] == '>')
 		i++;
-	
-}
-
-void	one_redirect(t_all *tmp)
-{
-
+	i = skipping_spaces(tmp, i);
+	j = i;
+	//printf("-->|%s|\n", &tmp->str[i]);
+	while (tmp->str[j] != ' ' && tmp->str[j] != '\0')
+	{
+		j++;
+		count++;
+	}
+	file_name = (char *)malloc(sizeof(char) * count);
+	count = 0;
+	while (i < j)
+	{
+		file_name[count] = tmp->str[i];
+		count++;
+		i++;
+	}
+	//printf("-->|%s|\n", file_name);
+	tmp->fd_out = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	free(file_name);
+	return (i);
 }

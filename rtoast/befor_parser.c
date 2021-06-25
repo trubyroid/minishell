@@ -12,6 +12,7 @@ void	prepars(t_all *tmp, char **env)
 	int i;
 
 	i = 0;
+	tmp->fd_out = 1;
 	while (tmp->str[i] != '\0')
 	{
 		if (tmp->str[i] == ';' && tmp->str[i + 1] == ';')

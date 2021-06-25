@@ -70,5 +70,6 @@ int		argc_amount_of_elements(t_all *tmp, int i);
 int		argc_amout_of_elements(t_all *tmp, int i);
 void	remove_quotes(t_all *tmp, int i);
 int		remove_symbol_arguments(t_all *tmp, int i, int s);
+int		redirect(t_all *tmp, int i);
 
 #endif
