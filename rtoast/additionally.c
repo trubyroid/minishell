@@ -86,7 +86,7 @@ void creating_name_argument(t_all *tmp)
 	tmp->num_arg = 1;
 	tmp->arg = (char **)malloc((sizeof(char *)) * 2);
 	tmp->arg[0] = tmp->command_name;
-	tmp->arg[1] = '\0';
+	tmp->arg[1] = NULL;
 }
 
 int	creating_next_argument(t_all *tmp, int i, int colnum)

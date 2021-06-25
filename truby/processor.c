@@ -18,7 +18,7 @@ t_env		*processor(t_all *command, t_env *env)
 		close_minishell(env);
 	else if (strcmp("export", command->command_name) == 0)
 	{
-		if (command->arg == NULL)
+		if (command->arg[1] == NULL)
 			print_export(env);
 		else
 			add_enviroment_variable(command, env);

@@ -45,7 +45,8 @@ void	arg(t_all *tmp, int i)
 			//write(1, "###", 3);
 			i = redirect(tmp, i);
 		
-		}colnum = argc_amount_of_elements(tmp, i);
+		}
+		colnum = argc_amount_of_elements(tmp, i);
 		i = creating_next_argument(tmp, i, colnum);
 		if (tmp->str[i] == '\"' || tmp->str[i] == '\'')
 			i++;

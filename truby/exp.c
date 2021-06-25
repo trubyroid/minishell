@@ -94,7 +94,7 @@ void	print_export(t_env *env)
 	t_env	*next;
 	t_env	*first_lst;
 
-	first_lst = create_new_lsts(env);							//какая-то дыра с переменными в нижнем регистре
+	first_lst = create_new_lsts(env);
 	while (first_lst->str)
 	{
 		next = ft_find_next_lst(first_lst);
