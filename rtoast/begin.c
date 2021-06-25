@@ -54,6 +54,9 @@ void	string_creating(t_all *tmp)
 	get_next_line(0, &tmp->str);
 }
 
+///error
+// pwd""
+// $* $$...
 int	main(int argc, char **argv, char **env)
 {
 	t_all	*tmp;
