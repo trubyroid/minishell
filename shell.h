@@ -23,9 +23,8 @@ typedef struct	s_all
 		char	*command_name;
 		char	**arg;
 		int		num_arg;
-		int		flag_dollar;
+		int		fd_out;
 		int		flag_pipe;
-		int		flag_redirect;
 		int		ret_$;
 		// t_all	*baby_pipe;
 
