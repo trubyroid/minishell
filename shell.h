@@ -47,6 +47,12 @@ typedef struct		s_env
 	struct s_env	*next;
 }					t_env;
 
+typedef struct		s_hist
+{
+	char			*str;
+	struct s_hist	*next;
+}					t_hist;
+
 void	close_minishell(t_env *env, char *root);
 void	command_name(t_all *tmp);
 void	error(int i);

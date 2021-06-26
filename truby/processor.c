@@ -23,9 +23,9 @@ t_env		*processor(t_all *command, t_env *env, char *root)
 		else
 			add_enviroment_variable(command, env);
 	}
-	// else
-	// {
-	// 	execve();
-	// }
+	else
+	{
+		exec(command, env);
+	}
 	return (env);
 }
