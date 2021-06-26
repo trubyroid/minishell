@@ -36,6 +36,7 @@ static t_env	*delete_previous_lst(t_env *lst, t_env *first)
         first = lst->next;
         lst->next = NULL;
         free(lst);
+		lst = NULL;
     }
     else
     {
@@ -46,6 +47,7 @@ static t_env	*delete_previous_lst(t_env *lst, t_env *first)
 	    		extra->next = lst->next;
 	    		lst->next = NULL;
 	    		free(lst);
+				lst = NULL;
                 break;
 	    	}
 	    	extra = extra->next;
@@ -109,4 +111,5 @@ void	print_export(t_env *env)
 		}
 	}
 	free(first_lst);
+	first_lst = NULL;
 }

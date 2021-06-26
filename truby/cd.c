@@ -26,37 +26,18 @@ static char	*ft_strjoin_for_cd(char *s1, char *s2)																		//надо �
 	}
 	new[i] = '\0';
 	free(s2);
+	s2 = NULL;
 	return (new);
 }
 
-int use_cd(char **dir)
+int use_cd(char **dir, char *root)
 {
-	char *pwd;
-	char *root;
 	char *new_str;
-	int	i;
-	int fl;
 
-	pwd = NULL;
-	root = NULL;
 	new_str = NULL;
-	i = 0;
-	fl = 0;
-	if (dir == NULL || dir[1][0] == '~')
+	if (dir[1] == NULL || dir[1][0] == '~')
 	{
-		pwd = getcwd(pwd, 0);
-		while (i < ft_strlen(pwd) + 1)
-		{
-			if (pwd[i] == '/')
-				fl++;
-			if (fl == 3 || pwd[i] == '\0')
-			{
-				root = ft_substr(pwd, 0, i);
-				break ;
-			}
-			i++;
-		}
-		if (dir == NULL || dir[1][1] == '\0')
+		if (dir[1] == NULL || dir[1][1] == '\0')
 			chdir(root);
 		else
 		{
@@ -64,9 +45,8 @@ int use_cd(char **dir)
 			new_str = ft_strjoin_for_cd(root, new_str);										//strjoin фришит старый new_str
 			chdir(new_str);
 			free(new_str);
+			new_str = NULL;
 		}
-		free(root);
-		free(pwd);
 	}
 	else if (chdir(dir[1]) == -1)
 	{
