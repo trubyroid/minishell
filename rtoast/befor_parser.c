@@ -29,6 +29,8 @@ void	prepars(t_all *tmp, char **env)
 	}
 	if (tmp->str[i - 1] == '\\')
 		error(1);
+	tmp->redirect_i = 0;
+	redirect_pars(tmp);
 	dollar_parser(tmp, env);
 }
 
@@ -50,4 +52,14 @@ void	dollar_parser(t_all *tmp, char **env)
 		if (tmp->str[i] != '\0')
 			i++;
 	}
+}
+
+void	redirect_pars(t_all *tmp)
+{
+	int i;
+
+	i = 0;
+	i = skipping_spaces(tmp, i);
+	if (tmp->str[i] == '>' || tmp->str[i] == '<')
+		tmp->redirect_i = redirect(tmp, i);
 }

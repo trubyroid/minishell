@@ -25,6 +25,7 @@ typedef struct	s_all
 		int		num_arg;
 		int		fd_out;
 		int		flag_pipe;
+		int		redirect_i;
 		int		ret_$;
 		// t_all	*baby_pipe;
 
@@ -77,5 +78,7 @@ int		argc_amout_of_elements(t_all *tmp, int i);
 void	remove_quotes(t_all *tmp, int i);
 int		remove_symbol_arguments(t_all *tmp, int i, int s);
 int		redirect(t_all *tmp, int i);
+void	redirect_pars(t_all *tmp);
+int		double_redirect(t_all *tmp, int i);
 
 #endif

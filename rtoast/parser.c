@@ -5,8 +5,9 @@ void	command_name(t_all *tmp)
 	int	i;
 	int colnum;
 	int	q;
+	int count;
 
-	i = 0;
+	i = tmp->redirect_i;
 	i = skipping_spaces(tmp, i);
 	if (tmp->str[i] == '\\')
 		i++;
@@ -17,15 +18,15 @@ void	command_name(t_all *tmp)
 		colnum = amount_of_elements(tmp, i, 0);
 	tmp->command_name = (char *)malloc(sizeof(char) * (colnum + 1));
 	tmp->command_name[colnum] = '\0';
-	q = 0;
+	count = 0;
 	colnum = i + colnum;
 	while (i < colnum)
 	{
-		tmp->command_name[q] = tmp->str[i];
+		tmp->command_name[count] = tmp->str[i];
 		i++;
-		q++;
+		count++;
 	}
-	if (tmp->str[i] == '\"' || tmp->str[i] == '\'')
+	if (q != 0)
 		i++;
 	creating_name_argument(tmp);
 	arg(tmp, i);
@@ -41,11 +42,7 @@ void	arg(t_all *tmp, int i)
 		if (block_checking(tmp->str[i]) == 1)
 			break ;
 		if (block_checking(tmp->str[i]) == 2)
-		{
-			//write(1, "###", 3);
 			i = redirect(tmp, i);
-		
-		}
 		colnum = argc_amount_of_elements(tmp, i);
 		i = creating_next_argument(tmp, i, colnum);
 		if (tmp->str[i] == '\"' || tmp->str[i] == '\'')
