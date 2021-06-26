@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 20:35:57 by truby             #+#    #+#             */
-/*   Updated: 2021/06/17 01:42:06 by truby            ###   ########.fr       */
+/*   Updated: 2021/06/26 20:38:11 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ t_env	*delete_enviroment_variable(t_all *command, t_env *env)
 		extra->next = NULL;
 		free(extra);
 		free(key);
+		extra = NULL;
+		key = NULL;
 		return (env);	
 	}
 	else
@@ -72,6 +74,8 @@ t_env	*delete_enviroment_variable(t_all *command, t_env *env)
 				env->next = NULL;
 				free(env);
 				free(key);
+				env = NULL;
+				key = NULL;
 				break;
 			}
 		}

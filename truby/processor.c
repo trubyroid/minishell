@@ -1,6 +1,6 @@
 #include "shell_truby.h"
 
-t_env		*processor(t_all *command, t_env *env)
+t_env		*processor(t_all *command, t_env *env, char *root)
 {
 	if (strcmp("env", command->command_name) == 0)
 		print_env(env);
@@ -12,10 +12,10 @@ t_env		*processor(t_all *command, t_env *env)
 		env = delete_enviroment_variable(command, env);
 	else if (strcmp("cd", command->command_name) == 0)
 	{
-		use_cd(command->arg);
+		use_cd(command->arg, root);
 	}
 	else if (strcmp("exit", command->command_name) == 0)
-		close_minishell(env);
+		close_minishell(env, root);
 	else if (strcmp("export", command->command_name) == 0)
 	{
 		if (command->arg[1] == NULL)

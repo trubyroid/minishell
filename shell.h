@@ -48,7 +48,7 @@ typedef struct		s_env
 	struct s_env	*next;
 }					t_env;
 
-void	close_minishell(t_env *env);
+void	close_minishell(t_env *env, char *root);
 void	command_name(t_all *tmp);
 void	error(int i);
 void	prepars(t_all *tmp, char **env);
