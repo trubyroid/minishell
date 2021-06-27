@@ -19,10 +19,10 @@ void	exec(t_all *command, t_env *env)
 	paths = ft_split(str, ':');
 	free(str);
 	str = NULL;
-	while(res = -1 && paths[++i] != NULL)
+	while(res == -1 && paths[++i] != NULL)
 	{
 		path = ft_strjoin(paths[i], command->command_name);						//добавить слэш
-		res = execve(path, command->arg[1], NULL);
+		res = execve(path, &command->arg[1], NULL);
 		if (res == 1)
 		{
 			free(path);

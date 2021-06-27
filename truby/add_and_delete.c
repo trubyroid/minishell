@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 20:35:57 by truby             #+#    #+#             */
-/*   Updated: 2021/06/27 19:21:38 by truby            ###   ########.fr       */
+/*   Updated: 2021/06/27 19:53:10 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@ int	add_enviroment_variable(t_all *command, t_env *env)
 	i = -1;
 	while(command->arg[1][j] != '=')
 		j++;
-	key = ft_substr(command->arg[1], 0, j);
-	while (env->next)
+	key = ft_substr(command->arg[1], 0, ++j);
+	while (env->str)
 	{
 		if (ft_strnstr(env->str, key, j) != NULL)
 		{
-			write(1, "22", 2);
 			free(env->str);
 			env->str = NULL;
 			env->str = ft_strdup(command->arg[1]);
@@ -36,6 +35,8 @@ int	add_enviroment_variable(t_all *command, t_env *env)
 			key = NULL;
 			return (0);
 		}
+		if (env->next == NULL)
+			break ;
 		env = env->next;
 	}
 	new = malloc(sizeof(t_env*));
