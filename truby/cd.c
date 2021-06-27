@@ -30,7 +30,7 @@ static char	*ft_strjoin_for_cd(char *s1, char *s2)																		//надо �
 	return (new);
 }
 
-int use_cd(char **dir, char *root)
+int use_cd(char **dir, char *home)
 {
 	char *new_str;
 
@@ -38,11 +38,11 @@ int use_cd(char **dir, char *root)
 	if (dir[1] == NULL || dir[1][0] == '~')
 	{
 		if (dir[1] == NULL || dir[1][1] == '\0')
-			chdir(root);
+			chdir(home);
 		else
 		{
 			new_str = ft_substr(dir[1], 1, ft_strlen(dir[1]) - 1);
-			new_str = ft_strjoin_for_cd(root, new_str);										//strjoin фришит старый new_str
+			new_str = ft_strjoin_for_cd(home, new_str);										//strjoin фришит старый new_str
 			chdir(new_str);
 			free(new_str);
 			new_str = NULL;

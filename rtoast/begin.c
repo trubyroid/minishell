@@ -22,7 +22,7 @@ void	close_minishell(t_env *env, char *root)
 	exit(0);
 }
 
-static char	*find_root()
+static char	*find_home()
 {
 	char *pwd;
 	char *root;
@@ -93,8 +93,12 @@ int	main(int argc, char **argv, char **env)
 {
 	t_all	*tmp;
 	t_env	*lst;
+<<<<<<< HEAD
+	char	*home;
+=======
 	char	*root;
 	char	**nenv;
+>>>>>>> 2dfe43fc19d171cb06f54d3d3288ce36c75cc607
 	int		i;
 
 	(void)argc;
@@ -103,8 +107,12 @@ int	main(int argc, char **argv, char **env)
 	lst = NULL;
 	i = 0;
 	lst = creating_list(env);
+<<<<<<< HEAD
+	home = find_home();
+=======
 	root = find_root();
 	nenv = rewrite_env(env);
+>>>>>>> 2dfe43fc19d171cb06f54d3d3288ce36c75cc607
 	while (1)
 	{
 		tmp = (t_all *)malloc(sizeof(t_all));
@@ -113,8 +121,12 @@ int	main(int argc, char **argv, char **env)
 		string_creating(tmp);
 		prepars(tmp, nenv);
 		command_name(tmp);
+<<<<<<< HEAD
+		lst = processor(tmp, lst, home);
+=======
 		lst = processor(tmp, lst, root);
 		nenv = list_in_massiv(lst, nenv);
+>>>>>>> 2dfe43fc19d171cb06f54d3d3288ce36c75cc607
 		free(tmp->str);
 		tmp->str = NULL;
 		if (tmp->arg != NULL)
