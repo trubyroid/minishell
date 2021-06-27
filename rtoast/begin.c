@@ -82,7 +82,9 @@ t_env	*creating_list(char **env)
 
 void	string_creating(t_all *tmp)
 {
-	tmp->str = readline(ANSI_COLOR_MAGENTA"💜ya_bash: "ANSI_COLOR_RESET);
+	write(1, ANSI_COLOR_MAGENTA"", 6);
+	tmp->str = readline("💜ya_bash: " ANSI_COLOR_RESET);
+	//write(1, ANSI_COLOR_RESET, 5);
 	if (tmp->str && tmp->str[0])
 		add_history(tmp->str);
 }
@@ -151,11 +153,17 @@ char	**list_in_massiv(t_env *lst, char **env)
 	char **new_env;
 	int i;
 	int l;
+	int e;
 
 	i = 0;
+	e = -1;
 	l = list_size(lst);
 	if (env)
+	{
+		while (env[++e])
+			free(env[e]);
 		free(env);
+	}
 	new_env = (char **)malloc(sizeof(char *) * (l + 1));
 	new_env[l] = NULL;
 	while (i < l)
