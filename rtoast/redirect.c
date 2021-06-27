@@ -7,7 +7,6 @@ int		redirect(t_all *tmp, int i)
 	int count;
 	char *file_name;
 
-	printf("%d", i);
 	count = 0;
 	if (tmp->str[i] == '>')
 		i++;
@@ -33,6 +32,7 @@ int		redirect(t_all *tmp, int i)
 	}
 	tmp->fd_out = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	free(file_name);
+	i = skipping_spaces(tmp, i);
 	return (i);
 }
 

@@ -12,7 +12,7 @@ all:
 	$(MAKE) $(NAME) -j 4
 $(NAME): $(O_FILE)
 	@make -C ./libft 
-	gcc $(O_FILE) ./libft/libft.a -o $(NAME)
+	gcc $(O_FILE) ./libft/libft.a -lreadline -o $(NAME)
 %.o: %.c $(HEAD)
 	gcc -c $(СFLAGS) $< -o $@
 clean:
