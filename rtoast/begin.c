@@ -82,11 +82,9 @@ t_env	*creating_list(char **env)
 
 void	string_creating(t_all *tmp)
 {
-	//write(1, ANSI_COLOR_MAGENTA "💜ya_bash: " ANSI_COLOR_RESET, 23);
-	tmp->str = readline("💜ya_bash: ");
+	tmp->str = readline(ANSI_COLOR_MAGENTA"💜ya_bash: "ANSI_COLOR_RESET);
 	if (tmp->str && tmp->str[0])
 		add_history(tmp->str);
-	//get_next_line(0, &tmp->str);
 }
 
 ///error
@@ -96,6 +94,7 @@ int	main(int argc, char **argv, char **env)
 	t_all	*tmp;
 	t_env	*lst;
 	char	*home;
+	char	**nenv;
 	int		i;
 
 	(void)argc;
@@ -104,6 +103,7 @@ int	main(int argc, char **argv, char **env)
 	lst = NULL;
 	i = 0;
 	lst = creating_list(env);
+	nenv = rewrite_env(env);
 	home = find_home();
 	while (1)
 	{
@@ -114,6 +114,7 @@ int	main(int argc, char **argv, char **env)
 		prepars(tmp, nenv);
 		command_name(tmp);
 		lst = processor(tmp, lst, home);
+		nenv = list_in_massiv(lst, nenv);
 		free(tmp->str);
 		tmp->str = NULL;
 		if (tmp->arg != NULL)
