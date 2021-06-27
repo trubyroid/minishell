@@ -82,18 +82,21 @@ t_env	*creating_list(char **env)
 
 void	string_creating(t_all *tmp)
 {
-	write(1, ANSI_COLOR_MAGENTA "💜ya_bash: " ANSI_COLOR_RESET, 23);
-	get_next_line(0, &tmp->str);
+	//write(1, ANSI_COLOR_MAGENTA "💜ya_bash: " ANSI_COLOR_RESET, 23);
+	tmp->str = readline("💜ya_bash: ");
+	if (tmp->str && tmp->str[0])
+		add_history(tmp->str);
+	//get_next_line(0, &tmp->str);
 }
 
 ///error
-// pwd""
 // $* $$...
 int	main(int argc, char **argv, char **env)
 {
 	t_all	*tmp;
 	t_env	*lst;
 	char	*root;
+	char	**nenv;
 	int		i;
 
 	(void)argc;
@@ -103,20 +106,22 @@ int	main(int argc, char **argv, char **env)
 	i = 0;
 	lst = creating_list(env);
 	root = find_root();
+	nenv = rewrite_env(env);
 	while (1)
 	{
 		tmp = (t_all *)malloc(sizeof(t_all));
 		tmp->arg = NULL;
 		tmp->command_name = NULL;
 		string_creating(tmp);
-		prepars(tmp, env);
+		prepars(tmp, nenv);
 		command_name(tmp);
 		lst = processor(tmp, lst, root);
+		nenv = list_in_massiv(lst, nenv);
 		free(tmp->str);
 		tmp->str = NULL;
 		if (tmp->arg != NULL)
 		{
-			while (tmp->arg[i] != NULL)
+			while (i < tmp->num_arg)
 			{
 				free(tmp->arg[i]);
 				tmp->arg[i] = NULL;
@@ -126,5 +131,57 @@ int	main(int argc, char **argv, char **env)
 		free(tmp);
 		tmp = NULL;
 	}
+	free(nenv);
 	return (0);
+}
+
+int		list_size(t_env	*lst)
+{
+	int	i;
+
+	i = 0;
+	while (lst)
+	{
+		i++;
+		lst = lst->next;
+	}
+	return(i);
+}
+
+char	**list_in_massiv(t_env *lst, char **env)
+{
+	char **new_env;
+	int i;
+	int l;
+
+	i = 0;
+	l = list_size(lst);
+	if (env)
+		free(env);
+	new_env = (char **)malloc(sizeof(char *) * (l + 1));
+	new_env[l] = NULL;
+	while (i < l)
+	{
+		new_env[i] = ft_strdup(lst->str);
+		i++;
+		lst = lst->next;
+	}
+	return(new_env);
+}
+
+char	**rewrite_env(char **env)
+{
+	char	**new_env;
+	int		i;
+
+	i = 0;
+	new_env = NULL;
+	while (env[i])
+		i++;
+	new_env = (char **)malloc(sizeof(char *) * (i + 1));
+	new_env[i] = NULL;
+	i = -1;
+	while (env[++i])
+		new_env[i] = ft_strdup(env[i]);
+	return(new_env);
 }
