@@ -22,7 +22,7 @@ void	close_minishell(t_env *env, char *root)
 	exit(0);
 }
 
-static char	*find_root()
+static char	*find_home()
 {
 	char *pwd;
 	char *root;
@@ -93,7 +93,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_all	*tmp;
 	t_env	*lst;
-	char	*root;
+	char	*home;
 	int		i;
 
 	(void)argc;
@@ -102,7 +102,7 @@ int	main(int argc, char **argv, char **env)
 	lst = NULL;
 	i = 0;
 	lst = creating_list(env);
-	root = find_root();
+	home = find_home();
 	while (1)
 	{
 		tmp = (t_all *)malloc(sizeof(t_all));
@@ -111,7 +111,7 @@ int	main(int argc, char **argv, char **env)
 		string_creating(tmp);
 		prepars(tmp, env);
 		command_name(tmp);
-		lst = processor(tmp, lst, root);
+		lst = processor(tmp, lst, home);
 		free(tmp->str);
 		tmp->str = NULL;
 		if (tmp->arg != NULL)
