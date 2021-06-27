@@ -1,6 +1,6 @@
 #include "shell_truby.h"
 
-static char	*ft_strjoin_for_cd(char *s1, char *s2)																		//надо подключить либу и удалить  эти статик функции
+char	*ft_strjoin_shell(char *s1, char *s2)																		//надо подключить либу и удалить  эти статик функции
 {
 	char	*new;
 	size_t	i;
@@ -30,7 +30,7 @@ static char	*ft_strjoin_for_cd(char *s1, char *s2)																		//надо �
 	return (new);
 }
 
-int use_cd(char **dir, char *home)
+int use_cd(t_env *env, char **dir, char *home)
 {
 	char *new_str;
 
@@ -42,7 +42,7 @@ int use_cd(char **dir, char *home)
 		else
 		{
 			new_str = ft_substr(dir[1], 1, ft_strlen(dir[1]) - 1);
-			new_str = ft_strjoin_for_cd(home, new_str);										//strjoin фришит старый new_str
+			new_str = ft_strjoin_shell(home, new_str);										//strjoin фришит старый new_str
 			chdir(new_str);
 			free(new_str);
 			new_str = NULL;

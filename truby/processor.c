@@ -12,7 +12,7 @@ t_env		*processor(t_all *command, t_env *env, char *home)
 		env = delete_enviroment_variable(command, env);
 	else if (strcmp("cd", command->command_name) == 0)
 	{
-		use_cd(command->arg, home);
+		use_cd(env, command->arg, home);
 	}
 	else if (strcmp("exit", command->command_name) == 0)
 		close_minishell(env, home);
@@ -23,9 +23,9 @@ t_env		*processor(t_all *command, t_env *env, char *home)
 		else
 			add_enviroment_variable(command, env);
 	}
-	// else
-	// {
-	// 	exec(command, env);
-	// }
+	else
+	{
+		exec(command, env);
+	}
 	return (env);
 }
