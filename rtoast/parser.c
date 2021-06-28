@@ -48,6 +48,8 @@ void	arg(t_all *tmp, int i)
 		if (tmp->str[i] == '\"' || tmp->str[i] == '\'')
 			i++;
 	}
+	if (tmp->arg[1] == NULL)
+		creating_file_name_elem(tmp);
 }
 
 int		remove_symbol_arguments(t_all *tmp, int i, int s)
@@ -76,4 +78,20 @@ int		remove_symbol_arguments(t_all *tmp, int i, int s)
 	free(tmp->arg[i]);
 	tmp->arg[i] = t_arr;
 	return (remember);
+}
+
+void	creating_file_name_elem(t_all *tmp)
+{
+	char	**new_arg;
+	int		count;
+
+	count = 0;
+	new_arg = (char **)malloc(sizeof(char *) * (tmp->num_arg + 2));
+	while (++count < tmp->num_arg)
+		new_arg[count] = tmp->arg[count];
+	free(tmp->arg);
+	tmp->arg = new_arg;
+	tmp->arg[tmp->num_arg + 1] = NULL;
+	tmp->arg[tmp->num_arg] = tmp->file_name;
+	tmp->num_arg++;
 }

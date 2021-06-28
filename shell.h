@@ -24,8 +24,10 @@ typedef struct	s_all
 		char	*temporary_array;
 		char	*command_name;
 		char	**arg;
+		char	*file_name;
 		int		num_arg;
 		int		fd_out;
+		int		fd_in;
 		int		flag_pipe;
 		int		redirect_i;
 		int		ret_$;
@@ -85,5 +87,7 @@ int		double_redirect(t_all *tmp, int i);
 char	**rewrite_env(char **env);
 char	**list_in_massiv(t_env *lst, char **env);
 int		list_size(t_env	*lst);
+void	creating_file_name_elem(t_all *tmp);
+int		reverse_redirect(t_all *tmp, int i);
 
 #endif

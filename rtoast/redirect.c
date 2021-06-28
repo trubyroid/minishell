@@ -15,6 +15,11 @@ int		redirect(t_all *tmp, int i)
 		i++;
 		return (double_redirect(tmp, i));
 	}
+	if (tmp->str[i] == '<')
+	{
+		i++;
+		return (reverse_redirect(tmp, i));
+	}
 	i = skipping_spaces(tmp, i);
 	j = i;
 	while (tmp->str[j] != ' ' && tmp->str[j] != '\0')
@@ -23,6 +28,7 @@ int		redirect(t_all *tmp, int i)
 		count++;
 	}
 	file_name = (char *)malloc(sizeof(char) * count);
+	file_name[count] = '\0';
 	count = 0;
 	while (i < j)
 	{
@@ -51,6 +57,7 @@ int		double_redirect(t_all *tmp, int i)
 		count++;
 	}
 	file_name = (char *)malloc(sizeof(char) * count);
+	file_name[count] = '\0';
 	count = 0;
 	while (i < j)
 	{
@@ -60,5 +67,33 @@ int		double_redirect(t_all *tmp, int i)
 	}
 	tmp->fd_out = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	free(file_name);
+	i = skipping_spaces(tmp, i);
+	return (i);
+}
+
+int		reverse_redirect(t_all *tmp, int i)
+{
+	int j;
+	int count;
+
+	count = 0;
+	i = skipping_spaces(tmp, i);
+	j = i;
+	while (tmp->str[j] != ' ' && tmp->str[j] != '\0')
+	{
+		j++;
+		count++;
+	}
+	tmp->file_name = (char *)malloc(sizeof(char) * count);
+	tmp->file_name[count] = '\0';
+	count = 0;
+	while (i < j)
+	{
+		tmp->file_name[count] = tmp->str[i];
+		count++;
+		i++;
+	}
+	tmp->fd_in = open(tmp->file_name, O_RDONLY, 0644);
+	i = skipping_spaces(tmp, i);
 	return (i);
 }

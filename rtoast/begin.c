@@ -82,9 +82,9 @@ t_env	*creating_list(char **env)
 
 void	string_creating(t_all *tmp)
 {
-	write(1, ANSI_COLOR_MAGENTA"", 6);
-	tmp->str = readline("💜ya_bash: " ANSI_COLOR_RESET);
-	//write(1, ANSI_COLOR_RESET, 5);
+	write(1, ANSI_COLOR_MAGENTA"\033[3;1m", 12);
+	tmp->str = readline("💜ya_bash: ");
+	write(1, ANSI_COLOR_RESET"", 5);
 	if (tmp->str && tmp->str[0])
 		add_history(tmp->str);
 }
