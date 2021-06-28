@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 20:57:17 by truby             #+#    #+#             */
-/*   Updated: 2021/06/28 19:08:22 by truby            ###   ########.fr       */
+/*   Updated: 2021/06/28 22:07:16 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
+#include<sys/types.h>
+#include<sys/wait.h>
 
 int 	use_cd(t_env *env, char **dir, char *root);
 void 	use_pwd(void);

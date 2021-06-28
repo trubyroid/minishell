@@ -4,7 +4,7 @@ void use_pwd(void)
 {
 	char *dir = NULL;
 
-	dir = getcwd(dir, 0);
+	dir = getcwd(NULL, 0);
 	printf("%s\n", dir);
 	free(dir);
 	dir = NULL;

@@ -25,7 +25,7 @@ t_env		*processor(t_all *command, t_env *env, char *home)
 	}
 	else
 	{
-		exec(command, env);
+		exec(command, env);									//shlvl zsh minishell bash
 	}
 	return (env);
 }

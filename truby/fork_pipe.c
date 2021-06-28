@@ -75,9 +75,9 @@ int main()
 		printf("|%s|", concat_str);
   
         // Concatenate a fixed string with it
-        int k = ft_strlen(concat_str);
+        int k = strlen(concat_str);
         int i;
-        for (i=0; i < ft_strlen(fixed_str); i++)
+        for (i=0; i < strlen(fixed_str); i++)
             concat_str[k++] = fixed_str[i];
   
         concat_str[k] = '\0';   // string ends with '\0'
