@@ -12,6 +12,7 @@ void	close_minishell(t_env *env, char *root)
 		lst = env;
 		env = env->next;
 		lst->next = NULL;
+		free(lst->str);
 		free(lst);
 		lst = NULL;
 	}
@@ -73,7 +74,7 @@ t_env	*creating_list(char **env)
 		new = malloc(sizeof(t_env *));
 		if (!new)
 			return (0);
-		new->str = env[i];
+		new->str = ft_strdup(env[i]);
 		new->next = lst;
 		lst = new;
 	}
