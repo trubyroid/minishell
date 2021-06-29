@@ -92,5 +92,7 @@ int		reverse_redirect(t_all *tmp, int i);
 void	conrol_d(void);
 int		single_redirect(t_all *tmp, int i);
 int		reverse_double_redirect(t_all *tmp, int i);
+int		special_dollar(t_all *tmp, int i);
+int		remove_symbol(t_all *tmp, int i);
 
 #endif

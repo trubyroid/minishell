@@ -48,7 +48,7 @@ void	arg(t_all *tmp, int i)
 		if (tmp->str[i] == '\"' || tmp->str[i] == '\'')
 			i++;
 	}
-	if (tmp->arg[1] == NULL)
+	if (tmp->arg[1] == NULL && tmp->file_name)
 		creating_file_name_elem(tmp);
 }
 
@@ -77,6 +77,8 @@ int		remove_symbol_arguments(t_all *tmp, int i, int s)
 	}
 	free(tmp->arg[i]);
 	tmp->arg[i] = t_arr;
+	if (remember == '\0')
+		remember--;
 	return (remember);
 }
 
