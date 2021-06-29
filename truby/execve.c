@@ -19,7 +19,7 @@ void	exec(t_all *command, t_env *env)
 	paths = ft_split(str, ':');
 	free(str);
 	str = NULL;
-	command->arg[0] = ft_strjoin_shell("/", command->arg[0]);
+	str = ft_strjoin_shell("/", command->command_name);
 	if (strcmp("./", command->command_name) == 0)
 	{
 		path = ft_strjoin(getcwd(NULL, 0), command->arg[0]);
@@ -31,7 +31,7 @@ void	exec(t_all *command, t_env *env)
 	{
 		while(res == -1 && paths[++i] != NULL)
 		{
-			path = ft_strjoin(paths[i], command->arg[0]);
+			path = ft_strjoin(paths[i], str);
 			res = execve(path, &command->arg[1], NULL);
 			free(path);
 			path = NULL;
