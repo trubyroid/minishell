@@ -2,7 +2,7 @@
 
 int		check_for_dollar(char symbol)
 {
-	int res;
+	int		res;
 
 	res = 1;
 	if (symbol == '_')
@@ -18,7 +18,7 @@ int		check_for_dollar(char symbol)
 
 int		dollar_make(t_all *tmp, int i, char **env)
 {
-	t_dollar    *d;
+	t_dollar	*d;
 
 	d = (t_dollar *)malloc(sizeof(t_dollar));
 	d->i_str = i - 1;
@@ -59,7 +59,7 @@ void	search(t_all *tmp, char **env, t_dollar *d)
 
 void	create_new_str(t_all *tmp, char **env, t_dollar *d)
 {
-	int temp;
+	int		temp;
 
 	d->j_env = 0;
 	d->count = ft_strlen(tmp->str);
@@ -74,7 +74,7 @@ void	create_new_str(t_all *tmp, char **env, t_dollar *d)
 
 void	create_array(t_all *tmp, char **env, t_dollar *d)
 {
-	char *new_str;
+	char	*new_str;
 
 	d->i_new = 0;
 	d->i_str = 0;
