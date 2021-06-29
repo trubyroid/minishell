@@ -2,6 +2,8 @@
 
 t_env		*processor(t_all *command, t_env *env, char *home)
 {
+	pid_t	p;
+
 	if (strcmp("env", command->command_name) == 0)
 		print_env(env);
 	else if (strcmp("echo", command->command_name) == 0)
@@ -25,7 +27,27 @@ t_env		*processor(t_all *command, t_env *env, char *home)
 	}
 	else
 	{
-		exec(command, env);									//shlvl zsh minishell bash
+		p = fork();
+		if (p < 0)
+    	{
+    	    fprintf(stderr, "fork Failed" );
+    	    return (NULL);							//error
+    	}
+		else if (p == 0)
+		{
+			if (command->fd_out != 1)
+			{
+				close(1);
+				dup2(command->fd_out, 1);
+			}
+			if (command->fd_in != 0)
+			{
+				close(0);
+				dup2(command->fd_in, 0);
+			}
+			exec(command, env);									//shlvl zsh minishell bash
+		}
+		wait(NULL);
 	}
 	return (env);
 }

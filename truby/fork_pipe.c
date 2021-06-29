@@ -87,9 +87,20 @@ int main()
         close(fd2[0]);
   
         // Write concatenated string and close writing end
-        write(fd2[1], concat_str, strlen(concat_str)+1);
+        write(fd2[1], concat_str, strlen(concat_str) + 1);
         close(fd2[1]);
   
         exit(0);
     }
+}
+
+if (command->fd_out != 1)
+{
+	close(1);
+	dup2(fd_out, 1);
+}
+if (command->fd_in != 0)
+{
+	close(0);
+	dup2(fd_in, 0);
 }
