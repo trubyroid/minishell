@@ -83,11 +83,11 @@ t_env	*creating_list(char **env)
 
 void	string_creating(t_all *tmp)
 {
-	write(1, ANSI_COLOR_MAGENTA"\033[3;1m", 12);
-	tmp->str = readline("💜ya_bash: ");
-	write(1, ANSI_COLOR_RESET"", 5);
-	if (tmp->str && tmp->str[0])
-		add_history(tmp->str);
+		write(1, ANSI_COLOR_MAGENTA"\033[3;1m", 12);
+		tmp->str = readline("💜ya_bash: ");
+		write(1, ANSI_COLOR_RESET"", 5);
+		if (tmp->str && tmp->str[0])
+			add_history(tmp->str);
 }
 
 ///error
@@ -108,31 +108,39 @@ int	main(int argc, char **argv, char **env)
 	lst = creating_list(env);
 	nenv = rewrite_env(env);
 	home = find_home();
+	signal(SIGQUIT,  SIG_IGN);
 	while (1)
 	{
 		tmp = (t_all *)malloc(sizeof(t_all));
-		tmp->arg = NULL;
-		tmp->command_name = NULL;
 		string_creating(tmp);
-		prepars(tmp, nenv);
-		command_name(tmp);
-		lst = processor(tmp, lst, home);
-		nenv = list_in_massiv(lst, nenv);
-		free(tmp->str);
-		tmp->str = NULL;
-		if (tmp->arg != NULL)
+		while (tmp->str)
 		{
-			while (i < tmp->num_arg)
+			tmp->arg = NULL;
+			tmp->command_name = NULL;
+			prepars(tmp, nenv);
+			command_name(tmp);
+			lst = processor(tmp, lst, home);
+			nenv = list_in_massiv(lst, nenv);
+			// free(tmp->str);
+			if (tmp->arg != NULL)
 			{
-				free(tmp->arg[i]);
-				tmp->arg[i] = NULL;
-				i++;
+				while (i < tmp->num_arg)
+				{
+					free(tmp->arg[i]);
+					tmp->arg[i] = NULL;
+					i++;
+				}
 			}
+			free(tmp->str);
+			tmp->str = NULL;
+			free(tmp);
+			tmp = NULL;
+			tmp = (t_all *)malloc(sizeof(t_all));
+			string_creating(tmp);
 		}
-		free(tmp);
-		tmp = NULL;
+		free(nenv);
+		conrol_d();
 	}
-	free(nenv);
 	return (0);
 }
 
@@ -191,4 +199,11 @@ char	**rewrite_env(char **env)
 	while (env[++i])
 		new_env[i] = ft_strdup(env[i]);
 	return(new_env);
+}
+
+void	conrol_d(void)
+{
+	write(1, "\033[3;1m", 7);
+	write(1, ANSI_COLOR_MAGENTA"\e[2Dexit\n"ANSI_COLOR_RESET, 19);
+	exit (0);
 }

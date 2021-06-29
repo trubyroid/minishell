@@ -89,5 +89,8 @@ char	**list_in_massiv(t_env *lst, char **env);
 int		list_size(t_env	*lst);
 void	creating_file_name_elem(t_all *tmp);
 int		reverse_redirect(t_all *tmp, int i);
+void	conrol_d(void);
+int		single_redirect(t_all *tmp, int i);
+int		reverse_double_redirect(t_all *tmp, int i);
 
 #endif

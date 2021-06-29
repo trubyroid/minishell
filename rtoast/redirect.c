@@ -3,23 +3,37 @@
 ///massiv int fd
 int		redirect(t_all *tmp, int i)
 {
+	if (tmp->str[i] == '>' && tmp->str[i] != '>')
+	{
+		i++;
+		return(single_redirect(tmp, i));
+	}
+	if (tmp->str[i] == '>' && tmp->str[i] == '>')
+	{
+		i = i + 2;
+		return (double_redirect(tmp, i));
+	}
+	if (tmp->str[i] == '<' && tmp->str[i] != '<')
+	{
+		i++;
+		return (reverse_redirect(tmp, i));
+	}
+	if (tmp->str[i] == '<' && tmp->str[i] == '<')
+	{
+		i = i + 2;
+		return (reverse_double_redirect(tmp, i));
+	}
+	return (i);
+}
+
+int		single_redirect(t_all *tmp, int i)
+{
 	int j;
 	int count;
 	char *file_name;
 
 	count = 0;
-	if (tmp->str[i] == '>')
-		i++;
-	if (tmp->str[i] == '>')
-	{
-		i++;
-		return (double_redirect(tmp, i));
-	}
-	if (tmp->str[i] == '<')
-	{
-		i++;
-		return (reverse_redirect(tmp, i));
-	}
+	tmp->fd_in = 0;
 	i = skipping_spaces(tmp, i);
 	j = i;
 	while (tmp->str[j] != ' ' && tmp->str[j] != '\0')
@@ -95,5 +109,46 @@ int		reverse_redirect(t_all *tmp, int i)
 	}
 	tmp->fd_in = open(tmp->file_name, O_RDONLY, 0644);
 	i = skipping_spaces(tmp, i);
+	return (i);
+}
+
+int		reverse_double_redirect(t_all *tmp, int i)
+{
+	char *blok;
+	char *str;
+	int j;
+	int count;
+
+	i = skipping_spaces(tmp, i);
+	j = i;
+	count = 0;
+	while (tmp->str[j] != ' ' && tmp->str[j] != '\0')
+	{
+		j++;
+		count++;
+	}
+	blok = (char *)malloc(sizeof(char) * (count + 1));
+	blok[count] = '\0';
+	count = 0;
+	while (i < j)
+	{
+		blok[count] = tmp->str[i];
+		count++;
+		i++;
+	}
+	tmp->fd_in = open("./.ghost", O_RDWR | O_CREAT | O_TRUNC, 0777);
+	while (get_next_line(0, &str))
+	{
+		if (ft_strncmp(str, blok, ft_strlen(blok)) == 0)
+		{
+			free(str);
+			break ;
+		}
+		write(tmp->fd_in, &str, ft_strlen(str));
+		write(tmp->fd_in, "\n", 1);
+		free(str);
+	}
+	tmp->file_name = ft_strdup("./.ghost");
+	free(blok);
 	return (i);
 }
