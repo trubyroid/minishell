@@ -93,14 +93,3 @@ int main()
         exit(0);
     }
 }
-
-if (command->fd_out != 1)
-{
-	close(1);
-	dup2(fd_out, 1);
-}
-if (command->fd_in != 0)
-{
-	close(0);
-	dup2(fd_in, 0);
-}

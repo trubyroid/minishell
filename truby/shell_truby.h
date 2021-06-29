@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 20:57:17 by truby             #+#    #+#             */
-/*   Updated: 2021/06/28 22:07:16 by truby            ###   ########.fr       */
+/*   Updated: 2021/06/30 00:34:20 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include<sys/wait.h>
 
 int 	use_cd(t_env *env, char **dir, char *root);
-void 	use_pwd(void);
+void 	use_pwd(t_all *command);
 void	exec(t_all *command, t_env *env);
 int 	use_echo(t_all *command);
 int		print_env(t_env *env);
