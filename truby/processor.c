@@ -9,8 +9,7 @@ t_env		*processor(t_all *command, t_env *env, char *home)
 		print_env(env);
 	else if (strcmp("echo", command->command_name) == 0)
 <<<<<<< HEAD
-		printf("ok\n");
-		//use_echo(command);
+		use_echo(command);
 	else if (strcmp("pwd", command->command_name) == 0)
 		use_pwd();
 =======
