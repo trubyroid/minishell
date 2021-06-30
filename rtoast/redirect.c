@@ -3,22 +3,22 @@
 ///massiv int fd
 int		redirect(t_all *tmp, int i)
 {
-	if (tmp->str[i] == '>' && tmp->str[i] != '>')
+	if (tmp->str[i] == '>' && tmp->str[i + 1] != '>')
 	{
 		i++;
 		return(single_redirect(tmp, i));
 	}
-	if (tmp->str[i] == '>' && tmp->str[i] == '>')
+	if (tmp->str[i] == '>' && tmp->str[i + 1] == '>')
 	{
 		i = i + 2;
 		return (double_redirect(tmp, i));
 	}
-	if (tmp->str[i] == '<' && tmp->str[i] != '<')
+	if (tmp->str[i] == '<' && tmp->str[i + 1] != '<')
 	{
 		i++;
 		return (reverse_redirect(tmp, i));
 	}
-	if (tmp->str[i] == '<' && tmp->str[i] == '<')
+	if (tmp->str[i] == '<' && tmp->str[i + 1] == '<')
 	{
 		i = i + 2;
 		return (reverse_double_redirect(tmp, i));

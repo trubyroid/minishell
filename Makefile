@@ -12,9 +12,9 @@ all:
 	$(MAKE) $(NAME) -j 4
 $(NAME): $(O_FILE)
 	@make -C ./libft 
-	gcc $(O_FILE) ./libft/libft.a -L/homebrew/portable-ruby/portable-readline/ -I/homebrew/portable-ruby/portable-readline/ -lreadline -o $(NAME)
+	gcc -g $(O_FILE) ./libft/libft.a -L/homebrew/portable-ruby/portable-readline/ -I/homebrew/portable-ruby/portable-readline/ -lreadline -o $(NAME)
 %.o: %.c $(HEAD)
-	gcc -c $(СFLAGS) $< -o $@
+	gcc -c -g $(СFLAGS) $< -o $@
 clean:
 	@make clean -C ./libft
 	@rm -f $(O_FILE)

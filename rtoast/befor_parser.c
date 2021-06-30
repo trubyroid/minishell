@@ -28,17 +28,20 @@ void	prepars(t_all *tmp, char **env)
 			error(1);
 		i++;
 	}
-	if (tmp->str[i - 1] == '\\')
+	if (i > 0 && tmp->str[i - 1] == '\\')
 		error(1);
 	tmp->redirect_i = 0;
-	redirect_pars(tmp);
-	dollar_parser(tmp, env);
+	if (i > 0)
+	{
+		redirect_pars(tmp);
+		dollar_parser(tmp, env);
+	}
 }
 
 int		special_dollar(t_all *tmp, int i)
 {
 	i++;
-	if (tmp->str[i] == '*')
+	if (tmp->str[i] == '!' || tmp->str[i] == '$' || tmp->str[i] == '*')
 	{
 		i = remove_symbol(tmp, i);
 		i = remove_symbol(tmp, i);
@@ -86,27 +89,23 @@ int	remove_symbol(t_all *tmp, int i)
 	int j;
 	char *t_arr;
 
-	j = 0;
 	remember = i;
 	t_arr = NULL;
-	while (tmp->str[j] != '\0')
-		j++;
-	j--;
+	j = ft_strlen(tmp->str) - 1;
 	t_arr = (char *)malloc(sizeof(char) * (j + 1 ));
 	t_arr[j] = '\0';
 	j = -1;
 	while(++j < remember)
 		t_arr[j] = tmp->str[j];
-	i++;
-	while(tmp->str[++i] != '\0')
+	while(tmp->str[++i] != '\0' && t_arr[j] != '\0')
 	{
 		t_arr[j] = tmp->str[i];
 		j++;
 	}
+	printf("i = %d | j = %d\n", i + 1, j);
 	free(tmp->str);
 	tmp->str = NULL;
 	tmp->str = t_arr;
-	printf("%s\n", tmp->str);
 	if (tmp->str[remember] == '\0')
 		remember--;
 	return (remember);

@@ -7,11 +7,13 @@ t_env		*processor(t_all *command, t_env *env, char *home)
 	if (strcmp("env", command->command_name) == 0)
 		print_env(env);
 	else if (strcmp("echo", command->command_name) == 0)
-		use_echo(command);
+		printf("ok\n");
+		//use_echo(command);
 	else if (strcmp("pwd", command->command_name) == 0)
 		use_pwd();
 	else if (strcmp("unset", command->command_name) == 0)
 		env = delete_enviroment_variable(command, env);
+		// return delete_enviroment_variable(command, env);
 	else if (strcmp("cd", command->command_name) == 0)
 	{
 		use_cd(env, command->arg, home);
@@ -23,7 +25,10 @@ t_env		*processor(t_all *command, t_env *env, char *home)
 		if (command->arg[1] == NULL)
 			print_export(env);
 		else
+		{
 			add_enviroment_variable(command, env);
+			// return (env);//delete this
+		}
 	}
 	else
 	{

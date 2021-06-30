@@ -90,25 +90,27 @@ void	string_creating(t_all *tmp)
 			add_history(tmp->str);
 }
 
-///error
-// $* $$...
+// ///error
+// // $* $$...
 int	main(int argc, char **argv, char **env)
 {
 	t_all	*tmp;
-	t_env	*lst;
-	char	*home;
+	t_env	*lst;///
+	char	*home;//
 	char	**nenv;
 	int		i;
 
 	(void)argc;
 	(void)argv;
 	tmp = NULL;
-	lst = NULL;
+	lst = NULL;////
 	i = 0;
-	lst = creating_list(env);
-	nenv = rewrite_env(env);
-	home = find_home();
-	signal(SIGQUIT,  SIG_IGN);
+	nenv = NULL;
+	lst = creating_list(env);////
+	nenv = list_in_massiv(lst, nenv);//////////
+	// nenv = rewrite_env(env);
+	home = find_home();////
+	// signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		tmp = (t_all *)malloc(sizeof(t_all));
@@ -116,21 +118,25 @@ int	main(int argc, char **argv, char **env)
 		while (tmp->str)
 		{
 			tmp->arg = NULL;
+			tmp->num_arg = 0;
 			tmp->command_name = NULL;
 			prepars(tmp, nenv);
 			command_name(tmp);
-			lst = processor(tmp, lst, home);
-			nenv = list_in_massiv(lst, nenv);
-			// free(tmp->str);
+			printf("--->%s\n", tmp->str);
+			write(1, "###\n", 4);
+			if (tmp->command_name)//
+			{//
+				lst = processor(tmp, lst, home);//
+				// if (lst)
+				nenv = list_in_massiv(lst, nenv);//////////
+			}//
 			if (tmp->arg != NULL)
-			{
 				while (i < tmp->num_arg)
 				{
 					free(tmp->arg[i]);
 					tmp->arg[i] = NULL;
 					i++;
 				}
-			}
 			free(tmp->str);
 			tmp->str = NULL;
 			free(tmp);
@@ -138,8 +144,9 @@ int	main(int argc, char **argv, char **env)
 			tmp = (t_all *)malloc(sizeof(t_all));
 			string_creating(tmp);
 		}
-		free(nenv);
-		conrol_d();
+		if (nenv)
+			free(nenv);
+// 		//conrol_d();
 	}
 	return (0);
 }
@@ -167,12 +174,12 @@ char	**list_in_massiv(t_env *lst, char **env)
 	i = 0;
 	e = -1;
 	l = list_size(lst);
-	if (env)
-	{
-		while (env[++e])
-			free(env[e]);
-		free(env);
-	}
+	// if (env)
+	// {
+	// 	while (env[++e])
+	// 		free(env[e]);
+	// 	free(env);
+	// }
 	new_env = (char **)malloc(sizeof(char *) * (l + 1));
 	new_env[l] = NULL;
 	while (i < l)
@@ -184,26 +191,27 @@ char	**list_in_massiv(t_env *lst, char **env)
 	return(new_env);
 }
 
-char	**rewrite_env(char **env)
-{
-	char	**new_env;
-	int		i;
+//Delete this
+// char	**rewrite_env(char **env)
+// {
+// 	char	**new_env;
+// 	int		i;
 
-	i = 0;
-	new_env = NULL;
-	while (env[i])
-		i++;
-	new_env = (char **)malloc(sizeof(char *) * (i + 1));
-	new_env[i] = NULL;
-	i = -1;
-	while (env[++i])
-		new_env[i] = ft_strdup(env[i]);
-	return(new_env);
-}
+// 	i = 0;
+// 	new_env = NULL;
+// 	while (env[i])
+// 		i++;
+// 	new_env = (char **)malloc(sizeof(char *) * (i + 1));
+// 	new_env[i] = NULL;
+// 	i = -1;
+// 	while (env[++i])
+// 		new_env[i] = ft_strdup(env[i]);
+// 	return(new_env);
+// }
 
-void	conrol_d(void)
-{
-	write(1, "\033[3;1m", 7);
-	write(1, ANSI_COLOR_MAGENTA"\e[2Dexit\n"ANSI_COLOR_RESET, 19);
-	exit (0);
-}
+// void	conrol_d(void)
+// {
+// 	write(1, "\033[3;1m", 7);
+// 	write(1, ANSI_COLOR_MAGENTA"\e[2Dexit\n"ANSI_COLOR_RESET, 19);
+// 	exit (0);
+// }

@@ -7,6 +7,11 @@ void	command_name(t_all *tmp)
 	int	q;
 	int count;
 
+	if (tmp->str[0] == '\0')
+	{
+		tmp->str = NULL;
+		return ;
+	}
 	i = tmp->redirect_i;
 	i = skipping_spaces(tmp, i);
 	if (tmp->str[i] == '\\')
@@ -20,15 +25,19 @@ void	command_name(t_all *tmp)
 	tmp->command_name[colnum] = '\0';
 	count = 0;
 	colnum = i + colnum;
+	//printf("---->|str = %s|\n", tmp->arg[0]);
 	while (i < colnum)
 	{
 		tmp->command_name[count] = tmp->str[i];
 		i++;
 		count++;
 	}
+	printf("q = %d\n", q);
 	if (q != 0)
 		i++;
-	creating_name_argument(tmp);
+	if (tmp->command_name)
+		creating_name_argument(tmp);
+	printf("----> num_arg = %d\n", tmp->num_arg);
 	arg(tmp, i);
 }
 
