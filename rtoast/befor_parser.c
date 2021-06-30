@@ -40,8 +40,7 @@ void	prepars(t_all *tmp, char **env)
 
 int		special_dollar(t_all *tmp, int i)
 {
-	i++;
-	if (tmp->str[i] == '!' || tmp->str[i] == '$' || tmp->str[i] == '*')
+	if (tmp->str[i + 1] == '!' || tmp->str[i + 1] == '$' || tmp->str[i + 1] == '*')
 	{
 		i = remove_symbol(tmp, i);
 		i = remove_symbol(tmp, i);
@@ -63,9 +62,7 @@ void	dollar_parser(t_all *tmp, char **env)
 				i++;
 		}
 		if (tmp->str[i] == '$')
-		{
 			i = special_dollar(tmp, i);
-		}
 		if (tmp->str[i] == '$')
 			dollar_make(tmp, i + 1, env);
 		if (tmp->str[i] != '\0')
@@ -102,7 +99,6 @@ int	remove_symbol(t_all *tmp, int i)
 		t_arr[j] = tmp->str[i];
 		j++;
 	}
-	printf("i = %d | j = %d\n", i + 1, j);
 	free(tmp->str);
 	tmp->str = NULL;
 	tmp->str = t_arr;

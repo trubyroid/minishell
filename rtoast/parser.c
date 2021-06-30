@@ -25,19 +25,16 @@ void	command_name(t_all *tmp)
 	tmp->command_name[colnum] = '\0';
 	count = 0;
 	colnum = i + colnum;
-	//printf("---->|str = %s|\n", tmp->arg[0]);
 	while (i < colnum)
 	{
 		tmp->command_name[count] = tmp->str[i];
 		i++;
 		count++;
 	}
-	printf("q = %d\n", q);
 	if (q != 0)
 		i++;
 	if (tmp->command_name)
 		creating_name_argument(tmp);
-	printf("----> num_arg = %d\n", tmp->num_arg);
 	arg(tmp, i);
 }
 
@@ -53,6 +50,8 @@ void	arg(t_all *tmp, int i)
 		if (block_checking(tmp->str[i]) == 2)
 			i = redirect(tmp, i);
 		colnum = argc_amount_of_elements(tmp, i);
+		if (colnum == 0)
+			break ;
 		i = creating_next_argument(tmp, i, colnum);
 		if (tmp->str[i] == '\"' || tmp->str[i] == '\'')
 			i++;
