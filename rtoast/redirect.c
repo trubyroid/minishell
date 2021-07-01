@@ -3,6 +3,7 @@
 ///massiv int fd
 int		redirect(t_all *tmp, int i)
 {
+	
 	if (tmp->str[i] == '>' && tmp->str[i + 1] != '>')
 	{
 		i++;
@@ -139,16 +140,19 @@ int		reverse_double_redirect(t_all *tmp, int i)
 	tmp->fd_in = open("./.ghost", O_RDWR | O_CREAT | O_TRUNC, 0777);
 	while (get_next_line(0, &str))
 	{
+		printf("--->|%s|\n", blok);
+		printf("--->|%d|\n", ft_strncmp(str, blok, ft_strlen(blok)));
 		if (ft_strncmp(str, blok, ft_strlen(blok)) == 0)
 		{
 			free(str);
 			break ;
 		}
-		write(tmp->fd_in, &str, ft_strlen(str));
+		write(tmp->fd_in, str, ft_strlen(str));
 		write(tmp->fd_in, "\n", 1);
 		free(str);
 	}
 	tmp->file_name = ft_strdup("./.ghost");
 	free(blok);
+	printf("--->%d\n", i);
 	return (i);
 }

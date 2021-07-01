@@ -17,7 +17,6 @@ int	amount_of_elements(t_all *tmp, int i, int quotes)
 			i++;
 			colnum++;
 		}
-				
 	return (colnum);
 }
 

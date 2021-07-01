@@ -7,13 +7,17 @@ void	error(int i)
 	exit(1);
 }
 
-void	prepars(t_all *tmp, char **env)
+void	prepars(t_all *tmp)
 {
 	int i;
 
 	i = 0;
 	tmp->fd_out = 1;
 	tmp->fd_in = 0;
+	tmp->arg = NULL;
+	tmp->num_arg = 0;
+	tmp->command_name = NULL;
+	tmp->file_name = NULL;
 	while (tmp->str[i] != '\0')
 	{
 		if (tmp->str[i] == ';' && tmp->str[i + 1] == ';')
@@ -34,41 +38,41 @@ void	prepars(t_all *tmp, char **env)
 	if (i > 0)
 	{
 		redirect_pars(tmp);
-		dollar_parser(tmp, env);
+		//dollar_parser(tmp, lst);
 	}
 }
 
-int		special_dollar(t_all *tmp, int i)
-{
-	if (tmp->str[i + 1] == '!' || tmp->str[i + 1] == '$' || tmp->str[i + 1] == '*')
-	{
-		i = remove_symbol(tmp, i);
-		i = remove_symbol(tmp, i);
-	}
-	return (i);
-}
+// int		special_dollar(t_all *tmp, int i)
+// {
+// 	if (tmp->str[i + 1] == '!' || tmp->str[i + 1] == '$' || tmp->str[i + 1] == '*')
+// 	{
+// 		i = remove_symbol(tmp, i);
+// 		i = remove_symbol(tmp, i);
+// 	}
+// 	return (i);
+// }
 
-void	dollar_parser(t_all *tmp, char **env)
-{
-	int i;
+// void	dollar_parser(t_all *tmp, t_env *lst)
+// {
+// 	int i;
 
-	i = 0;
-	while(tmp->str[i] != '\0')
-	{
-		if (tmp->str[i] == '\'')
-		{
-			i++;
-			while (tmp->str[i] != '\'' && tmp->str[i] != '\0')
-				i++;
-		}
-		if (tmp->str[i] == '$')
-			i = special_dollar(tmp, i);
-		if (tmp->str[i] == '$')
-			dollar_make(tmp, i + 1, env);
-		if (tmp->str[i] != '\0')
-			i++;
-	}
-}
+// 	i = 0;
+// 	while(tmp->str[i] != '\0')
+// 	{
+// 		if (tmp->str[i] == '\'')
+// 		{
+// 			i++;
+// 			while (tmp->str[i] != '\'' && tmp->str[i] != '\0')
+// 				i++;
+// 		}
+// 		if (tmp->str[i] == '$')
+// 			i = special_dollar(tmp, i);
+// 		if (tmp->str[i] == '$')
+// 			dollar_make(tmp, i, lst);
+// 		if (tmp->str[i] != '\0')
+// 			i++;
+// 	}
+// }
 
 void	redirect_pars(t_all *tmp)
 {
