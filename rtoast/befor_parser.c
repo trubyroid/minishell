@@ -77,30 +77,33 @@ void	dollar_parser(t_all *tmp)
 			while (tmp->str[i] != '\'' && tmp->str[i] != '\0')
 				i++;
 		}
-		if (tmp->str[i] == '$' && (tmp->str[i + 1] == '!' || tmp->str[i + 1] == '$' || tmp->str[i + 1] == '*'))
+		if (tmp->str[i] == '$')
+		{
+			if (tmp->str[i + 1] == '!' || tmp->str[i + 1] == '$' || tmp->str[i + 1] == '*')
+			{
+				i = remove_symbol(tmp, i);
+				i = remove_symbol(tmp, i);
+			}
+			if (tmp->str[i + 1] == '#' || tmp->str[i + 1] == '@' || tmp->str[i + 1] == '-')
+			{
+				i = remove_symbol(tmp, i);
+				i = remove_symbol(tmp, i);
+			}
+			if ((tmp->str[i + 1] >= '0' && tmp->str[i + 1] <= '9') && tmp->str[i + 2] == ' ')
+			{
+				i = remove_symbol(tmp, i);
+				i = remove_symbol(tmp, i);
+			}
+			if (check_for_dollar(tmp->str[i + 1]) != 0 && tmp->str[i] != '$')
+				i++;
+		}
+		if (tmp->str[i] == '$' && tmp->str[i + 1] == '$')
 		{
 			i = remove_symbol(tmp, i);
 			i = remove_symbol(tmp, i);
 		}
-		if (tmp->str[i] == '$' && (tmp->str[i + 1] == '#' || tmp->str[i + 1] == '@' || tmp->str[i + 1] == '-'))
-		{
-			i = remove_symbol(tmp, i);
-			i = remove_symbol(tmp, i);
-		}
-		if(tmp->str[i] == '$' && ((tmp->str[i + 1] >= '0' && tmp->str[i + 1] <= '9') && tmp->str[i + 2] == ' '))
-		{
-			i = remove_symbol(tmp, i);
-			i = remove_symbol(tmp, i);
-		}
-		if (tmp->str[i] == '$' && (check_for_dollar(tmp->str[i + 1]) != 0))
-			i++;
-		if(tmp->str[i] == '$')
-			continue ;
-		if (tmp->str[i] != '\0')
-			i++;
+		i++;
 	}
-
-	printf("---->%s\n", tmp->str);
 }
 
 void	redirect_pars(t_all *tmp)
@@ -139,6 +142,5 @@ int	remove_symbol(t_all *tmp, int i)
 	tmp->str = t_arr;
 	if (tmp->str[remember] == '\0')
 		remember--;
-	printf("---->%d|%s|\n", remember, tmp->str);
 	return (remember);
 }
