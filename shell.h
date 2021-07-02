@@ -60,9 +60,9 @@ int		amount_of_elements(t_all *tmp, int i, int quotes);
 t_env	*creating_list(char **env);
 int		quotes_in_quotes(t_all *tmp, int i);
 int		check_for_dollar(char symbol);///
-void	dollar_make(char **str, int i, t_env *lst);
+int		dollar_make(char **str, int i, t_env *lst);
 void	create_new_str(char **str, char *original, char *replaced);
-void	dollar_parser(t_all *tmp, t_env *lst);////
+void	dollar_parser(t_all *tmp);
 int		argc_amount_of_elements(t_all *tmp, int i);
 int		argc_amout_of_elements(t_all *tmp, int i);
 void	remove_quotes(t_all *tmp, int i);
@@ -77,7 +77,7 @@ int		reverse_redirect(t_all *tmp, int i);
 void	conrol_d(void);
 int		single_redirect(t_all *tmp, int i);
 int		reverse_double_redirect(t_all *tmp, int i);
-int		special_dollar(t_all *tmp, int i);//
+int		special_dollar(t_all *tmp, int i);
 int		remove_symbol(t_all *tmp, int i);
 char	*find_original(char *str, int i);
 void	cycle(t_all *tmp, t_env *lst);
@@ -85,5 +85,6 @@ char	*find_home(void);
 char	*substitution(char *original, t_env *lst);
 void	free_all(t_all *tmp);
 void	search_dollar(t_all *tmp, t_env *lst);
+void	bias(t_all *tmp, int i);
 
 #endif

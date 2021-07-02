@@ -9,7 +9,7 @@ void	search_dollar(t_all *tmp, t_env *lst)
 	j = -1;
 	if (tmp->command_name)
 		while (tmp->command_name[++i] != '\0')
-			if (tmp->command_name[i] == '$')
+			if (tmp->command_name[i] == '$' && check_for_dollar(tmp->command_name[i + 1]) == 0)
 				dollar_make(&(tmp->command_name), i, lst);
 	i = -1;
 	if (tmp->arg)
@@ -17,29 +17,38 @@ void	search_dollar(t_all *tmp, t_env *lst)
 		{
 			while(tmp->arg[i][++j] != '\0')
 			{
-				if (tmp->arg[i][j] == '$')
+				if (tmp->arg[i][j] == '$' && check_for_dollar(tmp->arg[i][j + 1]) == 0)
 				{
-					dollar_make(&(tmp->arg[i]), j, lst);
+					if (dollar_make(&(tmp->arg[i]), j, lst) == 1)
+						bias(tmp, i);
 				}
 			}
 			j = -1;
 		}
 }
 
-void	dollar_make(char **str, int i, t_env *lst)
+int	dollar_make(char **str, int i, t_env *lst)
 {
 	char	*original;
 	char	*replaced;
+	int		determinant;
 
-	original = NULL;
-	replaced = NULL;
+	determinant = 0;
 	original = find_original(*str, i);
 	replaced = substitution(original, lst);
+	if (replaced == NULL)
+	{
+		determinant = 2;
+		replaced = ft_strdup("");
+	}
 	create_new_str(str, original, replaced);
+	if (determinant == 2 && *str[0] == '\0')
+		determinant = 1;
 	if (original)
 		free(original);
 	if (replaced)
 		free(replaced);
+	return (determinant);
 }
 
 int		check_for_dollar(char symbol)
@@ -85,6 +94,7 @@ char	*substitution(char *original, t_env *lst)
 	char	*replaced;
 
 	i = ft_strlen(original);
+	replaced = NULL;
 	while (lst)
 	{
 		if(ft_strncmp(lst->str, original, i) == 0)
@@ -108,23 +118,38 @@ void	create_new_str(char **str, char *original, char *replaced)
 	i = -1;
 	ri = -1;
 	len = (ft_strlen(*str)) - (ft_strlen(original)) + (ft_strlen(replaced));
-	rem_len = len;
-	new_str = (char *)malloc(sizeof(char) * (len + 1));
-	new_str[len] = '\0';
-	while ((*str)[++i] != '$')
-		new_str[i] = (*str)[i];
-	len = i + ft_strlen(original);
-	while (replaced[++ri] != '\0')
+	if (len == 0)
+		new_str = ft_strdup("\0");
+	else
 	{
-		new_str[i] = replaced[ri];
-		i++;
-	}
-	while ((*str)[len] != '\0' && i < rem_len)
-	{
-		new_str[i] = (*str)[len];
-		i++;
-		len++;
+		rem_len = len;
+		new_str = (char *)malloc(sizeof(char) * (len + 1));
+		new_str[len] = '\0';
+		while ((*str)[++i] != '$')
+			new_str[i] = (*str)[i];
+		len = i + ft_strlen(original);
+		while (replaced[++ri] != '\0')
+		{
+			new_str[i] = replaced[ri];
+			i++;
+		}
+		while ((*str)[len] != '\0' && i < rem_len)
+		{
+			new_str[i] = (*str)[len];
+			i++;
+			len++;
+		}
 	}
 	free(*str);
 	*str = new_str;
+}
+
+void	bias(t_all *tmp, int i)
+{
+	while (tmp->arg[i] != NULL)
+	{
+		free(tmp->arg[i]);
+		tmp->arg[i] = ft_strdup(tmp->arg[i + 1]);
+		i++;
+	}
 }
