@@ -99,7 +99,7 @@ int		reverse_redirect(t_all *tmp, int i)
 		j++;
 		count++;
 	}
-	tmp->file_name = (char *)malloc(sizeof(char) * count);
+	tmp->file_name = (char *)malloc(sizeof(char) * count + 1);
 	tmp->file_name[count] = '\0';
 	count = 0;
 	while (i < j)
@@ -140,9 +140,7 @@ int		reverse_double_redirect(t_all *tmp, int i)
 	tmp->fd_in = open("./.ghost", O_RDWR | O_CREAT | O_TRUNC, 0777);
 	while (get_next_line(0, &str))
 	{
-		printf("--->|%s|\n", blok);
-		printf("--->|%d|\n", ft_strncmp(str, blok, ft_strlen(blok)));
-		if (ft_strncmp(str, blok, ft_strlen(blok)) == 0)
+		if ((ft_strncmp(str, blok, ft_strlen(blok)) == 0) && ft_strlen(blok) == ft_strlen(str))
 		{
 			free(str);
 			break ;
@@ -153,6 +151,5 @@ int		reverse_double_redirect(t_all *tmp, int i)
 	}
 	tmp->file_name = ft_strdup("./.ghost");
 	free(blok);
-	printf("--->%d\n", i);
 	return (i);
 }

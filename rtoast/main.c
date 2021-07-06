@@ -26,17 +26,22 @@ int	main(int argc, char **argv, char **env)
 
 void	cycle(t_all *tmp, t_env *lst)
 {
+	int i;
 	while (1)
 	{
 		tmp = (t_all *)malloc(sizeof(t_all));
 		string_creating(tmp);
 		while (tmp->str)
 		{
-			prepars(tmp);
-			command_name(tmp);
-			search_dollar(tmp, lst);
-			if (tmp->command_name)
-				lst = processor(tmp, lst, (find_home()));
+			i = prepars(tmp);
+			if (i == 0)
+			{
+				command_name(tmp, lst);
+				if (tmp->command_name)
+					lst = processor(tmp, lst, (find_home()));
+			}
+			else
+				error(i);
 			free_all(tmp);
 			tmp = (t_all *)malloc(sizeof(t_all));
 			string_creating(tmp);
@@ -59,8 +64,6 @@ void	free_all(t_all *tmp)
 			i++;
 		}
 	}
-	if (tmp->file_name)
-		free(tmp->file_name);
 	if (tmp->str)
 		free(tmp->str);
 	tmp->str = NULL;

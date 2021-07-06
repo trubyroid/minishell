@@ -1,6 +1,6 @@
 #include "../shell.h"
 
-void	command_name(t_all *tmp)
+void	command_name(t_all *tmp, t_env *lst)
 {
 	int	i;
 	int colnum;
@@ -35,10 +35,10 @@ void	command_name(t_all *tmp)
 		i++;
 	if (tmp->command_name)
 		creating_name_argument(tmp);
-	arg(tmp, i);
+	arg(tmp, i, lst);
 }
 
-void	arg(t_all *tmp, int i)
+void	arg(t_all *tmp, int i, t_env *lst)
 {
 	int		colnum;
 
@@ -49,12 +49,15 @@ void	arg(t_all *tmp, int i)
 			break ;
 		if (block_checking(tmp->str[i]) == 2)
 			i = redirect(tmp, i);
-		colnum = argc_amount_of_elements(tmp, i);
-		if (colnum == 0)
-			break ;
-		i = creating_next_argument(tmp, i, colnum);
-		if (tmp->str[i] == '\"' || tmp->str[i] == '\'')
-			i++;
+		else
+		{
+			colnum = argc_amount_of_elements(tmp, i);
+			if (colnum == 0)
+				break ;
+			i = creating_next_argument(tmp, i, colnum, lst);
+			if (tmp->str[i] == '\"' || tmp->str[i] == '\'')
+				i++;
+		}
 	}
 	if (tmp->arg[1] == NULL && tmp->file_name)
 		creating_file_name_elem(tmp);
@@ -95,7 +98,7 @@ void	creating_file_name_elem(t_all *tmp)
 	char	**new_arg;
 	int		count;
 
-	count = 0;
+	count = -1;
 	new_arg = (char **)malloc(sizeof(char *) * (tmp->num_arg + 2));
 	while (++count < tmp->num_arg)
 		new_arg[count] = tmp->arg[count];

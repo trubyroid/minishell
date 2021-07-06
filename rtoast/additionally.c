@@ -76,7 +76,7 @@ int	block_checking(char symbol)
 	if (symbol == '>')
 		return (2);
 	if (symbol == '<')
-		return (1);
+		return (2);
 	return (0);
 }
 
@@ -88,7 +88,7 @@ void creating_name_argument(t_all *tmp)
 	tmp->arg[1] = NULL;
 }
 
-int	creating_next_argument(t_all *tmp, int i, int colnum)
+int	creating_next_argument(t_all *tmp, int i, int colnum, t_env *lst)
 {
 	int		count;
 	int		j;
@@ -111,6 +111,7 @@ int	creating_next_argument(t_all *tmp, int i, int colnum)
 		i++;
 		j++;
 	}
+	search_dollar(tmp, lst);
 	remove_quotes(tmp, tmp->num_arg);
 	tmp->num_arg++;
 	return (i);

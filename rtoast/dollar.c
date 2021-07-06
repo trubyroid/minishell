@@ -9,14 +9,28 @@ void	search_dollar(t_all *tmp, t_env *lst)
 	j = -1;
 	if (tmp->command_name)
 		while (tmp->command_name[++i] != '\0')
+		{
+			if (tmp->command_name[i] == '\'')
+			{
+				i++;
+				while (tmp->command_name[i] != '\'' && tmp->command_name[i] != '\0')
+					i++;
+			}
 			if (tmp->command_name[i] == '$' && check_for_dollar(tmp->command_name[i + 1]) == 0)
 				dollar_make(&(tmp->command_name), i, lst);
+		}
 	i = -1;
 	if (tmp->arg)
 		while(tmp->arg[++i] != NULL)
 		{
 			while(tmp->arg[i][++j] != '\0')
 			{
+				if (tmp->arg[i][j] == '\'')
+				{
+					j++;
+					while (tmp->arg[i][j] != '\'' && tmp->arg[i][j] != '\0')
+						j++;
+				}
 				if (tmp->arg[i][j] == '$' && check_for_dollar(tmp->arg[i][j + 1]) == 0)
 				{
 					if (dollar_make(&(tmp->arg[i]), j, lst) == 1)
@@ -41,7 +55,7 @@ int	dollar_make(char **str, int i, t_env *lst)
 		determinant = 2;
 		replaced = ft_strdup("");
 	}
-	create_new_str(str, original, replaced);
+	create_new_str(str, original, replaced, i);
 	if (determinant == 2 && *str[0] == '\0')
 		determinant = 1;
 	if (original)
@@ -107,7 +121,7 @@ char	*substitution(char *original, t_env *lst)
 	return(replaced);
 }
 
-void	create_new_str(char **str, char *original, char *replaced)
+void	create_new_str(char **str, char *original, char *replaced, int j)
 {
 	char	*new_str;
 	int		len;
@@ -125,7 +139,7 @@ void	create_new_str(char **str, char *original, char *replaced)
 		rem_len = len;
 		new_str = (char *)malloc(sizeof(char) * (len + 1));
 		new_str[len] = '\0';
-		while ((*str)[++i] != '$')
+		while (++i != j)
 			new_str[i] = (*str)[i];
 		len = i + ft_strlen(original);
 		while (replaced[++ri] != '\0')
