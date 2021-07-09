@@ -9,13 +9,13 @@ static int	ft_check(t_all *command)
         fprintf(stderr, "Too many arguments.\n" );
         return (0);							//error
     }
-	if (((strcmp("cd", command->command_name) == 0) ||
-	(strcmp("export", command->command_name) == 0)) &&
-	(command->arg[2] != NULL))
-	{
-        fprintf(stderr, "Too many arguments.\n" );
-        return (0);							//error
-    }
+	// if (((strcmp("cd", command->command_name) == 0) ||
+	// (strcmp("export", command->command_name) == 0)) &&
+	// (command->arg[2] != NULL))
+	// {
+    //     fprintf(stderr, "Too many arguments.\n" );
+    //     return (0);							//error
+    // }
 	return (1);
 }
 
