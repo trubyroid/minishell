@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 20:35:57 by truby             #+#    #+#             */
-/*   Updated: 2021/07/10 21:04:58 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/10 22:31:33 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	add_enviroment_variable(t_all *command, t_env *env)						//проработ�
 			break ;
 		env = env->next;
 	}
-	new = malloc(sizeof(t_env*));
+	new = malloc(sizeof(t_env *));
 	if (!new)
 		return (-1);										//error
 	env->next = new;

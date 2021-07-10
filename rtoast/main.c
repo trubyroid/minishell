@@ -27,6 +27,9 @@ int	main(int argc, char **argv, char **env)
 void	cycle(t_all *tmp, t_env *lst)
 {
 	int i;
+	char *home;
+
+	home = find_home();
 	while (1)
 	{
 		tmp = (t_all *)malloc(sizeof(t_all));
@@ -38,7 +41,7 @@ void	cycle(t_all *tmp, t_env *lst)
 			{
 				command_name(tmp, lst);
 				if (tmp->command_name)
-					lst = processor(tmp, lst, (find_home()));
+					lst = processor(tmp, lst, home);
 			}
 			else
 				error(i);

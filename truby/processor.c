@@ -42,9 +42,7 @@ t_env		*processor(t_all *command, t_env *env, char *home)
 		if (command->arg[1] == NULL)
 			print_export(env);
 		else
-		{
 			add_enviroment_variable(command, env);
-		}
 	}
 	else
 	{
