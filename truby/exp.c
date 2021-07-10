@@ -95,16 +95,22 @@ void	print_export(t_env *env)						//поработать над export с до�
 {
 	t_env	*next;
 	t_env	*first_lst;
+	int		j;
 
+	j = 0;
 	first_lst = create_new_lsts(env);
 	while (first_lst->str)
 	{
 		next = ft_find_next_lst(first_lst);
+		// while (next->str[j] != '=')
+		// 	j++;
+		write(1, "declare -x ", 11);
 		write(1, next->str, ft_strlen(next->str));			//заменить strlen
 		write(1, "\n", 1);
 		first_lst = delete_previous_lst(next, first_lst);
 		if (first_lst->next == NULL)
 		{
+			write(1, "declare -x ", 11);
 			write(1, first_lst->str, ft_strlen(first_lst->str));
 			write(1, "\n", 1);
 			break ;

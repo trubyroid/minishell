@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 20:35:57 by truby             #+#    #+#             */
-/*   Updated: 2021/07/10 00:39:04 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/10 00:42:53 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 // static void	ft_check(t_all *command)
 // {
 // 	-поиск равно
-	// -валидация ключа
+// 	-валидация ключа
+//	-кейс с ключом без значения 
 // }
 
-int	add_enviroment_variable(t_all *command, t_env *env)						//проработать кейс с ключом без условия
+int	add_enviroment_variable(t_all *command, t_env *env)						//проработать кейс с ключом без значения
 {
 	int	i;
 	int j;
