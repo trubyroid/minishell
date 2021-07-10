@@ -112,8 +112,22 @@ int	syntax_error(t_all *tmp)
 	int i;
 
 	i = 0;
+	if (ft_strlen(tmp->str) == 1)
+		return (1);
 	while (tmp->str[i] != '\0')
 	{
+		if (tmp->str[i] == '\'')
+		{
+			i++;
+			while (tmp->str[i] != '\'')
+				i++;
+		}
+		if (tmp->str[i] == '\"')
+		{
+			i++;
+			while (tmp->str[i] != '\"')
+				i++;
+		}
 		if (tmp->str[i] == ';' && tmp->str[i + 1] == ';')
 			return (1);
 		if (tmp->str[i] == '<' && tmp->str[i + 1] == '<' && tmp->str[i + 2] == '<')

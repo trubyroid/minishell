@@ -1,46 +1,44 @@
 #ifndef SHELL_H
 # define SHELL_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include "./libft/libft.h"
-#include "./libft/get_next_line.h"
-#include "readline/readline.h"
-#include "readline/history.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
+# include "./libft/libft.h"
+# include "./libft/get_next_line.h"
+# include "readline/readline.h"
+# include "readline/history.h"
 
-#define ANSI_COLOR_RED		"\x1b[31m"
-#define ANSI_COLOR_GREEN	"\x1b[32m"
-#define ANSI_COLOR_YELLOW	"\x1b[33m"
-#define ANSI_COLOR_BLUE		"\x1b[34m"
-#define ANSI_COLOR_MAGENTA	"\x1b[35m"
-#define ANSI_COLOR_CYAN		"\x1b[36m"
-#define ANSI_COLOR_RESET	"\x1b[0m"
+# define ANSI_COLOR_RED		"\x1b[31m"
+# define ANSI_COLOR_GREEN	"\x1b[32m"
+# define ANSI_COLOR_YELLOW	"\x1b[33m"
+# define ANSI_COLOR_BLUE	"\x1b[34m"
+# define ANSI_COLOR_MAGENTA	"\x1b[35m"
+# define ANSI_COLOR_CYAN	"\x1b[36m"
+# define ANSI_COLOR_RESET	"\x1b[0m"
 
-typedef struct	s_all
+typedef struct s_all
 {
-		char	*str;
-		char	*command_name;
-		char	**arg;
-		char	*file_name;
-		int		num_arg;
-		int		fd_out;
-		int		fd_in;
-		int		flag_pipe;
-		int		redirect_i;
-		int		ret_$;
-		// t_all	*baby_pipe;
-
+	char	*str;
+	char	*command_name;
+	char	**arg;
+	char	*file_name;
+	int		num_arg;
+	int		fd_out;
+	int		fd_in;
+	int		flag_pipe;
+	int		redirect_i;
+	int		ret_dollar;
 }				t_all;
 
-typedef struct		s_env
+typedef struct s_env
 {
 	char			*str;
 	struct s_env	*next;
 }					t_env;
 
-typedef struct		s_hist
+typedef struct s_hist
 {
 	char			*str;
 	struct s_hist	*next;
@@ -88,5 +86,6 @@ void	search_dollar(t_all *tmp, t_env *lst);
 void	bias(t_all *tmp, int i);
 int		syntax_error(t_all *tmp);
 int		quotes_error(t_all *tmp);
+int		chek_dollar_quotes(char *str, int i);
 
 #endif
