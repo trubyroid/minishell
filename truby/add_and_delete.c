@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 20:35:57 by truby             #+#    #+#             */
-/*   Updated: 2021/07/10 00:42:53 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/10 21:04:58 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	add_enviroment_variable(t_all *command, t_env *env)						//проработ�
 	j = 0;
 	i = -1;
 	// ft_check();
-	while(command->arg[1][j] != '=' && command->arg[1][j])
+	while(command->arg[1][j] != '=' && command->arg[1][j])							//есть ошибка маллока при выходе после добавления переменной
 		j++;
-	key = ft_substr(command->arg[1], 0, ++j);
+	key = ft_substr(command->arg[1], 0, j);
 	while (env->str)
 	{
 		if (ft_strnstr(env->str, key, j) != NULL)
