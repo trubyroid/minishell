@@ -91,7 +91,7 @@ static t_env	*create_new_lsts(t_env *env)
 	return (first);
 }
 
-void	print_export(t_env *env)
+void	print_export(t_env *env)						//поработать над export с долларом
 {
 	t_env	*next;
 	t_env	*first_lst;

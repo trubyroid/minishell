@@ -31,10 +31,12 @@ void	exec(t_all *command, t_env *env)
 	}
 	else
 	{
-		str = ft_strjoin_shell("/", command->command_name);
 		while(res == -1 && paths[++i] != NULL)
 		{
+			str = ft_strjoin("/", command->command_name);
 			path = ft_strjoin(paths[i], str);
+			free(str);
+			str = NULL;														//придумать как зафришить path и paths в случае успеха execve
 			res = execve(path, &command->arg[0], NULL);
 			free(path);
 			path = NULL;

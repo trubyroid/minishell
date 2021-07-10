@@ -1,14 +1,34 @@
 #include "shell_truby.h"
 
+static int	ft_check(t_all *command)
+{
+	if (((strcmp("env", command->command_name) == 0) ||
+	(strcmp("pwd", command->command_name) == 0)) &&
+	(command->arg[1] != NULL))
+	{
+        fprintf(stderr, "Too many arguments.\n" );
+        return (0);							//error
+    }
+	// if (((strcmp("cd", command->command_name) == 0) ||
+	// (strcmp("export", command->command_name) == 0)) &&
+	// (command->arg[2] != NULL))
+	// {
+    //     fprintf(stderr, "Too many arguments.\n" );
+    //     return (0);							//error
+    // }
+	return (1);
+}
+
 t_env		*processor(t_all *command, t_env *env, char *home)
 {
 	pid_t	p;
 
-	// printf("%s\n", command->arg[1]);
+	if (ft_check(command) == 0)
+    	return (NULL);
 	if (strcmp("env", command->command_name) == 0)
 		print_env(env);
-	else if (strcmp("echo", command->command_name) == 0)
-		use_echo(command);
+	else if (strcmp("echo", command->command_name) == 0)						//заменить все strcmp
+		use_echo(command);											
 	else if (strcmp("pwd", command->command_name) == 0)
 		use_pwd(command);
 	else if (strcmp("unset", command->command_name) == 0)

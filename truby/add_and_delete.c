@@ -6,13 +6,19 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 20:35:57 by truby             #+#    #+#             */
-/*   Updated: 2021/06/27 19:53:10 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/10 00:39:04 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell_truby.h"
 
-int	add_enviroment_variable(t_all *command, t_env *env)
+// static void	ft_check(t_all *command)
+// {
+// 	-поиск равно
+	// -валидация ключа
+// }
+
+int	add_enviroment_variable(t_all *command, t_env *env)						//проработать кейс с ключом без условия
 {
 	int	i;
 	int j;
@@ -21,7 +27,8 @@ int	add_enviroment_variable(t_all *command, t_env *env)
 
 	j = 0;
 	i = -1;
-	while(command->arg[1][j] != '=')
+	// ft_check();
+	while(command->arg[1][j] != '=' && command->arg[1][j])
 		j++;
 	key = ft_substr(command->arg[1], 0, ++j);
 	while (env->str)
