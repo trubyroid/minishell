@@ -10,7 +10,7 @@ void	search_dollar(t_all *tmp, t_env *lst)
 	if (tmp->command_name)
 		while (tmp->command_name[++i] != '\0')
 		{
-			if (tmp->command_name[i] == '\'')
+			if (tmp->command_name[i] == '\'' && chek_dollar_quotes(tmp->command_name, i) == 0)
 			{
 				i++;
 				while (tmp->command_name[i] != '\'' && tmp->command_name[i] != '\0')
@@ -25,7 +25,7 @@ void	search_dollar(t_all *tmp, t_env *lst)
 		{
 			while(tmp->arg[i][++j] != '\0')
 			{
-				if (tmp->arg[i][j] == '\'')
+				if (tmp->arg[i][j] == '\'' && chek_dollar_quotes(tmp->arg[i], j) == 0)
 				{
 					j++;
 					while (tmp->arg[i][j] != '\'' && tmp->arg[i][j] != '\0')
@@ -35,6 +35,7 @@ void	search_dollar(t_all *tmp, t_env *lst)
 				{
 					if (dollar_make(&(tmp->arg[i]), j, lst) == 1)
 						bias(tmp, i);
+					j = -1;
 				}
 			}
 			j = -1;
@@ -62,6 +63,7 @@ int	dollar_make(char **str, int i, t_env *lst)
 		free(original);
 	if (replaced)
 		free(replaced);
+	
 	return (determinant);
 }
 
@@ -166,4 +168,21 @@ void	bias(t_all *tmp, int i)
 		tmp->arg[i] = ft_strdup(tmp->arg[i + 1]);
 		i++;
 	}
+}
+
+int		chek_dollar_quotes(char *str, int i)
+{
+	int	doble_quotes;
+	int j;
+
+	doble_quotes = 0;
+	j = -1;
+	while (++j != i)
+	{
+		if (str[j] == '\"')
+			doble_quotes++;
+	}
+	if ((doble_quotes % 2) != 0)
+		return (1);
+	return(0);
 }

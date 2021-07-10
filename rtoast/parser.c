@@ -75,7 +75,7 @@ int		remove_symbol_arguments(t_all *tmp, int i, int s)
 	while (tmp->arg[i][j] != '\0')
 		j++;
 	j--;
-	t_arr = (char *)malloc(sizeof(char) * (j));
+	t_arr = (char *)malloc(sizeof(char) * (j + 1));
 	t_arr[j] = '\0';
 	j = -1;
 	while(++j < remember)
