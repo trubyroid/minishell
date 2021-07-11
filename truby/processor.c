@@ -2,20 +2,19 @@
 
 static int	ft_check(t_all *command)
 {
-	if (((strcmp("env", command->command_name) == 0) ||
-	(strcmp("pwd", command->command_name) == 0)) &&
-	(command->arg[1] != NULL))
+	if (((strcmp("env", command->command_name) == 0) &&
+	(command->arg[1] != NULL)))
 	{
-        fprintf(stderr, "Too many arguments.\n" );
+		write(1, "Too many arguments.\n", 20);
         return (0);							//error
     }
-	// if (((strcmp("cd", command->command_name) == 0) ||
-	// (strcmp("export", command->command_name) == 0)) &&
-	// (command->arg[2] != NULL))
-	// {
-    //     fprintf(stderr, "Too many arguments.\n" );
-    //     return (0);							//error
-    // }
+	if (((strcmp("cd", command->command_name) == 0) ||
+	(strcmp("export", command->command_name) == 0)) &&										
+	(command->arg[2] != NULL))
+	{
+        write(1, "Too many arguments.\n", 20);
+        return (0);							//error
+    }
 	return (1);
 }
 
