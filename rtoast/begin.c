@@ -1,39 +1,42 @@
 #include "../shell.h"
 #include "../truby/shell_truby.h"
 
-void	close_minishell(t_env *env, char *root)
+void	close_minishell(t_env *env, char *home)
 {
 	t_env	*lst;
-	int		i;
 
-	i = -1;
-	while (env->next != NULL)
+	while (env->str)
 	{
 		lst = env;
 		env = env->next;
 		lst->next = NULL;
-		free(lst->str);
+		// free(lst->str);							//ошибка маллока если экспортировать букву в нижнем регистре
 		free(lst);
 		lst = NULL;
+		if (env->next == NULL)
+		{
+			// free(env->str);
+			free(env);
+			break ;
+		}
 	}
-	free(env);
-	free(root);
+	free(home);
 	env = NULL;
-	root = NULL;
+	home = NULL;
 	exit(0);
 }
 
 char	*find_home(void)
 {
 	char	*pwd;
-	char	*root;
+	char	*home;
 	int		i;
 	int		fl;
 
 	i = 0;
 	fl = 0;
 	pwd = NULL;
-	root = NULL;
+	home = NULL;
 	pwd = getcwd(pwd, 0);
 	while (i < ft_strlen(pwd) + 1)
 	{
@@ -41,14 +44,14 @@ char	*find_home(void)
 			fl++;
 		if (fl == 3 || pwd[i] == '\0')
 		{
-			root = ft_substr(pwd, 0, i);
+			home = ft_substr(pwd, 0, i);
 			break ;
 		}
 		i++;
 	}
 	free(pwd);
 	pwd = NULL;
-	return (root);
+	return (home);
 }
 
 t_env	*creating_list(char **env)

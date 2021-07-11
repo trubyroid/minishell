@@ -44,7 +44,7 @@ typedef struct s_hist
 	struct s_hist	*next;
 }					t_hist;
 
-void	close_minishell(t_env *env, char *root);
+void	close_minishell(t_env *env, char *home);
 void	command_name(t_all *tmp, t_env *lst);
 void	error(int i);
 int		prepars(t_all *tmp);
