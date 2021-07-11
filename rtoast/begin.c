@@ -4,19 +4,22 @@
 void	close_minishell(t_env *env, char *home)
 {
 	t_env	*lst;
-	int		i;
 
-	i = -1;
-	while (env->next != NULL)
+	while (env->str)
 	{
 		lst = env;
 		env = env->next;
 		lst->next = NULL;
-		free(lst->str);
+		// free(lst->str);							//ошибка маллока если экспортировать букву в нижнем регистре
 		free(lst);
 		lst = NULL;
+		if (env->next == NULL)
+		{
+			// free(env->str);
+			free(env);
+			break ;
+		}
 	}
-	free(env);
 	free(home);
 	env = NULL;
 	home = NULL;
