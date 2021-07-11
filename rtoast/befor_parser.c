@@ -45,6 +45,7 @@ void	dollar_parser(t_all *tmp)
 			{
 				i = remove_symbol(tmp, i);
 				i = remove_symbol(tmp, i);
+				add_spase(i, tmp);
 			}
 			if (tmp->str[i + 1] == '#' || tmp->str[i + 1] == '@' || tmp->str[i + 1] == '-')
 			{
@@ -63,6 +64,7 @@ void	dollar_parser(t_all *tmp)
 		{
 			i = remove_symbol(tmp, i);
 			i = remove_symbol(tmp, i);
+			add_spase(i, tmp);
 		}
 		i++;
 	}
@@ -171,4 +173,29 @@ int	quotes_error(t_all *tmp)
 		i++;
 	}
 	return(0);
+}
+
+void add_spase(int i, t_all *tmp)
+{
+	char *temp;
+	int j;
+	int rem;
+
+	j = ft_strlen(tmp->str) + 1;
+	if (i != (j - 2))
+	{
+		temp = (char *)malloc(sizeof(char) * (j + 1));
+		temp[j] = '\0';
+		j = -1;
+		while (++j < i)
+			temp[j] = tmp->str[j];
+		temp[j] = ' ';
+		while (tmp->str[i] != '\0')
+		{
+			temp[++j] = tmp->str[i];
+			i++;
+		}
+		free(tmp->str);
+		tmp->str = temp;
+	}
 }
