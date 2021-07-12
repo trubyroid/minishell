@@ -58,11 +58,14 @@ t_env	*creating_list(char **env)
 {
 	int		i;
 	int		j;
+	int		k;
+	int		shlvl;
 	t_env	*lst;
 	t_env	*new;
 
 	i = 0;
 	j = 0;
+	k = 0;
 	lst = NULL;
 	new = NULL;
 	while (env[i + 1] != NULL)
@@ -79,6 +82,21 @@ t_env	*creating_list(char **env)
 		if (!new)
 			return (0);
 		new->str = ft_strdup(env[i]);
+		if (ft_strnstr(new->str, "SHLVL=", 6))
+		{
+			while (!ft_isdigit(new->str[k]))
+				k++;
+			shlvl = 0;
+			while (new->str[k] != '\0')
+			{
+				shlvl = shlvl * 10 + (new->str[k] - '0');
+				k++;
+			}
+			shlvl++;
+			free(new->str);
+			new->str = NULL;
+			new->str = ft_strjoin_shell("SHLVL=", ft_itoa(shlvl));
+		}
 		new->next = lst;
 		lst = new;
 	}

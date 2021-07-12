@@ -1,4 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execve.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/12 17:09:51 by truby             #+#    #+#             */
+/*   Updated: 2021/07/12 17:41:51 by truby            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell_truby.h"
+
+static char	**create_massiv(t_env *env)
+{
+	t_env	*first;
+	int		i;
+	char	**env_massiv;
+
+	i = 0;
+	first = env;
+	while (env->str)
+	{
+		i++;
+		if (env->next == NULL)
+			break ;
+		env = env->next;
+	}
+	env_massiv = malloc(sizeof(char *) * (i + 1));
+	i = -1;
+	while (first->str)
+	{
+		env_massiv[++i] = ft_strdup(first->str);
+		if (first->next == NULL)
+			break ;
+		first = first->next;
+	}
+	return (env_massiv);
+}
 
 void	exec(t_all *command, t_env *env)
 {
@@ -8,10 +47,9 @@ void	exec(t_all *command, t_env *env)
 	char *str = NULL;
 	char *path = NULL;
 	char **paths = NULL;
+	char **env_massiv;
 
-	// write(1, "\n", 1);
-	// write(1, command->command_name, 2);
-	// write(1, "\n", 1);
+	env_massiv = create_massiv(env);
 	while (ft_strnstr(env->str, "PATH=", 5) == NULL)
 	{
 		if (env->next == NULL)
@@ -25,7 +63,7 @@ void	exec(t_all *command, t_env *env)
 	if (strcmp("./", command->command_name) == 0)							//заменить strcmp
 	{
 		path = ft_strjoin(getcwd(NULL, 0), command->arg[0]);
-		res = execve(path, &command->arg[0], NULL);
+		res = execve(path, &command->arg[0], env_massiv);
 		free(path);
 		path = NULL;
 	}
@@ -36,8 +74,8 @@ void	exec(t_all *command, t_env *env)
 			str = ft_strjoin("/", command->command_name);
 			path = ft_strjoin(paths[i], str);
 			free(str);
-			str = NULL;														//придумать как зафришить path и paths в случае успеха execve
-			res = execve(path, &command->arg[0], NULL);
+			str = NULL;														//придумать как зафришить path, paths и env_massiv в случае успеха execve
+			res = execve(path, &command->arg[0], env_massiv);
 			free(path);
 			path = NULL;
 			if (res != -1)
@@ -49,5 +87,12 @@ void	exec(t_all *command, t_env *env)
 		free(paths[j]);
 		paths[j] = NULL;
 	}
+	j = -1;
+	// while(env_massiv[++j] != NULL)														//ошибка маллока
+	// {
+	// 	free(env_massiv[j]);
+	// 	env_massiv[j] = NULL;
+	// }
 	free(paths);
+	free(env_massiv);
 }

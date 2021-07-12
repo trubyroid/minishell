@@ -2,14 +2,14 @@
 
 static int	ft_check(t_all *command)
 {
-	if (((strcmp("env", command->command_name) == 0) &&
+	if (((strcmp("env", command->command_name) == 0) &&											//pwd ваще похер, а вот env c аргументами запаристый
 	(command->arg[1] != NULL)))
 	{
 		write(1, "Too many arguments.\n", 20);
         return (0);							//error
     }
 	if (((strcmp("cd", command->command_name) == 0) ||
-	(strcmp("export", command->command_name) == 0)) &&										
+	(strcmp("export", command->command_name) == 0)) &&		
 	(command->arg[2] != NULL))
 	{
         write(1, "Too many arguments.\n", 20);
