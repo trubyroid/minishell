@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 20:38:02 by truby             #+#    #+#             */
-/*   Updated: 2021/07/12 23:44:42 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/13 02:31:20 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ char	*ft_substr_shell(char *s, unsigned int start, size_t len)
 		start++;
 	}
 	b[z] = '\0';
-	free(s);
 	s = NULL;
 	return (b);
 }

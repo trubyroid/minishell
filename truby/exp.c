@@ -6,36 +6,11 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 20:30:05 by truby             #+#    #+#             */
-/*   Updated: 2021/07/12 19:08:21 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/13 02:29:55 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell_truby.h"
-
-static char		*ft_substr_shell(char const *s, unsigned int start, size_t len)
-{
-	char		*b;
-	size_t		z;
-
-	z = 1;
-	if (s == 0)
-		return (NULL);
-	if (start >= ft_strlen(s))
-		len = 0;
-	b = (char *)malloc(sizeof(char) * (len + 3));
-	if (b == NULL)
-		return (NULL);
-	b[0] = '"';
-	while (z < len)
-	{
-		b[z] = s[start];
-		z++;
-		start++;
-	}
-	b[z] = '"';
-	b[++z] = '\0';
-	return (b);
-}
 
 static t_env    *ft_find_next_lst(t_env *lst)
 {
@@ -135,10 +110,10 @@ void	print_export(t_env *env)						//поработать над export с до�
 	int		j;
 	char	*value;
 
-	j = 0;
 	first_lst = create_new_lsts(env);
 	while (first_lst->str)
 	{
+		j = 0;
 		next = ft_find_next_lst(first_lst);
 		while (next->str[j] != '=' && next->str[j])
 			j++;

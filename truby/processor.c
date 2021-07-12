@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:15:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/12 21:48:57 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/13 02:37:39 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,21 @@
 
 static int	ft_check(t_all *command)
 {
-	if (((strcmp("env", command->command_name) == 0) &&											//pwd ваще похер, а вот env c аргументами запаристый
-	(command->arg[1] != NULL)))
-		return (ft_error_int("Too many arguments."));
-	if (((strcmp("cd", command->command_name) == 0) ||
-	(strcmp("export", command->command_name) == 0)) &&		
-	(command->arg[2] != NULL))
-		return (ft_error_int("Too many arguments."));
+	int	i;
+
+	i = -1;
+	if (strcmp("env", command->command_name) == 0)										//pwd ваще похер, а вот env c аргументами запаристый
+	{
+		while (command->arg[++i] != NULL)
+		{
+			if (strcmp("env", command->arg[i]) != 0)
+			{
+				write(1, "env: ", 5);
+				write(1, command->arg[i], ft_strlen(command->arg[i]));
+				return (ft_error_int(": No such file or directory"));
+			}
+		}
+	}
 	return (1);
 }
 

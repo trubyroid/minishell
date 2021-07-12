@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:36:30 by truby             #+#    #+#             */
-/*   Updated: 2021/07/12 21:46:47 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/13 02:44:46 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,22 @@ t_env	*delete_enviroment_variable(t_all *command, t_env *env)
 {
 	char *key;
 	char *second_key;
+	int i;
 
-	second_key = ft_strdup(command->arg[1]);
-	key = ft_strjoin(command->arg[1], "=");
-	if (key == NULL)
+	i = 0;
+	while (command->arg[++i])
 	{
-		ft_error("Error of malloc.");
-		return (env);
+		second_key = ft_strdup(command->arg[i]);
+		key = ft_strjoin(command->arg[i], "=");
+		if (key == NULL || second_key == NULL)
+		{
+			ft_error("Error of malloc.");
+			return (env);
+		}
+		if (ft_strnstr(env->str, key, ft_strlen(key)) != NULL || (ft_strnstr(env->str, second_key, ft_strlen(second_key)) != NULL && env->str[ft_strlen(second_key)] == '\0'))
+			env = first_variable(env, key, second_key);	
+		else
+			env = not_a_first_variable(env, key, second_key);
 	}
-	if (ft_strnstr(env->str, key, ft_strlen(key)) != NULL || (ft_strnstr(env->str, second_key, ft_strlen(second_key)) != NULL && env->str[ft_strlen(second_key)] == '\0'))
-		return (first_variable(env, key, second_key));	
-	else
-		return (not_a_first_variable(env, key, second_key));
+	return (env);
 }
