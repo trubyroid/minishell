@@ -42,6 +42,7 @@ void	arg(t_all *tmp, int i, t_env *lst)
 {
 	int		colnum;
 
+	for_bash(tmp);
 	while (tmp->str[i] != '\0')
 	{
 		i = skipping_spaces(tmp, i);
@@ -107,4 +108,33 @@ void	creating_file_name_elem(t_all *tmp)
 	tmp->arg[tmp->num_arg + 1] = NULL;
 	tmp->arg[tmp->num_arg] = tmp->file_name;
 	tmp->num_arg++;
+}
+
+void for_bash(t_all *tmp)
+{
+	int i;
+	int j;
+	char *temp;
+
+	i = 0;
+	j = 2;
+	if (tmp->command_name[i] == '.' && tmp->command_name[i + 1] == '/')
+	{
+		temp = (char *)malloc(sizeof(char) * (ft_strlen(tmp->arg[0]) - 1));
+		while (tmp->arg[0][j] != '\0')
+		{
+			temp[i] = tmp->arg[0][j];
+			i++;
+			j++;
+		}
+		temp[i] = '\0';
+		free(tmp->arg[0]);
+		tmp->arg[0] = temp;
+		free(tmp->command_name);
+		tmp->command_name = (char *)malloc(sizeof(char) * 3);
+		tmp->command_name[0] = '.';
+		tmp->command_name[1] = '/';
+		tmp->command_name[2] = '\0';
+	}
+	printf("%s ---- %s\n", tmp->command_name, tmp->arg[0]);
 }

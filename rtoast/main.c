@@ -40,8 +40,8 @@ void	cycle(t_all *tmp, t_env *lst)
 			if (i == 0)
 			{
 				command_name(tmp, lst);
-				if (tmp->command_name)
-					lst = processor(tmp, lst, home);
+				// if (tmp->command_name)
+				// 	lst = processor(tmp, lst, home);
 			}
 			else
 				error(i);
@@ -58,6 +58,8 @@ void	free_all(t_all *tmp)
 	int	i;
 
 	i = 0;
+	if (tmp->command_name)
+		free(tmp->command_name);
 	if (tmp->arg != NULL)
 	{
 		while (i < tmp->num_arg)
