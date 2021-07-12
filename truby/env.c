@@ -1,6 +1,6 @@
 #include "shell_truby.h"
 
-int		print_env(t_env *env)
+void		print_env(t_env *env)
 {
 	int i;
 
@@ -19,5 +19,4 @@ int		print_env(t_env *env)
 		write(1, env->str, ft_strlen(env->str));
 		write(1, "\n", 1);
 	}
-	return (0);
 }

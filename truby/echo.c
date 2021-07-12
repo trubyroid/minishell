@@ -1,6 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/12 19:15:12 by truby             #+#    #+#             */
+/*   Updated: 2021/07/12 19:31:36 by truby            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell_truby.h"
 
-int use_echo(t_all *command)
+static void	writing(t_all *command, int i, int fl)
+{
+	while (i < command->num_arg - 1)
+	{
+		write(command->fd_out, command->arg[i], ft_strlen(command->arg[i]));
+		write(command->fd_out, " ", 1);
+		i++;
+	}
+	write(command->fd_out, command->arg[i], ft_strlen(command->arg[i]));
+	if (fl == 1)
+		write(command->fd_out, "\n", 1);
+}
+
+void use_echo(t_all *command)
 {
 	int i;
 
@@ -11,27 +36,11 @@ int use_echo(t_all *command)
 		{
 			while (strcmp(command->arg[i], "-n") == 0)
 				i++;
-			while (i < command->num_arg - 1)
-			{
-				write(command->fd_out, command->arg[i], ft_strlen(command->arg[i]));
-				write(command->fd_out, " ", 1);
-				i++;
-			}
-			write(command->fd_out, command->arg[i], ft_strlen(command->arg[i]));
+			writing(command, i, 0);
 		}
 		else
-		{
-			while (i < command->num_arg - 1)
-			{
-				write(command->fd_out, command->arg[i], ft_strlen(command->arg[i]));
-				write(command->fd_out, " ", 1);
-				i++;
-			}
-			write(command->fd_out, command->arg[i], ft_strlen(command->arg[i]));
-			write(command->fd_out, "\n", 1);
-		}
+			writing(command, i, 1);
 	}
 	else
 		write(command->fd_out, "\n", 1);
-	return (1);
 }
