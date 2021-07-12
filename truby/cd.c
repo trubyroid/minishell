@@ -1,37 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/12 21:12:00 by truby             #+#    #+#             */
+/*   Updated: 2021/07/12 21:31:03 by truby            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell_truby.h"
 
-
-char	*ft_strjoin_shell(char *s1, char *s2)																		//надо подключить либу и удалить  эти статик функции
+static t_env *find_variable(t_env *env, char *str, int q)
 {
-	char	*new;
-	size_t	i;
-	size_t	j;
-
-	if (s1 == 0 || s2 == 0)
-		return (NULL);
-	i = 0;
-	j = 0;
-	new = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (new == NULL)
-		return (NULL);
-	while (i < ft_strlen(s1))
+	while (ft_strnstr(env->str, str, q) == NULL)
 	{
-		new[i] = s1[i];
-		i++;
+		if (env->next == NULL)
+			return (NULL);						//error
+		env = env->next;
 	}
-	while (i < ft_strlen(s1) + ft_strlen(s2))
-	{
-		new[i] = s2[j];
-		i++;
-		j++;
-	}
-	new[i] = '\0';
-	free(s2);
-	s2 = NULL;
-	return (new);
+	return (env);
 }
 
-void	change_env(t_env *env)
+static void	change_env(t_env *env)
 {
 	t_env *lst;
 	char *oldpwd;
@@ -40,33 +32,30 @@ void	change_env(t_env *env)
 
 	lst = env;
 	pwd = NULL;
-	while (ft_strnstr(env->str, "PWD=", 4) == NULL)
-	{
-		if (env->next == NULL)
-			return ;						//error
-		env = env->next;
-	}
+	env = find_variable(env, "PWD=", 4);
+	if (env == NULL)
+		return (ft_error("One of the standart enviroment variable was deleted."));
 	oldpwd = ft_substr(env->str, 4, ft_strlen(env->str) - 4);
 	free(env->str);
 	env->str = NULL;
 	pwd = getcwd(pwd, 0);
 	env->str = ft_strjoin_shell("PWD=", pwd);
-	while (ft_strnstr(lst->str, "OLDPWD=", 7) == NULL)
-	{
-		if (lst->next == NULL)
-			return ;						//error
-		lst = lst->next;
-	}
+	if (env->str == NULL || oldpwd == NULL)
+		return (ft_error("Error of malloc."));
+	lst = find_variable(lst, "OLDPWD=", 7);
+	if (lst == NULL)
+		return (ft_error("One of the standart enviroment variable was deleted."));
 	free(lst->str);
 	lst->str = NULL;
 	lst->str = ft_strjoin_shell("OLDPWD=", oldpwd);
+	if (lst->str == NULL)
+		return (ft_error("Error of malloc."));
 }
 
-int use_cd(t_env *env, char **dir, char *home)
+void use_cd(t_env *env, char **dir, char *home)
 {
 	char *new_str;
 
-	new_str = NULL;
 	if (dir[1] == NULL || dir[1][0] == '~')
 	{
 		if (dir[1] == NULL || dir[1][1] == '\0')
@@ -74,17 +63,17 @@ int use_cd(t_env *env, char **dir, char *home)
 		else
 		{
 			new_str = ft_substr(dir[1], 1, ft_strlen(dir[1]) - 1);
-			new_str = ft_strjoin_shell(home, new_str);										//strjoin фришит старый new_str
+			if (new_str == NULL)
+				return (ft_error("Error of malloc."));
+			new_str = ft_strjoin_shell(home, new_str);
+			if (new_str == NULL)
+				return (ft_error("Error of malloc."));
 			chdir(new_str);
 			free(new_str);
 			new_str = NULL;
 		}
 	}
 	else if (chdir(dir[1]) == -1)
-	{
-		printf("cd: %s: %s\n", strerror(errno), dir[0]);
-		// g_status = 1;
-	}
+		return (ft_error("No such file or directory."));
 	change_env(env);
-	return (0);
 }

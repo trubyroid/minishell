@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:15:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/12 19:15:22 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/12 21:48:57 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,11 @@ static int	ft_check(t_all *command)
 {
 	if (((strcmp("env", command->command_name) == 0) &&											//pwd ваще похер, а вот env c аргументами запаристый
 	(command->arg[1] != NULL)))
-	{
-		write(1, "Too many arguments.\n", 20);
-        return (0);							//error
-    }
+		return (ft_error_int("Too many arguments."));
 	if (((strcmp("cd", command->command_name) == 0) ||
 	(strcmp("export", command->command_name) == 0)) &&		
 	(command->arg[2] != NULL))
-	{
-        write(1, "Too many arguments.\n", 20);
-        return (0);							//error
-    }
+		return (ft_error_int("Too many arguments."));
 	return (1);
 }
 
@@ -35,7 +29,7 @@ t_env		*processor(t_all *command, t_env *env, char *home)
 	pid_t	p;
 
 	if (ft_check(command) == 0)
-    	return (NULL);
+    	return (env);
 	if (strcmp("env", command->command_name) == 0)
 		print_env(env);
 	else if (strcmp("echo", command->command_name) == 0)						//заменить все strcmp
@@ -47,10 +41,10 @@ t_env		*processor(t_all *command, t_env *env, char *home)
 	else if (strcmp("cd", command->command_name) == 0)
 		use_cd(env, command->arg, home);
 	else if (strcmp("exit", command->command_name) == 0)
-		close_minishell(env, home);
+		close_minishell(env, home);												//не декомпозировал
 	else if (strcmp("export", command->command_name) == 0)
-		ft_export(command, env);
+		ft_export(command, env);												//не декомпозировал
 	else
-		implementation(command, env);
+		implementation(command, env);												//не декомпозировал
 	return (env);
 }
