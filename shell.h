@@ -88,5 +88,6 @@ int		syntax_error(t_all *tmp);
 int		quotes_error(t_all *tmp);
 int		chek_dollar_quotes(char *str, int i);
 void	add_spase(int i, t_all *tmp);
+void	for_bash(t_all *tmp);
 
 #endif

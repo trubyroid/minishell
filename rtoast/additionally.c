@@ -84,7 +84,7 @@ void creating_name_argument(t_all *tmp)
 {
 	tmp->num_arg = 1;
 	tmp->arg = (char **)malloc((sizeof(char *)) * 2);
-	tmp->arg[0] = tmp->command_name;
+	tmp->arg[0] = ft_strdup(tmp->command_name);
 	tmp->arg[1] = NULL;
 }
 
