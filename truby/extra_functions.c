@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 20:38:02 by truby             #+#    #+#             */
-/*   Updated: 2021/07/12 21:25:36 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/12 23:44:42 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,31 @@ char	*ft_strjoin_shell(char *s1, char *s2)																		//надо подк�
 	free(s2);
 	s2 = NULL;
 	return (new);
+}
+
+char	*ft_substr_shell(char *s, unsigned int start, size_t len)
+{
+	char		*b;
+	size_t		z;
+
+	z = 0;
+	if (s == 0)
+		return (NULL);
+	if (start >= ft_strlen(s))
+		len = 0;
+	b = (char *)malloc(sizeof(char) * (len + 1));
+	if (b == NULL)
+		return (NULL);
+	while (z < len)
+	{
+		b[z] = s[start];
+		z++;
+		start++;
+	}
+	b[z] = '\0';
+	free(s);
+	s = NULL;
+	return (b);
 }
 
 void	ft_error(char *str)

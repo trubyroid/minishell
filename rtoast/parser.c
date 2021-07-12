@@ -136,5 +136,4 @@ void for_bash(t_all *tmp)
 		tmp->command_name[1] = '/';
 		tmp->command_name[2] = '\0';
 	}
-	printf("%s ---- %s\n", tmp->command_name, tmp->arg[0]);
 }

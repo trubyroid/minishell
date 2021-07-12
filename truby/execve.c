@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 17:09:51 by truby             #+#    #+#             */
-/*   Updated: 2021/07/12 19:10:31 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/12 23:55:24 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	exec(t_all *command, t_env *env)
 	int i = -1;
 	int j = -1;
 	int res = -1;
+	int k;
+	int fl = 0;
 	char *str = NULL;
 	char *path = NULL;
 	char **paths = NULL;
@@ -62,11 +64,29 @@ void	exec(t_all *command, t_env *env)
 	str = NULL;
 	if (strcmp("./", command->command_name) == 0)							//заменить strcmp
 	{
-		path = ft_strjoin(getcwd(NULL, 0), command->arg[0]);
+		str = ft_strjoin("/", command->arg[0]);
+		path = ft_strjoin_gnl(getcwd(NULL, 0), str);
+		write(1, path, ft_strlen(path));
 		res = execve(path, &command->arg[0], env_massiv);
 		free(path);
 		path = NULL;
 	}
+	else if (strcmp("../", command->command_name) == 0)
+	{
+		path = getcwd(NULL, 0);
+		k = ft_strlen_int(path);
+		while (--k != 0)
+		{
+			if (path[k] == '/')
+				break ;
+		}
+		path = ft_strjoin_gnl(ft_substr_shell(path, 0, k), command->arg[0]);
+		res = execve(path, &command->arg[0], env_massiv);
+		free(path);
+		path = NULL;
+	}
+	else if (ft_strchr(command->command_name, '/'))
+		res = execve(command->command_name, &command->arg[0], env_massiv);
 	else
 	{
 		while(res == -1 && paths[++i] != NULL)

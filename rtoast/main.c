@@ -40,8 +40,8 @@ void	cycle(t_all *tmp, t_env *lst)
 			if (i == 0)
 			{
 				command_name(tmp, lst);
-				// if (tmp->command_name)
-				// 	lst = processor(tmp, lst, home);
+				if (tmp->command_name)
+					lst = processor(tmp, lst, home);
 			}
 			else
 				error(i);
