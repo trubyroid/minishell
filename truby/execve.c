@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 17:09:51 by truby             #+#    #+#             */
-/*   Updated: 2021/07/12 23:55:24 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/12 23:56:42 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	exec(t_all *command, t_env *env)
 	{
 		str = ft_strjoin("/", command->arg[0]);
 		path = ft_strjoin_gnl(getcwd(NULL, 0), str);
-		write(1, path, ft_strlen(path));
 		res = execve(path, &command->arg[0], env_massiv);
 		free(path);
 		path = NULL;
