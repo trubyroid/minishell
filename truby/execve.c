@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 17:09:51 by truby             #+#    #+#             */
-/*   Updated: 2021/07/12 17:41:51 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/12 19:10:31 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,32 @@ void	exec(t_all *command, t_env *env)
 	// }
 	free(paths);
 	free(env_massiv);
+}
+
+
+void	implementation(t_all *command, t_env *env)
+{
+	pid_t p;
+	
+	p = fork();
+	if (p < 0)
+    {
+        write(1, "Fork Failed.", 12);
+        return ;							//error
+    }
+	else if (p == 0)
+	{
+		if (command->fd_out != 1)
+		{
+			close(1);
+			dup2(command->fd_out, 1);
+		}
+		if (command->fd_in != 0)
+		{
+			close(0);
+			dup2(command->fd_in, 0);
+		}
+		exec(command, env);									//shlvl zsh minishell bash
+	}
+	wait(NULL);
 }

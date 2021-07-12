@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 20:30:05 by truby             #+#    #+#             */
-/*   Updated: 2021/07/10 20:49:30 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/12 19:08:21 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,4 +175,12 @@ void	print_export(t_env *env)						//поработать над export с до�
 	}
 	free(first_lst);
 	first_lst = NULL;
+}
+
+void	ft_export(t_all *command, t_env *env)
+{
+	if (command->arg[1] == NULL)
+		print_export(env);
+	else
+		add_enviroment_variable(command, env);
 }
