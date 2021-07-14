@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 20:38:02 by truby             #+#    #+#             */
-/*   Updated: 2021/07/13 02:31:20 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/14 19:45:03 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,25 @@ char	*ft_substr_shell(char *s, unsigned int start, size_t len)
 	char		*b;
 	size_t		z;
 
-	z = 0;
+	z = 1;
 	if (s == 0)
 		return (NULL);
 	if (start >= ft_strlen(s))
 		len = 0;
-	b = (char *)malloc(sizeof(char) * (len + 1));
+	b = (char *)malloc(sizeof(char) * (len + 3));
 	if (b == NULL)
 		return (NULL);
+	b[0] = '"';
 	while (z < len)
 	{
 		b[z] = s[start];
 		z++;
 		start++;
 	}
-	b[z] = '\0';
-	s = NULL;
-	return (b);
+	b[z] = '"';
+	b[++z] = '\0';
+	return (b);NULL;
+
 }
 
 void	ft_error(char *str)
