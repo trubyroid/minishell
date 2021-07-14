@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 20:35:57 by truby             #+#    #+#             */
-/*   Updated: 2021/07/13 02:35:41 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/14 20:30:41 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,22 @@
 static int	ft_check(t_all *command, int q)
 {
 	int i;
+	int	k;
 	
-	i = 0;
+	i = 1;
+	if (!ft_isalpha(command->arg[q][0]) && command->arg[q][k] != '_')
+		return (-1);
 	while (command->arg[q][i] != '=' && command->arg[q][i])
 	{
-		// if (ft_isdigit(command->arg[1][i]))
-		// 	return (-1);
+		if (!ft_isalnum(command->arg[1][i]))
+			return (-1);
 		i++;
+	}
+	k = i;
+	while(command->arg[q][++k] != '\0')
+	{
+		if (command->arg[q][k] < 42 && command->arg[q][k] > 57 && command->arg[q][k] < 63)
+			return (-1);
 	}
 	if (command->arg[q][i] == '=')
 		return (i + 1);
@@ -89,10 +98,13 @@ int	add_enviroment_variable(t_all *command, t_env *env)						//проработ�
 				env = env->next;
 			}
 		}
-		// else if (j < 0)
-		// {
-		// 	error
-		// }
+		else if (j < 0)
+		{
+			write(1, "ya_bash: export: '", 18);
+			write(1, command->arg[q], ft_strlen(command->arg[q]));
+			ft_error_int("': not a valid identifier ");
+			break ;
+		}
 		if (fl == 0)
 		{
 			new = malloc(sizeof(t_env *));
