@@ -1,9 +1,9 @@
 #include "../shell.h"
 
-void	error(int i)
+void	error(int i, char *str)
 {
-	i = 4;
-	printf("Error\n");
+		error_cod = i;
+		printf("%s\n", str);
 }
 
 int		prepars(t_all *tmp)
@@ -23,6 +23,7 @@ int		prepars(t_all *tmp)
 	cod = cod - quotes_error(tmp);
 	if (tmp->str != NULL)
 	{
+		one_symbol(tmp);
 		redirect_pars(tmp);
 		dollar_parser(tmp);
 	}
@@ -54,11 +55,13 @@ void	dollar_parser(t_all *tmp)
 			{
 				i = remove_symbol(tmp, i);
 				i = remove_symbol(tmp, i);
+				add_spase(i, tmp);
 			}
 			if((tmp->str[i + 1] >= '0' && tmp->str[i + 1] <= '9') && tmp->str[i + 2] == ' ')
 			{
 				i = remove_symbol(tmp, i);
 				i = remove_symbol(tmp, i);
+				add_spase(i, tmp);
 			}
 			if (tmp->str[i] != '$' && (check_for_dollar(tmp->str[i + 1]) != 0))
 				i++;
@@ -117,8 +120,6 @@ int	syntax_error(t_all *tmp)
 	int i;
 
 	i = 0;
-	if (ft_strlen(tmp->str) == 1)
-		return (1);
 	while (tmp->str[i] != '\0')
 	{
 		if (tmp->str[i] == '\'')
@@ -134,19 +135,47 @@ int	syntax_error(t_all *tmp)
 				i++;
 		}
 		if (tmp->str[i] == ';' && tmp->str[i + 1] == ';')
+		{
+			error(258, "bash: syntax error near unexpected token `;;'");
 			return (1);
+		}
 		if (tmp->str[i] == '<' && tmp->str[i + 1] == '<' && tmp->str[i + 2] == '<')
+		{
+			error(258, "bash: syntax error near unexpected token `newline'");
 			return (1);
+		}
 		if (tmp->str[i] == '>' && tmp->str[i + 1] == '>' && tmp->str[i + 2] == '>')
+		{
+			error(258, "bash: syntax error near unexpected token `>'");
 			return (1);
+		}
 		if (tmp->str[i] == '>' && tmp->str[i + 1] == '<')
+		{
+			error(258, "bash: syntax error near unexpected token `<'");
 			return (1);
+		}
 		if (tmp->str[i] == '<' && tmp->str[i + 1] == '>')
+		{
+			error(258, "bash: syntax error near unexpected token `newline'");
 			return (1);
+		}
+		if (tmp->str[i] == '|' && tmp->str[i + 1] == '|' && tmp->str [i + 2] != '|')
+		{
+			i = remove_symbol(tmp, i);
+			i = remove_symbol(tmp, i);
+		}
+		if (tmp->str[i] == '|' && tmp->str[i + 1] == '|' && tmp->str [i + 2] == '|')
+		{
+			error(258, "bash: syntax error near unexpected token `||'");
+			return (1);
+		}
 		i++;
 	}
 	if (i > 0 && tmp->str[i - 1] == '\\')
-			return (1);
+	{
+		error(258, "bash: syntax error near unexpected token `\'");
+		return (1);
+	}
 	return (0);
 }
 
@@ -163,7 +192,10 @@ int	quotes_error(t_all *tmp)
 			while (tmp->str[i] != '\'' && tmp->str[i] != '\0')
 				i++;
 			if (tmp->str[i] == '\0')
+			{
+				error(1, "bash: syntax error near unexpected token quotes");
 				return (1);
+			}
 		}
 		if (tmp->str[i] == '\"')
 		{
@@ -171,7 +203,10 @@ int	quotes_error(t_all *tmp)
 			while (tmp->str[i] != '\"' && tmp->str[i] != '\0')
 				i++;
 			if (tmp->str[i] == '\0')
+			{
+				error(1, "bash: syntax error near unexpected token quotes");
 				return (1);
+			}
 		}
 		i++;
 	}
@@ -200,5 +235,31 @@ void add_spase(int i, t_all *tmp)
 		}
 		free(tmp->str);
 		tmp->str = temp;
+	}
+}
+
+void one_symbol(t_all *tmp)
+{
+	int i;
+
+	i = 0;
+	while (tmp->str[i] != '\0')
+	{
+		if (tmp->str[i] == '\'')
+		{
+			i++;
+			while (tmp->str[i] != '\'')
+				i++;
+		}
+		if (tmp->str[i] == '\"')
+		{
+			i++;
+			while (tmp->str[i] != '\"')
+				i++;
+		}
+		if (tmp->str[i] == '&')
+			error(258, "bash: syntax error near unexpected token `&'");
+		if (tmp->str[i] == ')' && tmp->str[i + 1] == '(')
+			error(258, "bash: syntax error near unexpected token `)'");
 	}
 }

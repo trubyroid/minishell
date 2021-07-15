@@ -18,6 +18,8 @@
 # define ANSI_COLOR_CYAN	"\x1b[36m"
 # define ANSI_COLOR_RESET	"\x1b[0m"
 
+int	error_cod;
+
 typedef struct s_all
 {
 	char			*str;
@@ -48,7 +50,7 @@ typedef struct s_hist
 
 void	close_minishell(t_env *env, char *home);
 void	command_name(t_all *tmp, t_env *lst, int i);
-void	error(int i);
+void	error(int i, char *str);
 int		prepars(t_all *tmp);
 void	arg(t_all *tmp, int i, t_env *lst);
 int		block_checking(char symbol);
@@ -95,5 +97,6 @@ void	add_fd(t_all *tmp, int fd);
 int		remove_symbol_name(t_all *tmp, int i);
 void	quotes_name(t_all *tmp);
 t_all	*init_baby(t_all *baby, t_all *tmp);
+void	one_symbol(t_all *tmp);
 
 #endif
