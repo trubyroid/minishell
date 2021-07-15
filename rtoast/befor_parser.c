@@ -261,5 +261,6 @@ void one_symbol(t_all *tmp)
 			error(258, "bash: syntax error near unexpected token `&'");
 		if (tmp->str[i] == ')' && tmp->str[i + 1] == '(')
 			error(258, "bash: syntax error near unexpected token `)'");
+		i++;
 	}
 }
