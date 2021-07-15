@@ -12,7 +12,7 @@ int	amount_of_elements(t_all *tmp, int i, int quotes)
 			colnum++;
 		}
 	else
-		while (block_checking(tmp->str[i]) == 0 && tmp->str[i] != ' ' && quotes_checking(tmp->str[i]) == 0)
+		while (block_checking(tmp->str[i]) == 0 && tmp->str[i] != ' ')
 		{
 			i++;
 			colnum++;

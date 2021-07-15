@@ -92,6 +92,8 @@ int		chek_dollar_quotes(char *str, int i);
 void	add_spase(int i, t_all *tmp);
 void	for_bash(t_all *tmp);
 void	add_fd(t_all *tmp, int fd);
+int		remove_symbol_name(t_all *tmp, int i);
+void	quotes_name(t_all *tmp);
 t_all	*init_baby(t_all *baby, t_all *tmp);
 
 #endif

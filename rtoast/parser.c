@@ -40,6 +40,7 @@ void	command_name(t_all *tmp, t_env *lst, int i)
 		tmp->baby_pipe = init_baby(tmp->baby_pipe, tmp);
 		command_name(tmp->baby_pipe, lst, ++i);
 	}
+	quotes_name(tmp);
 	arg(tmp, i, lst);
 }
 
@@ -186,3 +187,53 @@ t_all *init_baby(t_all *baby, t_all *tmp)
 	return (baby);
 }
 
+void	quotes_name(t_all *tmp)
+{
+	int i;
+
+	i = 0;
+	while(tmp->command_name[i] != '\0')
+	{
+		if (tmp->command_name[i] == '\'' && tmp->command_name[i + 1] == '\'')
+		{
+			i = remove_symbol_name(tmp, i);
+			i = remove_symbol_name(tmp, i);
+		}
+		if (tmp->command_name[i] == '\"' && tmp->command_name[i + 1] == '\"')
+		{
+			i = remove_symbol_name(tmp, i);
+			i = remove_symbol_name(tmp, i);
+		}
+		else
+			i++;
+	}
+}
+
+int remove_symbol_name(t_all *tmp, int i)
+{
+	int remember;
+	int rem;
+	int j;
+	char *t_arr;
+
+	remember = i;
+	t_arr = NULL;
+	j = ft_strlen(tmp->command_name) - 1;
+	rem = j;
+	t_arr = (char *)malloc(sizeof(char) * (j + 1));
+	t_arr[j] = '\0';
+	j = -1;
+	while(++j < remember)
+		t_arr[j] = tmp->command_name[j];
+	while(tmp->command_name[++i] != '\0' && j < rem)
+	{
+		t_arr[j] = tmp->command_name[i];
+		j++;
+	}
+	free(tmp->command_name);
+	tmp->command_name = NULL;
+	tmp->command_name = t_arr;
+	if (tmp->command_name[remember] == '\0')
+		remember--;
+	return (remember);
+}
