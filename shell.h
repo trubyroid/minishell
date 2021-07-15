@@ -27,7 +27,6 @@ typedef struct s_all
 	int				num_arg;
 	int				fd_out;
 	int				fd_in;
-	int				flag_pipe;
 	int				redirect_i;
 	int				ret_dollar;
 	struct s_all	*baby_pipe;

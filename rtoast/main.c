@@ -42,12 +42,6 @@ void	cycle(t_all *tmp, t_env *lst)
 			if (i == 0)
 			{
 				command_name(tmp, lst, j);
-				// printf("c_n = %s\n", tmp->command_name);
-				// printf("arg = %s\n", tmp->arg[1]);
-				// printf("c_n_pipe = %s\n", tmp->baby_pipe->command_name);
-				// printf("arg_pipe = %s\n", tmp->baby_pipe->arg[1]);
-				// printf("c_n_pipe1 = %s\n", tmp->baby_pipe->baby_pipe->command_name);
-				// printf("arg_pipe1 = %s\n", tmp->baby_pipe->baby_pipe->arg[1]);
 				if (tmp->command_name)
 					lst = processor(tmp, lst, home);
 			}
@@ -67,7 +61,7 @@ void	free_all(t_all *tmp)
 
 	i = 0;
 	if (tmp->command_name)
-		free(tmp->command_name);
+	free(tmp->command_name);
 	if (tmp->arg != NULL)
 	{
 		while (i < tmp->num_arg)

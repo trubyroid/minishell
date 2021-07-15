@@ -56,7 +56,6 @@ void	arg(t_all *tmp, int i, t_env *lst)
 		{
 			tmp->baby_pipe = init_baby(tmp->baby_pipe, tmp);
 			command_name(tmp->baby_pipe, lst, ++i);
-			printf("sonthing wrong1\n");
 		}
 		if (block_checking(tmp->str[i]) == 2)
 			i = redirect(tmp, i);
