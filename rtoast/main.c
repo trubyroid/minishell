@@ -61,7 +61,7 @@ void	free_all(t_all *tmp)
 
 	i = 0;
 	if (tmp->command_name)
-	free(tmp->command_name);
+		free(tmp->command_name);
 	if (tmp->arg != NULL)
 	{
 		while (i < tmp->num_arg)
@@ -70,10 +70,17 @@ void	free_all(t_all *tmp)
 			tmp->arg[i] = NULL;
 			i++;
 		}
+		free(tmp->arg);
 	}
 	if (tmp->str)
 		free(tmp->str);
 	tmp->str = NULL;
+	while (tmp->colnum_fd--)
+		close(tmp->massiv_fd[tmp->colnum_fd]);
+	if (tmp->massiv_fd)
+		free(tmp->massiv_fd);
+	if (tmp->baby_pipe)
+		free_all(tmp->baby_pipe);
 	free(tmp);
 	tmp = NULL;
 }

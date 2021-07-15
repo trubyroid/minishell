@@ -24,6 +24,8 @@ typedef struct s_all
 	char			*command_name;
 	char			**arg;
 	char			*file_name;
+	int				*massiv_fd;
+	int				colnum_fd;
 	int				num_arg;
 	int				fd_out;
 	int				fd_in;
@@ -57,7 +59,7 @@ int		creating_next_argument(t_all *tmp, int i, int colnum, t_env *lst);
 int		amount_of_elements(t_all *tmp, int i, int quotes);
 t_env	*creating_list(char **env);
 int		quotes_in_quotes(t_all *tmp, int i);
-int		check_for_dollar(char symbol);///
+int		check_for_dollar(char symbol);
 int		dollar_make(char **str, int i, t_env *lst);
 void	create_new_str(char **str, char *original, char *replaced, int i);
 void	dollar_parser(t_all *tmp);
@@ -89,6 +91,7 @@ int		quotes_error(t_all *tmp);
 int		chek_dollar_quotes(char *str, int i);
 void	add_spase(int i, t_all *tmp);
 void	for_bash(t_all *tmp);
+void	add_fd(t_all *tmp, int fd);
 t_all	*init_baby(t_all *baby, t_all *tmp);
 
 #endif

@@ -1,6 +1,5 @@
 #include "../shell.h"
 
-///massiv int fd
 int		redirect(t_all *tmp, int i)
 {
 	
@@ -52,6 +51,8 @@ int		single_redirect(t_all *tmp, int i)
 		i++;
 	}
 	tmp->fd_out = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (tmp->fd_out != -1)
+		add_fd(tmp, tmp->fd_out);
 	free(file_name);
 	i = skipping_spaces(tmp, i);
 	return (i);
@@ -81,6 +82,8 @@ int		double_redirect(t_all *tmp, int i)
 		i++;
 	}
 	tmp->fd_out = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (tmp->fd_out != -1)
+		add_fd(tmp, tmp->fd_out);
 	free(file_name);
 	i = skipping_spaces(tmp, i);
 	return (i);
@@ -109,6 +112,8 @@ int		reverse_redirect(t_all *tmp, int i)
 		i++;
 	}
 	tmp->fd_in = open(tmp->file_name, O_RDONLY, 0644);
+	if (tmp->fd_in != -1)
+		add_fd(tmp, tmp->fd_in);
 	i = skipping_spaces(tmp, i);
 	return (i);
 }
@@ -138,6 +143,8 @@ int		reverse_double_redirect(t_all *tmp, int i)
 		i++;
 	}
 	tmp->fd_in = open("./.ghost", O_RDWR | O_CREAT | O_TRUNC, 0777);
+	if (tmp->fd_in != -1)
+		add_fd(tmp, tmp->fd_in);
 	while (get_next_line(0, &str))
 	{
 		if ((ft_strncmp(str, blok, ft_strlen(blok)) == 0) && ft_strlen(blok) == ft_strlen(str))
@@ -152,4 +159,26 @@ int		reverse_double_redirect(t_all *tmp, int i)
 	tmp->file_name = ft_strdup("./.ghost");
 	free(blok);
 	return (i);
+}
+
+void	add_fd(t_all *tmp, int fd)
+{
+	int *temp;
+	int i;
+
+	i = -1;
+	if (tmp->massiv_fd == NULL)
+	{
+		tmp->massiv_fd = (int *)malloc(sizeof(int) * 1);
+		tmp->massiv_fd[0] = fd;
+		tmp->colnum_fd = 1;
+	}
+	else
+	{
+		temp = (int *)malloc(sizeof(int) * (tmp->colnum_fd + 1));
+		while (++i < tmp->colnum_fd)
+			temp[i] = tmp->massiv_fd[i];
+		free(tmp->massiv_fd);
+		tmp->massiv_fd = temp;
+	}
 }
