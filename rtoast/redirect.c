@@ -2,7 +2,6 @@
 
 int		redirect(t_all *tmp, int i)
 {
-	
 	if (tmp->str[i] == '>' && tmp->str[i + 1] != '>')
 	{
 		i++;
@@ -36,7 +35,7 @@ int		single_redirect(t_all *tmp, int i)
 	tmp->fd_in = 0;
 	i = skipping_spaces(tmp, i);
 	j = i;
-	while (tmp->str[j] != ' ' && tmp->str[j] != '\0')
+	while (tmp->str[j] != ' ' && block_checking(tmp->str[j]) == 0)
 	{
 		j++;
 		count++;
@@ -67,7 +66,7 @@ int		double_redirect(t_all *tmp, int i)
 	count = 0;
 	i = skipping_spaces(tmp, i);
 	j = i;
-	while (tmp->str[j] != ' ' && tmp->str[j] != '\0')
+	while (tmp->str[j] != ' ' && block_checking(tmp->str[j]) == 0)
 	{
 		j++;
 		count++;
@@ -97,7 +96,7 @@ int		reverse_redirect(t_all *tmp, int i)
 	count = 0;
 	i = skipping_spaces(tmp, i);
 	j = i;
-	while (tmp->str[j] != ' ' && tmp->str[j] != '\0')
+	while (tmp->str[j] != ' ' && block_checking(tmp->str[j]) == 0)
 	{
 		j++;
 		count++;
@@ -110,6 +109,11 @@ int		reverse_redirect(t_all *tmp, int i)
 		tmp->file_name[count] = tmp->str[i];
 		count++;
 		i++;
+	}
+	if (ft_strncmp(tmp->command_name, "cat", 3) != 0)
+	{
+		free(tmp->file_name);
+		tmp->file_name = NULL;
 	}
 	tmp->fd_in = open(tmp->file_name, O_RDONLY, 0644);
 	if (tmp->fd_in != -1)
@@ -128,7 +132,7 @@ int		reverse_double_redirect(t_all *tmp, int i)
 	i = skipping_spaces(tmp, i);
 	j = i;
 	count = 0;
-	while (tmp->str[j] != ' ' && tmp->str[j] != '\0')
+	while (tmp->str[j] != ' ' && block_checking(tmp->str[j]) == 0)
 	{
 		j++;
 		count++;

@@ -11,7 +11,8 @@ void	command_name(t_all *tmp, t_env *lst, int i)
 		tmp->str = NULL;
 		return ;
 	}
-	//i = tmp->redirect_i;
+	if (i == 0)
+		i = tmp->redirect_i;
 	i = skipping_spaces(tmp, i);
 	if (tmp->str[i] == '\\')
 		i++;
