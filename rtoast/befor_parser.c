@@ -9,6 +9,7 @@ void	error(int i)
 int		prepars(t_all *tmp)
 {
 	int cod;
+	tmp->baby_pipe = NULL;
 	tmp->fd_out = 1;
 	tmp->fd_in = 0;
 	tmp->arg = NULL;

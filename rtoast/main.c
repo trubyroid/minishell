@@ -27,9 +27,11 @@ int	main(int argc, char **argv, char **env)
 void	cycle(t_all *tmp, t_env *lst)
 {
 	int i;
+	int j;
 	char *home;
 
 	home = find_home();
+	j = 0;
 	while (1)
 	{
 		tmp = (t_all *)malloc(sizeof(t_all));
@@ -39,9 +41,15 @@ void	cycle(t_all *tmp, t_env *lst)
 			i = prepars(tmp);
 			if (i == 0)
 			{
-				command_name(tmp, lst);
-				if (tmp->command_name)
-					lst = processor(tmp, lst, home);
+				command_name(tmp, lst, j);
+				printf("c_n = %s\n", tmp->command_name);
+				printf("arg = %s\n", tmp->arg[1]);
+				printf("c_n_pipe = %s\n", tmp->baby_pipe->command_name);
+				printf("arg_pipe = %s\n", tmp->baby_pipe->arg[1]);
+				printf("c_n_pipe1 = %s\n", tmp->baby_pipe->baby_pipe->command_name);
+				printf("arg_pipe1 = %s\n", tmp->baby_pipe->baby_pipe->arg[1]);
+				// if (tmp->command_name)
+				// 	lst = processor(tmp, lst, home);
 			}
 			else
 				error(i);

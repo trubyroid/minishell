@@ -20,16 +20,17 @@
 
 typedef struct s_all
 {
-	char	*str;
-	char	*command_name;
-	char	**arg;
-	char	*file_name;
-	int		num_arg;
-	int		fd_out;
-	int		fd_in;
-	int		flag_pipe;
-	int		redirect_i;
-	int		ret_dollar;
+	char			*str;
+	char			*command_name;
+	char			**arg;
+	char			*file_name;
+	int				num_arg;
+	int				fd_out;
+	int				fd_in;
+	int				flag_pipe;
+	int				redirect_i;
+	int				ret_dollar;
+	struct s_all	*baby_pipe;
 }				t_all;
 
 typedef struct s_env
@@ -45,7 +46,7 @@ typedef struct s_hist
 }					t_hist;
 
 void	close_minishell(t_env *env, char *home);
-void	command_name(t_all *tmp, t_env *lst);
+void	command_name(t_all *tmp, t_env *lst, int i);
 void	error(int i);
 int		prepars(t_all *tmp);
 void	arg(t_all *tmp, int i, t_env *lst);
@@ -89,5 +90,6 @@ int		quotes_error(t_all *tmp);
 int		chek_dollar_quotes(char *str, int i);
 void	add_spase(int i, t_all *tmp);
 void	for_bash(t_all *tmp);
+t_all	*init_baby(t_all *baby, t_all *tmp);
 
 #endif

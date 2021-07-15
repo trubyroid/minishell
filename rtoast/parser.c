@@ -1,8 +1,7 @@
 #include "../shell.h"
 
-void	command_name(t_all *tmp, t_env *lst)
+void	command_name(t_all *tmp, t_env *lst, int i)
 {
-	int	i;
 	int colnum;
 	int	q;
 	int count;
@@ -12,7 +11,7 @@ void	command_name(t_all *tmp, t_env *lst)
 		tmp->str = NULL;
 		return ;
 	}
-	i = tmp->redirect_i;
+	//i = tmp->redirect_i;
 	i = skipping_spaces(tmp, i);
 	if (tmp->str[i] == '\\')
 		i++;
@@ -35,6 +34,11 @@ void	command_name(t_all *tmp, t_env *lst)
 		i++;
 	if (tmp->command_name)
 		creating_name_argument(tmp);
+	if (tmp->str[i] == '|')
+	{
+		tmp->baby_pipe = init_baby(tmp->baby_pipe, tmp);
+		command_name(tmp->baby_pipe, lst, ++i);
+	}
 	arg(tmp, i, lst);
 }
 
@@ -48,6 +52,12 @@ void	arg(t_all *tmp, int i, t_env *lst)
 		i = skipping_spaces(tmp, i);
 		if (block_checking(tmp->str[i]) == 1)
 			break ;
+		if (block_checking(tmp->str[i]) == 3)
+		{
+			tmp->baby_pipe = init_baby(tmp->baby_pipe, tmp);
+			command_name(tmp->baby_pipe, lst, ++i);
+			printf("sonthing wrong1\n");
+		}
 		if (block_checking(tmp->str[i]) == 2)
 			i = redirect(tmp, i);
 		else
@@ -136,4 +146,41 @@ void for_bash(t_all *tmp)
 		tmp->command_name[1] = '/';
 		tmp->command_name[2] = '\0';
 	}
+	if (tmp->command_name[i] == '.' && tmp->command_name[i + 1] == '.' && tmp->command_name[i + 2])
+	{
+		temp = (char *)malloc(sizeof(char) * (ft_strlen(tmp->arg[0]) - 1));
+		j = 3;
+		while (tmp->arg[0][j] != '\0')
+		{
+			temp[i] = tmp->arg[0][j];
+			i++;
+			j++;
+		}
+		temp[i] = '\0';
+		free(tmp->arg[0]);
+		tmp->arg[0] = temp;
+		free(tmp->command_name);
+		tmp->command_name = (char *)malloc(sizeof(char) * 3);
+		tmp->command_name[0] = '.';
+		tmp->command_name[1] = '.';
+		tmp->command_name[2] = '/';
+		tmp->command_name[3] = '\0';
+	}
 }
+
+t_all *init_baby(t_all *baby, t_all *tmp)
+{
+	baby = (t_all *)malloc(sizeof(t_all));
+
+	baby->str = (ft_strdup(tmp->str));
+	baby->baby_pipe = NULL;
+	baby->fd_out = 1;
+	baby->fd_in = 0;
+	baby->arg = NULL;
+	baby->num_arg = 0;
+	baby->command_name = NULL;
+	baby->file_name = NULL;
+	baby->redirect_i = 0;
+	return (baby);
+}
+

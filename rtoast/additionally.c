@@ -72,7 +72,7 @@ int	block_checking(char symbol)
 	if (symbol == '\0')
 		return (1);
 	if (symbol == '|')
-		return (1);
+		return (3);
 	if (symbol == '>')
 		return (2);
 	if (symbol == '<')
