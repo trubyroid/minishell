@@ -39,11 +39,8 @@ int argc_amount_of_elements(t_all *tmp, int i)
 				colnum++;
 			}
 		}
-		else
-		{
-			i++;
-			colnum++;
-		}
+		i++;
+		colnum++;
 	}
 	return (colnum);
 }

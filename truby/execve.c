@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 17:09:51 by truby             #+#    #+#             */
-/*   Updated: 2021/07/12 23:56:42 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/15 16:36:37 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	exec(t_all *command, t_env *env)
 	{
 		str = ft_strjoin("/", command->arg[0]);
 		path = ft_strjoin_gnl(getcwd(NULL, 0), str);
-		res = execve(path, &command->arg[0], env_massiv);
+		res = execve(path, command->arg, env_massiv);
 		free(path);
 		path = NULL;
 	}
@@ -80,7 +80,7 @@ void	exec(t_all *command, t_env *env)
 				break ;
 		}
 		path = ft_strjoin_gnl(ft_substr_shell(path, 0, k), command->arg[0]);
-		res = execve(path, &command->arg[0], env_massiv);
+		res = execve(path, command->arg, env_massiv);
 		free(path);
 		path = NULL;
 	}
@@ -94,7 +94,7 @@ void	exec(t_all *command, t_env *env)
 			path = ft_strjoin(paths[i], str);
 			free(str);
 			str = NULL;														//придумать как зафришить path, paths и env_massiv в случае успеха execve
-			res = execve(path, &command->arg[0], env_massiv);
+			res = execve(path, command->arg, env_massiv);
 			free(path);
 			path = NULL;
 			if (res != -1)
@@ -115,7 +115,6 @@ void	exec(t_all *command, t_env *env)
 	free(paths);
 	free(env_massiv);
 }
-
 
 void	implementation(t_all *command, t_env *env)
 {
