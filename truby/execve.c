@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 17:09:51 by truby             #+#    #+#             */
-/*   Updated: 2021/07/17 20:42:00 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/18 00:17:28 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void	exec(t_all *command, t_env *env)
 	// }
 	free(paths);
 	free(env_massiv);
+	exit(errno);
 }
 
 void	implementation(t_all *command, t_env *env)
@@ -140,7 +141,7 @@ void	implementation(t_all *command, t_env *env)
 			close(0);
 			dup2(command->fd_in, 0);
 		}
-		exec(command, env);									//shlvl zsh minishell bash
+		exec(command, env);
 	}
 	wait(NULL);
 }

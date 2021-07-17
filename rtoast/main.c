@@ -43,7 +43,7 @@ void	cycle(t_all *tmp, t_env *lst)
 			{
 				command_name(tmp, lst, j);
 				if (tmp->command_name)
-					lst = processor(tmp, lst, home);
+					lst = preprocessor(tmp, lst, home);
 			}
 			free_all(tmp);
 			tmp = (t_all *)malloc(sizeof(t_all));
