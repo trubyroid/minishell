@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:15:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/13 02:37:39 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/17 20:50:57 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_check(t_all *command)
 	int	i;
 
 	i = -1;
-	if (strcmp("env", command->command_name) == 0)										//pwd ваще похер, а вот env c аргументами запаристый
+	if (strcmp("env", command->command_name) == 0)
 	{
 		while (command->arg[++i] != NULL)
 		{
@@ -48,8 +48,8 @@ t_env		*processor(t_all *command, t_env *env, char *home)
 		env = delete_enviroment_variable(command, env);
 	else if (strcmp("cd", command->command_name) == 0)
 		use_cd(env, command->arg, home);
-	else if (strcmp("exit", command->command_name) == 0)
-		close_minishell(env, home);												//не декомпозировал
+	// else if (strcmp("exit", command->command_name) == 0)
+	// 	close_minishell(env, home);												//не декомпозировал
 	else if (strcmp("export", command->command_name) == 0)
 		ft_export(command, env);												//не декомпозировал
 	else

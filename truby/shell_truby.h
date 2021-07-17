@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 20:57:17 by truby             #+#    #+#             */
-/*   Updated: 2021/07/12 23:44:54 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/17 20:51:51 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ void	ft_export(t_all *command, t_env *env);
 void	implementation(t_all *command, t_env *env);
 void	ft_error(char *str);
 int		ft_error_int(char *str);
+void	*ft_error_null(char *str);
 char	*ft_substr_shell(char *s, unsigned int start, size_t len);

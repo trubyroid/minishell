@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
+/*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 17:09:51 by truby             #+#    #+#             */
-/*   Updated: 2021/07/15 16:36:37 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/17 20:42:00 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static char	**create_massiv(t_env *env)
 			break ;
 		first = first->next;
 	}
+	env_massiv[++i] = NULL;
 	return (env_massiv);
 }
 
@@ -55,7 +56,11 @@ void	exec(t_all *command, t_env *env)
 	while (ft_strnstr(env->str, "PATH=", 5) == NULL)
 	{
 		if (env->next == NULL)
-			return ;						//error
+		{
+			write(1, "ya_bash: ", 9);
+			write(1, command->arg[0], ft_strlen(command->arg[0]));
+			return (ft_error(": No such file or directory"));
+		}
 		env = env->next;
 	}
 	str = ft_substr(env->str, 5, ft_strlen(env->str) - 5);
@@ -93,7 +98,7 @@ void	exec(t_all *command, t_env *env)
 			str = ft_strjoin("/", command->command_name);
 			path = ft_strjoin(paths[i], str);
 			free(str);
-			str = NULL;														//придумать как зафришить path, paths и env_massiv в случае успеха execve
+			str = NULL;
 			res = execve(path, command->arg, env_massiv);
 			free(path);
 			path = NULL;
@@ -122,10 +127,7 @@ void	implementation(t_all *command, t_env *env)
 	
 	p = fork();
 	if (p < 0)
-    {
-        write(1, "Fork Failed.", 12);
-        return ;							//error
-    }
+		return (ft_error("Fork Failed."));
 	else if (p == 0)
 	{
 		if (command->fd_out != 1)

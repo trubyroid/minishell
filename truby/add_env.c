@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 20:35:57 by truby             #+#    #+#             */
-/*   Updated: 2021/07/14 20:30:41 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/17 20:28:14 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	ft_check(t_all *command, int q)
 	return (0);
 }
 
-int	add_enviroment_variable(t_all *command, t_env *env)						//проработать кейс с ключом без значения
+int	add_enviroment_variable(t_all *command, t_env *env)
 {
 	int	i;
 	int j;
@@ -109,11 +109,11 @@ int	add_enviroment_variable(t_all *command, t_env *env)						//проработ�
 		{
 			new = malloc(sizeof(t_env *));
 			if (!new)
-				return (-1);										//error
+				return (ft_error_int("Error of malloc."));										//error
 			env->next = new;
 			new->str = malloc(sizeof(char) * ft_strlen(command->arg[q]));
 			if (!new->str)
-				return (-1);
+				return (ft_error_int("Error of malloc."));	
 			while (command->arg[q][++i] != '\0')
 				new->str[i] = command->arg[q][i];
 			new->str[i] = '\0';
