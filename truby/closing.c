@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 14:45:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/18 15:19:35 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/18 19:34:30 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	wait_close(t_all *command)
 		// g_status=
 		res = 0;
 	}
-	while (command)
+	while (command != NULL)
 	{
 		if (command->baby_pipe != NULL)
 		{
@@ -72,8 +72,8 @@ void	close_minishell(t_env *env, char *home)
 		lst = NULL;
 	}
 	free(env);
-	// free(home);
+	free(home);
 	env = NULL;
 	home = NULL;
-	exit(0);
+	exit(errno);
 }

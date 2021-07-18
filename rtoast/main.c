@@ -40,22 +40,15 @@ void	cycle(t_all *tmp, t_env *lst)
 		i = prepars(tmp);
 		if (i == 0)
 		{
-			i = prepars(tmp);
-			if (i == 0)
+			command_name(tmp, lst, j);
+			if (tmp->command_name)
 			{
-				command_name(tmp, lst, j);
-				if (tmp->command_name)
-				{
-					lst = processor(tmp, lst, home);
-					if (strcmp("exit", tmp->command_name) == 0)
-						close_minishell(lst, home);	
-				}
+				if (strcmp("exit", tmp->command_name) == 0)
+					close_minishell(lst, home);
+				lst = preprocessor(tmp, lst, home);
 			}
-			free_all(tmp);
-			tmp = (t_all *)malloc(sizeof(t_all));
-			string_creating(tmp);
 		}
-		// free_all(tmp);
+		free_all(tmp);
 		tmp = (t_all *)malloc(sizeof(t_all));
 		string_creating(tmp);
 		signal(SIGQUIT, ctrl_slash);
