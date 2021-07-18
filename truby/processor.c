@@ -6,49 +6,49 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:15:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/18 18:44:05 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/18 19:02:38 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell_truby.h"
 
-t_env		*preprocessor(t_all *command, t_env *env, char *home)
-{
-	int		fd_0;
-	int		fd_1;
-	// int		fl;
-	t_all	*lst;
-	// int		*res;
+// t_env		*preprocessor(t_all *command, t_env *env, char *home)
+// {
+// 	int		fd_0;
+// 	int		fd_1;
+// 	// int		fl;
+// 	t_all	*lst;
+// 	// int		*res;
 
-	fd_0 = 0;
-	fd_1 = 1;
-	dup2(fd_0, 0);
-	dup2(fd_1, 1);
-	lst = command;
-	while (lst != NULL)
-	{
-		if (lst->baby_pipe != NULL)
-		{
-			pipe(&lst->fd_pipe[0]);
-			dup2(lst->fd_pipe[1], 1);
-		}
-		env = processor(lst, env, home);
-		if (lst->baby_pipe != NULL)
-		{
-			close(lst->fd_pipe[1]);
-			dup2(lst->fd_pipe[0], 0);
-		}
-		if (lst->baby_pipe == NULL)
-		{
-			dup2(fd_0, 0);
-			dup2(fd_1, 1);
-		}
-		lst = lst->baby_pipe;
-	}
-	wait_close(command);
-	// g_status = res;
-	return (env);
-}
+// 	fd_0 = 0;
+// 	fd_1 = 1;
+// 	dup2(fd_0, 0);
+// 	dup2(fd_1, 1);
+// 	lst = command;
+// 	while (lst != NULL)
+// 	{
+// 		if (lst->baby_pipe != NULL)
+// 		{
+// 			pipe(&lst->fd_pipe[0]);
+// 			dup2(lst->fd_pipe[1], 1);
+// 		}
+// 		env = processor(lst, env, home);
+// 		if (lst->baby_pipe != NULL)
+// 		{
+// 			close(lst->fd_pipe[1]);
+// 			dup2(lst->fd_pipe[0], 0);
+// 		}
+// 		// if (lst->baby_pipe == NULL)
+// 		// {
+// 		// 	dup2(fd_0, 0);
+// 		// 	dup2(fd_1, 1);
+// 		// }
+// 		lst = lst->baby_pipe;
+// 	}
+// 	wait_close(command);
+// 	// g_status = res;
+// 	return (env);
+// }
 
 t_env		*processor(t_all *command, t_env *env, char *home)
 {

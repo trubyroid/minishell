@@ -44,15 +44,14 @@ void	cycle(t_all *tmp, t_env *lst)
 			if (i == 0)
 			{
 				command_name(tmp, lst, j);
-				write(1, tmp->arg[1], ft_strlen(tmp->arg[1]));
-				if (tmp->arg[0])
+				if (tmp->command_name)
 				{
-					lst = preprocessor(tmp, lst, home);
+					lst = processor(tmp, lst, home);
 					if (strcmp("exit", tmp->command_name) == 0)
 						close_minishell(lst, home);	
 				}
 			}
-			// free_all(tmp);
+			free_all(tmp);
 			tmp = (t_all *)malloc(sizeof(t_all));
 			string_creating(tmp);
 		}
