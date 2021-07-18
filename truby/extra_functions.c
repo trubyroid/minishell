@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 20:38:02 by truby             #+#    #+#             */
-/*   Updated: 2021/07/14 19:45:03 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/17 20:51:34 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ int		ft_error_int(char *str)
 	return (0);
 }
 
-// void	*ft_error_null(char *str)
-// {
-// 	write(1, str, ft_strlen(str));
-// 	write(1, "\n", 1);
-// 	return (NULL);
-// }
+void	*ft_error_null(char *str)
+{
+	write(1, str, ft_strlen(str));
+	write(1, "\n", 1);
+	return (NULL);
+}

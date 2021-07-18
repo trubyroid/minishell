@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 21:12:00 by truby             #+#    #+#             */
-/*   Updated: 2021/07/12 21:31:03 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/17 20:35:11 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_env *find_variable(t_env *env, char *str, int q)
 	while (ft_strnstr(env->str, str, q) == NULL)
 	{
 		if (env->next == NULL)
-			return (NULL);						//error
+			return (NULL);
 		env = env->next;
 	}
 	return (env);
@@ -34,7 +34,7 @@ static void	change_env(t_env *env)
 	pwd = NULL;
 	env = find_variable(env, "PWD=", 4);
 	if (env == NULL)
-		return (ft_error("One of the standart enviroment variable was deleted."));
+		return ;
 	oldpwd = ft_substr(env->str, 4, ft_strlen(env->str) - 4);
 	free(env->str);
 	env->str = NULL;
@@ -44,7 +44,7 @@ static void	change_env(t_env *env)
 		return (ft_error("Error of malloc."));
 	lst = find_variable(lst, "OLDPWD=", 7);
 	if (lst == NULL)
-		return (ft_error("One of the standart enviroment variable was deleted."));
+		return ;
 	free(lst->str);
 	lst->str = NULL;
 	lst->str = ft_strjoin_shell("OLDPWD=", oldpwd);

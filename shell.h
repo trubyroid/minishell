@@ -27,6 +27,7 @@ typedef struct s_all
 	char			**arg;
 	char			*file_name;
 	int				*massiv_fd;
+	int				fd_pipe[2];
 	int				colnum_fd;
 	int				num_arg;
 	int				fd_out;

@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:15:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/13 02:37:39 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/18 01:03:42 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_check(t_all *command)
 	int	i;
 
 	i = -1;
-	if (strcmp("env", command->command_name) == 0)										//pwd ваще похер, а вот env c аргументами запаристый
+	if (strcmp("env", command->command_name) == 0)
 	{
 		while (command->arg[++i] != NULL)
 		{
@@ -30,6 +30,34 @@ static int	ft_check(t_all *command)
 		}
 	}
 	return (1);
+}
+
+t_env		*preprocessor(t_all *command, t_env *env, char *home)
+{
+	int		fd_0;
+	t_all	*lst;
+	int		*res;
+
+	fd_0 = 0;
+	dup2(fd_0, 0);
+	lst = command;
+	while (lst != NULL)
+	{
+		if (lst->baby_pipe != NULL)
+			pipe(&lst->fd_pipe[0]);
+		env = processor(lst, env, home);
+		if (lst->baby_pipe != NULL)
+		{
+			close(lst->fd_pipe[1]);
+			dup2(lst->fd_pipe[0], 0);
+		}
+		if (lst->baby_pipe == NULL)
+			dup2(fd_0, 0);
+		lst = lst->baby_pipe;
+	}
+	wait(res);
+	// g_status = res;
+	return (env);
 }
 
 t_env		*processor(t_all *command, t_env *env, char *home)

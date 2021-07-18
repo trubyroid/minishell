@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 20:30:05 by truby             #+#    #+#             */
-/*   Updated: 2021/07/13 02:29:55 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/17 20:24:51 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static t_env	*create_new_lsts(t_env *env)
 	return (first);
 }
 
-void	print_export(t_env *env)						//поработать над export с долларом
+void	print_export(t_env *env)
 {
 	t_env	*next;
 	t_env	*first_lst;

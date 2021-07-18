@@ -5,21 +5,16 @@ void	close_minishell(t_env *env, char *home)
 {
 	t_env	*lst;
 
-	while (env->str)
+	while (env->next != NULL)
 	{
 		lst = env;
 		env = env->next;
 		lst->next = NULL;
-		// free(lst->str);							//ошибка маллока если экспортировать букву в нижнем регистре
+		// free(lst->str);							//ошибка маллока 
 		free(lst);
 		lst = NULL;
-		if (env->next == NULL)
-		{
-			// free(env->str);
-			free(env);
-			break ;
-		}
 	}
+	free(env);
 	free(home);
 	env = NULL;
 	home = NULL;
@@ -57,30 +52,25 @@ char	*find_home(void)
 t_env	*creating_list(char **env)
 {
 	int		i;
-	int		j;
 	int		k;
 	int		shlvl;
 	t_env	*lst;
 	t_env	*new;
 
 	i = 0;
-	j = 0;
 	k = 0;
-	lst = NULL;
-	new = NULL;
 	while (env[i + 1] != NULL)
 		i++;
-	j = i;
 	lst = malloc(sizeof(t_env *));
 	if (!lst)
-		return (0);
+		return (ft_error_null("Error of malloc."));
 	lst->str = env[i];
 	lst->next = NULL;
 	while (--i >= 0)
 	{
 		new = malloc(sizeof(t_env *));
 		if (!new)
-			return (0);
+			return (ft_error_null("Error of malloc."));
 		new->str = ft_strdup(env[i]);
 		if (ft_strnstr(new->str, "SHLVL=", 6))
 		{
