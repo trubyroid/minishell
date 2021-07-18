@@ -49,6 +49,8 @@ typedef struct s_hist
 	struct s_hist	*next;
 }					t_hist;
 
+void	rl_replace_line(const char *str, int a);
+
 void	close_minishell(t_env *env, char *home);
 void	command_name(t_all *tmp, t_env *lst, int i);
 void	error(int i, char *str);
@@ -99,5 +101,7 @@ int		remove_symbol_name(t_all *tmp, int i);
 void	quotes_name(t_all *tmp);
 t_all	*init_baby(t_all *baby, t_all *tmp);
 void	one_symbol(t_all *tmp);
+void	ctrl_slash(int i);
+void	ctrl_c(int i);
 
 #endif

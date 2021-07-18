@@ -20,7 +20,6 @@ int	main(int argc, char **argv, char **env)
 	tmp = NULL;
 	lst = NULL;
 	lst = creating_list(env);
-	signal(SIGQUIT, SIG_IGN);
 	cycle(tmp, lst);
 }
 
@@ -32,29 +31,25 @@ void	cycle(t_all *tmp, t_env *lst)
 
 	home = find_home();
 	j = 0;
-	while (1)
+	signal(SIGINT, ctrl_c);
+	signal(SIGQUIT, ctrl_slash);
+	tmp = (t_all *)malloc(sizeof(t_all));
+	string_creating(tmp);
+	while (tmp->str)
 	{
+		i = prepars(tmp);
+		if (i == 0)
+		{
+			command_name(tmp, lst, j);
+			if (tmp->command_name)
+				lst = preprocessor(tmp, lst, home);
+		}
+		free_all(tmp);
 		tmp = (t_all *)malloc(sizeof(t_all));
 		string_creating(tmp);
-		while (tmp->str)
-		{
-			i = prepars(tmp);
-			if (i == 0)
-			{
-				command_name(tmp, lst, j);
-				printf("%s\n", tmp->command_name);
-				printf("%s\n", tmp->arg[0]);
-				printf("%s\n", tmp->arg[1]);
-				printf("%s\n", tmp->arg[2]);
-				if (tmp->command_name)
-					lst = preprocessor(tmp, lst, home);
-			}
-			free_all(tmp);
-			tmp = (t_all *)malloc(sizeof(t_all));
-			string_creating(tmp);
-		}
-		conrol_d();
+		signal(SIGQUIT, ctrl_slash);
 	}
+	conrol_d();
 }
 
 void	free_all(t_all *tmp)
@@ -85,4 +80,21 @@ void	free_all(t_all *tmp)
 		free_all(tmp->baby_pipe);
 	free(tmp);
 	tmp = NULL;
+}
+
+void	ctrl_c(int i)
+{
+	rl_on_new_line();
+	rl_redisplay();
+	write(1, "\e[0K\n", 6);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
+void	ctrl_slash(int i)
+{
+	rl_on_new_line();
+	rl_redisplay();
+	write(1, "\e[0K", 5);
 }
