@@ -9,4 +9,5 @@ void use_pwd(t_all *command)
 	write(command->fd_out, "\n", 1);
 	free(dir);
 	dir = NULL;
+	// exit(0);
 }

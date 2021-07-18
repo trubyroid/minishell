@@ -1,26 +1,6 @@
 #include "../shell.h"
 #include "../truby/shell_truby.h"
 
-void	close_minishell(t_env *env, char *home)
-{
-	t_env	*lst;
-
-	while (env->next != NULL)
-	{
-		lst = env;
-		env = env->next;
-		lst->next = NULL;
-		// free(lst->str);							//ошибка маллока 
-		free(lst);
-		lst = NULL;
-	}
-	free(env);
-	free(home);
-	env = NULL;
-	home = NULL;
-	exit(0);
-}
-
 char	*find_home(void)
 {
 	char	*pwd;

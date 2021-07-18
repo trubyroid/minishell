@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 20:30:05 by truby             #+#    #+#             */
-/*   Updated: 2021/07/17 20:24:51 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/18 17:43:38 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,4 +158,5 @@ void	ft_export(t_all *command, t_env *env)
 		print_export(env);
 	else
 		add_enviroment_variable(command, env);
+	// exit(0);
 }

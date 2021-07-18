@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 20:38:02 by truby             #+#    #+#             */
-/*   Updated: 2021/07/17 20:51:34 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/18 17:43:17 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,26 +64,19 @@ char	*ft_substr_shell(char *s, unsigned int start, size_t len)
 	}
 	b[z] = '"';
 	b[++z] = '\0';
-	return (b);NULL;
+	return (b);
 
 }
 
-void	ft_error(char *str)
+int		babylist_len(t_all *command)
 {
-	write(1, str, ft_strlen(str));
-	write(1, "\n", 1);
-}
+	int	i;
 
-int		ft_error_int(char *str)
-{
-	write(1, str, ft_strlen(str));
-	write(1, "\n", 1);
-	return (0);
-}
-
-void	*ft_error_null(char *str)
-{
-	write(1, str, ft_strlen(str));
-	write(1, "\n", 1);
-	return (NULL);
+	i = 0;
+	while (command != NULL)
+	{
+		i++;
+		command = command->baby_pipe;
+	}
+	return (i);
 }

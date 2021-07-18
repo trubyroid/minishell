@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 21:12:00 by truby             #+#    #+#             */
-/*   Updated: 2021/07/17 20:35:11 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/18 17:42:52 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,5 @@ void use_cd(t_env *env, char **dir, char *home)
 	else if (chdir(dir[1]) == -1)
 		return (ft_error("No such file or directory."));
 	change_env(env);
+	// exit(0);
 }
