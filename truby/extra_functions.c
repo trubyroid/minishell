@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 20:38:02 by truby             #+#    #+#             */
-/*   Updated: 2021/07/18 17:43:17 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/18 18:20:53 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,24 @@ int		babylist_len(t_all *command)
 		command = command->baby_pipe;
 	}
 	return (i);
+}
+
+int	ft_check(t_all *command)
+{
+	int	i;
+
+	i = -1;
+	if (strcmp("env", command->command_name) == 0)
+	{
+		while (command->arg[++i] != NULL)
+		{
+			if (strcmp("env", command->arg[i]) != 0)
+			{
+				write(1, "env: ", 5);
+				write(1, command->arg[i], ft_strlen(command->arg[i]));
+				return (ft_error_int(": No such file or directory"));
+			}
+		}
+	}
+	return (1);
 }

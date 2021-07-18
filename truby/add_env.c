@@ -6,13 +6,13 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 20:35:57 by truby             #+#    #+#             */
-/*   Updated: 2021/07/17 20:28:14 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/18 18:23:25 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell_truby.h"
 
-static int	ft_check(t_all *command, int q)
+static int	validation(t_all *command, int q)
 {
 	int i;
 	int	k;
@@ -52,7 +52,7 @@ int	add_enviroment_variable(t_all *command, t_env *env)
 	while (command->arg[++q])
 	{
 		i = -1;
-		j = ft_check(command, q);
+		j = validation(command, q);
 		if (j > 0)
 		{
 			key = ft_substr(command->arg[q], 0, j);
