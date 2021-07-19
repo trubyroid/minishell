@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 14:45:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/18 19:34:30 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/19 18:54:15 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ void	wait_close(t_all *command)
 	int i;
 	int res;
 
-	i = -1;
+	i = 0;
 	res = 0;
-	while (++i < babylist_len(command))
+	while (i < babylist_len(command))
 	{
 		wait(&res);
 		// g_status=
 		res = 0;
+		i++;
 	}
 	while (command != NULL)
 	{
@@ -52,8 +53,8 @@ void	wait_close(t_all *command)
 			if (command->fd_pipe[0] > 0)
 				close(command->fd_pipe[0]);
 		}
-		if (command->fd_in > 0)
-			close(command->fd_in);
+		// if (command->fd_in > 0)
+		// 	close(command->fd_in);
 		command = command->baby_pipe;
 	}
 }

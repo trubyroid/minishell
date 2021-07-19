@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 17:09:51 by truby             #+#    #+#             */
-/*   Updated: 2021/07/18 20:21:09 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/19 23:49:36 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,28 +122,31 @@ void	exec(t_all *command, t_env *env)
 	exit(errno);
 }
 
-void	implementation(t_all *command, t_env *env)
+void	implementation(t_all *command, t_env *env, int fl)
 {
 	pid_t p;
 	int	  res;
 	
-	p = fork();
-	if (p < 0)
-		return (ft_error("Fork Failed."));
-	else if (p == 0)
+	if (command->fd_out != 1)
 	{
-		if (command->fd_out != 1)
-		{
-			close(1);
-			dup2(command->fd_out, 1);
-		}
-		if (command->fd_in != 0)
-		{
-			close(0);
-			dup2(command->fd_in, 0);
-		}
-		exec(command, env);
+		close(1);
+		dup2(command->fd_out, 1);
 	}
-	wait(&res);
-	// g_status = res / 256;
+	if (command->fd_in != 0)
+	{
+		close(0);
+		dup2(command->fd_in, 0);
+	}	
+	if (fl == 0)
+	{
+		p = fork();
+		if (p < 0)
+			return (ft_error("Fork Failed."));
+		else if (p == 0)
+			exec(command, env);
+		wait(&res);
+		// error_code = res / 256;
+	}
+	else
+		exec(command, env);
 }

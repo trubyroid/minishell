@@ -2,7 +2,7 @@
 
 void	error(int i, char *str)
 {
-		error_cod = i;
+		error_code = i;
 		printf("%s\n", str);
 }
 

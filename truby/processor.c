@@ -6,65 +6,78 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:15:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/18 22:46:21 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 00:01:45 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell_truby.h"
 
-static void	fork_processor(t_all *command, t_env *env, char *home)
-{
-	pid_t	p;
-
-	p = fork();
-	if (p < 0)
-		return (ft_error("Fork Failed."));
-	else if (p == 0)
-		env = processor(command, env, home);
-}
-
 t_env		*preprocessor(t_all *command, t_env *env, char *home)
 {
-	int		fd_0;
-	int		fd_1;
 	t_all	*lst;
+	pid_t	*pid;
+	int		fd_0;
+	int 	len;
+	int		i;
+	int 	**fd;
 
+	// write(1, "nn", 2);
+	i = -1;
+	len = babylist_len(command);
 	fd_0 = dup(0);
-	fd_1 = dup(1);
+	fd = malloc(sizeof(int *) * len);
+	fd[len - 1] = NULL;
+	pid = malloc(sizeof(pid_t) * len);
+	while (++i < len)
+		fd[i] = malloc(sizeof(int) * 2);
+	i = -1;
+	while (++i < len)
+		pipe(fd[i]);
 	lst = command;
-	// write(1, command->baby_pipe->arg[0], ft_strlen(command->baby_pipe->arg[0]));
+	i = -1;
 	if (lst->baby_pipe == NULL)
-		env = processor(lst, env, home);
+		env = processor(lst, env, home, 0);
 	else
 	{
-		while (lst != NULL)
+		while (lst != NULL && ++i < len + 1)
 		{
-			// write(1, "nn", 2);
-			if (lst->baby_pipe != NULL)
+			pid[i] = fork();
+			if (pid[i] != 0)
+				close(fd[i][1]);
+			else if (!pid[i])
 			{
-				pipe(&lst->fd_pipe[0]);
-				dup2(lst->fd_pipe[1], 1);
-			}
-			fork_processor(lst, env, home);
-			if (lst->baby_pipe != NULL)
-			{
-				close(lst->fd_pipe[1]);
-				dup2(lst->fd_pipe[0], 0);
-			}
-			if (lst->baby_pipe == NULL)
-			{
-				dup2(fd_0, 0);
-				dup2(fd_1, 1);
+				if (i == 0)
+				{
+					close(fd[i][0]);
+					dup2(fd[i][1], 1);
+				}
+				else if (i < len - 1)
+				{
+					close(fd[i - 1][1]);
+					dup2(fd[i - 1][0], 0);
+					close(fd[i][0]);
+					dup2(fd[i][1], 1);
+				}
+				else 
+				{
+					close(fd[i - 1][1]);
+					dup2(fd[i - 1][0], 0);
+				}
+				env = processor(lst, env, home, 1);
 			}
 			lst = lst->baby_pipe;
 		}
-		wait_close(command);
+		i = -1;
+		while (++i < len + 1)
+			wait(&pid[i]);
+
+		// wait_close(command);
 	}
-	// g_status = res;
+	dup2(fd_0, 0);
 	return (env);
 }
 
-t_env		*processor(t_all *command, t_env *env, char *home)
+t_env		*processor(t_all *command, t_env *env, char *home, int fl)
 {
 	if (ft_check(command) == 0)
     	return (env);
@@ -83,6 +96,6 @@ t_env		*processor(t_all *command, t_env *env, char *home)
 	else if (strcmp("export", command->command_name) == 0)
 		ft_export(command, env);												//не декомпозировал
 	else
-		implementation(command, env);												//не декомпозировал
+		implementation(command, env, fl);												//не декомпозировал
 	return (env);
 }

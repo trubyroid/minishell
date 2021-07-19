@@ -3,7 +3,7 @@ HEAD = ./shell.h
 SRCS = ./rtoast/
 SRCS_1 = ./truby/
 CFLAGS = -Wall -Wextra -Werror
-C_FILE =	$(SRCS)begin.c $(SRCS)additionally.c $(SRCS)befor_parser.c $(SRCS)parser.c\
+C_FILE =	$(SRCS)begin.c $(SRCS)additionally.c $(SRCS)before_parser.c $(SRCS)parser.c\
 			$(SRCS_1)cd.c $(SRCS_1)echo.c $(SRCS_1)env.c $(SRCS_1)exp.c $(SRCS)dollar.c\
 			$(SRCS_1)pwd.c $(SRCS_1)processor.c $(SRCS_1)add_env.c $(SRCS)redirect.c\
 			$(SRCS_1)execve.c $(SRCS)main.c $(SRCS_1)delete_env.c $(SRCS_1)extra_functions.c\

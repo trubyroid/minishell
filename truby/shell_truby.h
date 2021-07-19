@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 20:57:17 by truby             #+#    #+#             */
-/*   Updated: 2021/07/18 18:43:54 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/19 23:33:22 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void 	use_echo(t_all *command);
 void	print_env(t_env *env);
 void	print_export(t_env *env);
 char	*ft_strjoin_shell(char *s1, char *s2);
-t_env	*processor(t_all *command, t_env *env, char *root);
+t_env	*processor(t_all *command, t_env *env, char *home, int fl);
 int		add_enviroment_variable(t_all *command, t_env *env);
 t_env	*delete_enviroment_variable(t_all *command, t_env *env);
 void	ft_export(t_all *command, t_env *env);
-void	implementation(t_all *command, t_env *env);
+void	implementation(t_all *command, t_env *env, int fl);
 void	ft_error(char *str);
 int		ft_error_int(char *str);
 void	*ft_error_null(char *str);
