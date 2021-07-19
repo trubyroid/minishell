@@ -76,6 +76,6 @@ t_env	*creating_list(char **env)
 void	conrol_d(void)
 {
 	write(1, "\033[3;1m", 7);
-	write(1, ANSI_COLOR_MAGENTA"\e[2Dexit\n"ANSI_COLOR_RESET, 19);
+	write(1, ANSI_COLOR_MAGENTA"\e[1A\e[11Cexit\n"ANSI_COLOR_RESET, 19);
 	exit(0);
 }
