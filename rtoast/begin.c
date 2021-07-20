@@ -44,7 +44,7 @@ t_env	*creating_list(char **env)
 	lst = malloc(sizeof(t_env *));
 	if (!lst)
 		return (ft_error_null("Error of malloc.", ENOMEM));
-	lst->str = env[i];
+	lst->str = ft_strdup(env[i]);
 	lst->next = NULL;
 	while (--i >= 0)
 	{

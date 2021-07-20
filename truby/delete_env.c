@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:36:30 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 02:47:00 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 19:43:07 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void freeshing(t_env *extra_env, char *key, char *second_key)
 {
 	extra_env->next = NULL;
+	free(extra_env->str);
 	free(extra_env);
 	free(key);
 	free(second_key);

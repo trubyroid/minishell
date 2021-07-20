@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 14:45:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 05:47:39 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 20:10:28 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,22 @@ void	close_minishell(t_env *env, char *home)
 {
 	t_env	*lst;
 
-	while (env->next != NULL)
+	while (env != NULL)
 	{
 		lst = env;
 		env = env->next;
 		lst->next = NULL;
-		// free(lst->str);							//ошибка маллока 
-		free(lst);
-		lst = NULL;
+		if (lst->str != NULL)
+		{
+			free(lst->str);							//ошибка маллока
+			lst->str = NULL; 
+			free(lst);
+			lst = NULL;
+		}
 	}
 	free(env);
 	free(home);
 	env = NULL;
 	home = NULL;
-	exit(errno);
+	exit(0);
 }

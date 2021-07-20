@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 20:35:57 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 05:15:10 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 20:12:24 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,9 @@ int	add_enviroment_variable(t_all *command, t_env *env)
 			if (!new)
 				return (ft_error_int("Error of malloc.", ENOMEM));										//error
 			env->next = new;
-			new->str = malloc(sizeof(char) * ft_strlen(command->arg[q]));
+			new->str = ft_strdup(command->arg[q]);
 			if (!new->str)
 				return (ft_error_int("Error of malloc.", ENOMEM));	
-			while (command->arg[q][++i] != '\0')
-				new->str[i] = command->arg[q][i];
-			new->str[i] = '\0';
 			new->next = NULL;
 		}
 		fl = 0;
