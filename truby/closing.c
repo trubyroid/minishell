@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 14:45:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 20:10:28 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 21:27:31 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_error_exit(char *str, int i)
 	exit(i);
 }
 
-int		ft_error_int(char *str, int i)
+int	ft_error_int(char *str, int i)
 {
 	g_status = i;
 	write(1, str, ft_strlen(str));
@@ -81,8 +81,8 @@ void	close_minishell(t_env *env, char *home)
 		lst->next = NULL;
 		if (lst->str != NULL)
 		{
-			free(lst->str);							//ошибка маллока
-			lst->str = NULL; 
+			free(lst->str);
+			lst->str = NULL;
 			free(lst);
 			lst = NULL;
 		}

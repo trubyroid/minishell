@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 20:57:17 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 05:58:18 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 21:55:41 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ t_env	*preprocessor(t_all *command, t_env *env, char *home);
 void	wait_close(t_all *command);
 int		babylist_len(t_all *command);
 int		ft_check(t_all *command);
+t_env	*find_variable(t_env *env, char *str, int fl);
 
 #endif

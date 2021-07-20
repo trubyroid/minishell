@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 20:38:02 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 05:56:15 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 21:55:35 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,24 @@ int	ft_check(t_all *command)
 		}
 	}
 	return (1);
+}
+
+t_env	*find_variable(t_env *env, char *str, int fl)
+{
+	while (ft_strnstr(env->str, str, ft_strlen(str)) == NULL)
+	{
+		if (env->next == NULL)
+		{
+			if (fl == 1)
+			{
+				write(1, "ya_bash: cd: ", 13);
+				write(1, str, ft_strlen(str) - 1);
+				write(1, " not set", 8);
+				write (1, "\n", 1);
+			}
+			return (NULL);
+		}
+		env = env->next;
+	}
+	return (env);
 }

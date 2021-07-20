@@ -6,22 +6,11 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 21:12:00 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 05:52:04 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 22:00:17 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell_truby.h"
-
-static t_env	*find_variable(t_env *env, char *str, int q)
-{
-	while (ft_strnstr(env->str, str, q) == NULL)
-	{
-		if (env->next == NULL)
-			return (NULL);
-		env = env->next;
-	}
-	return (env);
-}
 
 static void	change_env(t_env *env)
 {
@@ -32,7 +21,7 @@ static void	change_env(t_env *env)
 
 	lst = env;
 	pwd = NULL;
-	env = find_variable(env, "PWD=", 4);
+	env = find_variable(env, "PWD=", 0);
 	if (env == NULL)
 		return ;
 	oldpwd = ft_substr(env->str, 4, ft_strlen(env->str) - 4);
@@ -42,7 +31,7 @@ static void	change_env(t_env *env)
 	env->str = ft_strjoin_shell("PWD=", pwd);
 	if (env->str == NULL || oldpwd == NULL)
 		return (ft_error("Error of malloc.", ENOMEM));
-	lst = find_variable(lst, "OLDPWD=", 7);
+	lst = find_variable(lst, "OLDPWD=", 0);
 	if (lst == NULL)
 		return ;
 	free(lst->str);
@@ -50,6 +39,50 @@ static void	change_env(t_env *env)
 	lst->str = ft_strjoin_shell("OLDPWD=", oldpwd);
 	if (lst->str == NULL)
 		return (ft_error("Error of malloc.", ENOMEM));
+}
+
+static void	chdir_with_tilda(char *home, char *dir)
+{
+	char	*new_str;
+
+	new_str = ft_substr(dir, 1, ft_strlen(dir) - 1);
+	if (new_str == NULL)
+		return (ft_error("Error of malloc.", ENOMEM));
+	new_str = ft_strjoin_shell(home, new_str);
+	if (new_str == NULL)
+		return (ft_error("Error of malloc.", ENOMEM));
+	if (chdir(new_str) == -1)
+	{
+		write(1, "ya_bash: cd: ", 13);
+		write(1, new_str, ft_strlen(new_str));
+		free(new_str);
+		new_str = NULL;
+		return (ft_error(": No such file or directory", 1));
+	}
+	free(new_str);
+	new_str = NULL;
+}
+
+static void	back_to_previous(t_env *env)
+{
+	int		i;
+	char	*oldpwd;
+
+	i = 0;
+	env = find_variable(env, "OLDPWD=", 1);
+	if (env == NULL)
+		return ;
+	while (env->str[i] != '=')
+		i++;
+	i++;
+	oldpwd = ft_substr(env->str, i, ft_strlen(env->str) - i);
+	if (oldpwd == NULL)
+		return (ft_error("Error of malloc.", ENOMEM));
+	write(1, oldpwd, ft_strlen(oldpwd));
+	write(1, "\n", 1);
+	chdir(oldpwd);
+	free(oldpwd);
+	oldpwd = NULL;
 }
 
 void	use_cd(t_env *env, char **dir, char *home)
@@ -61,25 +94,10 @@ void	use_cd(t_env *env, char **dir, char *home)
 		if (dir[1] == NULL || dir[1][1] == '\0')
 			chdir(home);
 		else
-		{
-			new_str = ft_substr(dir[1], 1, ft_strlen(dir[1]) - 1);
-			if (new_str == NULL)
-				return (ft_error("Error of malloc.", ENOMEM));
-			new_str = ft_strjoin_shell(home, new_str);
-			if (new_str == NULL)
-				return (ft_error("Error of malloc.", ENOMEM));
-			if (chdir(new_str) == -1)
-			{
-				write(1, "ya_bash: cd: ", 13);
-				write(1, new_str, ft_strlen(new_str));
-				free(new_str);
-				new_str = NULL;
-				return (ft_error(": No such file or directory", 1));
-			}
-			free(new_str);
-			new_str = NULL;
-		}
+			chdir_with_tilda(home, dir[1]);
 	}
+	else if (ft_strcmp(dir[1], "-") == 0)
+		back_to_previous(env);
 	else if (chdir(dir[1]) == -1)
 	{
 		write(1, "ya_bash: cd: ", 13);

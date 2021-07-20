@@ -37,19 +37,14 @@ void	cycle(t_all *tmp, t_env *lst)
 	string_creating(tmp);
 	while (tmp->str)
 	{
-		write(1, "1", 1);
 		i = prepars(tmp);
 		if (i == 0)
 		{
-			write(1, "2", 1);
 			command_name(tmp, lst, j);
-			write(1, "3", 1);
 			if (tmp->command_name)
 				lst = preprocessor(tmp, lst, home);
-			write(1, "4", 2);
 		}
 		free_all(tmp);
-		write(1, "5", 1);
 		tmp = (t_all *)malloc(sizeof(t_all));
 		string_creating(tmp);
 		signal(SIGQUIT, ctrl_slash);
