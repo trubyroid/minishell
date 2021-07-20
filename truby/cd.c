@@ -6,13 +6,13 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 21:12:00 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 02:58:20 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 05:52:04 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell_truby.h"
 
-static t_env *find_variable(t_env *env, char *str, int q)
+static t_env	*find_variable(t_env *env, char *str, int q)
 {
 	while (ft_strnstr(env->str, str, q) == NULL)
 	{
@@ -25,10 +25,10 @@ static t_env *find_variable(t_env *env, char *str, int q)
 
 static void	change_env(t_env *env)
 {
-	t_env *lst;
-	char *oldpwd;
-	char *key;
-	char *pwd;
+	t_env	*lst;
+	char	*oldpwd;
+	char	*key;
+	char	*pwd;
 
 	lst = env;
 	pwd = NULL;
@@ -52,9 +52,9 @@ static void	change_env(t_env *env)
 		return (ft_error("Error of malloc.", ENOMEM));
 }
 
-void use_cd(t_env *env, char **dir, char *home)
+void	use_cd(t_env *env, char **dir, char *home)
 {
-	char *new_str;
+	char	*new_str;
 
 	if (dir[1] == NULL || dir[1][0] == '~')
 	{
@@ -87,5 +87,4 @@ void use_cd(t_env *env, char **dir, char *home)
 		return (ft_error(": No such file or directory", 1));
 	}
 	change_env(env);
-	// exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 20:35:57 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 03:31:39 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 05:15:10 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	add_enviroment_variable(t_all *command, t_env *env)
 	int j;
 	int q;
 	int fl;
-	t_env *new;
 	char *key;
 	char *key_two;
+	t_env *new;
 
 	q = 0;
 	fl = 0;

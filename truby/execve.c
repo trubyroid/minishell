@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 17:09:51 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 04:18:31 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 05:48:26 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,31 +65,31 @@ void	exec(t_all *command, t_env *env)
 		{
 			write(1, "ya_bash: ", 9);
 			write(1, command->arg[0], ft_strlen(command->arg[0]));
-			return (ft_error(": No such file or directory", 127));
+			return (ft_error_exit(": No such file or directory", 127));
 		}
 		env = env->next;
 	}
 	str = ft_substr(env->str, 5, ft_strlen(env->str) - 5);
 	if (!str)
-		return (ft_error("Error of malloc.", ENOMEM));
+		return (ft_error_exit("Error of malloc.", ENOMEM));
 	paths = ft_split(str, ':');
 	if (!paths)
-		return (ft_error("Error of malloc.", ENOMEM));
+		return (ft_error_exit("Error of malloc.", ENOMEM));
 	free(str);
 	str = NULL;
-	if (strcmp("./", command->command_name) == 0)							//заменить strcmp
+	if (ft_strcmp("./", command->command_name) == 0)							//заменить strcmp
 	{
 		str = ft_strjoin("/", command->arg[0]);
 		if (!str)
-			return (ft_error("Error of malloc.", ENOMEM));
+			return (ft_error_exit("Error of malloc.", ENOMEM));
 		path = ft_strjoin_gnl(getcwd(NULL, 0), str);
 		if (!path)
-			return (ft_error("Error of malloc.", ENOMEM));
+			return (ft_error_exit("Error of malloc.", ENOMEM));
 		res = execve(path, command->arg, env_massiv);
 		free(path);
 		path = NULL;
 	}
-	else if (strcmp("../", command->command_name) == 0)
+	else if (ft_strcmp("../", command->command_name) == 0)
 	{
 		path = getcwd(NULL, 0);
 		k = ft_strlen_int(path);
@@ -100,7 +100,7 @@ void	exec(t_all *command, t_env *env)
 		}
 		path = ft_strjoin_gnl(ft_substr_shell(path, 0, k), command->arg[0]);
 		if (!path)
-			return (ft_error("Error of malloc.", ENOMEM));
+			return (ft_error_exit("Error of malloc.", ENOMEM));
 		res = execve(path, command->arg, env_massiv);
 		free(path);
 		path = NULL;
@@ -113,10 +113,10 @@ void	exec(t_all *command, t_env *env)
 		{
 			str = ft_strjoin("/", command->command_name);
 			if (!str)
-				return (ft_error("Error of malloc.", ENOMEM));
+				return (ft_error_exit("Error of malloc.", ENOMEM));
 			path = ft_strjoin(paths[i], str);
 			if (!path)
-				return (ft_error("Error of malloc.", ENOMEM));
+				return (ft_error_exit("Error of malloc.", ENOMEM));
 			free(str);
 			str = NULL;
 			res = execve(path, command->arg, env_massiv);
@@ -127,7 +127,7 @@ void	exec(t_all *command, t_env *env)
 		{
 			write(1, "ya_bash: ", 9);
 			write(1, command->arg[0], ft_strlen(command->arg[0]));
-			return (ft_error(": command not found", 127));
+			return (ft_error_exit(": command not found", 127));
 		}
 	}
 	while (paths[++j] != NULL)
@@ -175,7 +175,7 @@ void	implementation(t_all *command, t_env *env, int fl)
 		wait(&res);
 		dup2(fd_0, 0);
 		dup2(fd_1, 1);
-		error_code = res / 256;
+		g_status = res / 256;
 	}
 	else
 		exec(command, env);

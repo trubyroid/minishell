@@ -6,13 +6,13 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 20:38:02 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 04:02:14 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 05:56:15 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell_truby.h"
 
-char	*ft_strjoin_shell(char *s1, char *s2)																		//надо подключить либу и удалить  эти статик функции
+char	*ft_strjoin_shell(char *s1, char *s2)
 {
 	char	*new;
 	size_t	i;
@@ -20,16 +20,13 @@ char	*ft_strjoin_shell(char *s1, char *s2)																		//надо подк�
 
 	if (s1 == 0 || s2 == 0)
 		return (NULL);
-	i = 0;
+	i = -1;
 	j = 0;
 	new = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (new == NULL)
 		return (NULL);
-	while (i < ft_strlen(s1))
-	{
+	while (++i < ft_strlen(s1))
 		new[i] = s1[i];
-		i++;
-	}
 	while (i < ft_strlen(s1) + ft_strlen(s2))
 	{
 		new[i] = s2[j];
@@ -65,10 +62,9 @@ char	*ft_substr_shell(char *s, unsigned int start, size_t len)
 	b[z] = '"';
 	b[++z] = '\0';
 	return (b);
-
 }
 
-int		babylist_len(t_all *command)
+int	babylist_len(t_all *command)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:15:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 04:07:57 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 05:22:08 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_env		*preprocessor(t_all *command, t_env *env, char *home)
 					dup2(fd[i - 1][0], 0);
 				}
 				env = processor(lst, env, home, 1);
+				exit(errno);																//не факт
 			}
 			lst = lst->baby_pipe;
 		}
@@ -102,8 +103,8 @@ t_env		*processor(t_all *command, t_env *env, char *home, int fl)
 		env = delete_enviroment_variable(command, env);
 	else if (ft_strcmp("cd", command->command_name) == 0)
 		use_cd(env, command->arg, home);
-	// else if (ft_strcmp("exit", command->command_name) == 0)
-	// 	close_minishell(env, home);												//не декомпозировал
+	else if (ft_strcmp("exit", command->command_name) == 0)
+		close_minishell(env, home);												//не декомпозировал
 	else if (ft_strcmp("export", command->command_name) == 0)
 		ft_export(command, env);												//не декомпозировал
 	else

@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:15:12 by truby             #+#    #+#             */
-/*   Updated: 2021/07/18 17:42:49 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 05:53:21 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static void	writing(t_all *command, int i, int fl)
 		write(command->fd_out, "\n", 1);
 }
 
-void use_echo(t_all *command)
+void	use_echo(t_all *command)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (command->num_arg > 1)
@@ -43,5 +43,4 @@ void use_echo(t_all *command)
 	}
 	else
 		write(command->fd_out, "\n", 1);
-	// exit(0);
 }

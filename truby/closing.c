@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 14:45:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 03:53:48 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 05:47:39 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,22 @@
 
 void	ft_error(char *str, int i)
 {
-	error_code = i;
+	g_status = i;
 	write(1, str, ft_strlen(str));
 	write(1, "\n", 1);
 }
 
+void	ft_error_exit(char *str, int i)
+{
+	g_status = i;
+	write(1, str, ft_strlen(str));
+	write(1, "\n", 1);
+	exit(i);
+}
+
 int		ft_error_int(char *str, int i)
 {
-	error_code = i;
+	g_status = i;
 	write(1, str, ft_strlen(str));
 	write(1, "\n", 1);
 	return (0);
@@ -29,7 +37,7 @@ int		ft_error_int(char *str, int i)
 
 void	*ft_error_null(char *str, int i)
 {
-	error_code = i;
+	g_status = i;
 	write(1, str, ft_strlen(str));
 	write(1, "\n", 1);
 	return (NULL);
