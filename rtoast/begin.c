@@ -43,14 +43,14 @@ t_env	*creating_list(char **env)
 		i++;
 	lst = malloc(sizeof(t_env *));
 	if (!lst)
-		return (ft_error_null("Error of malloc."));
+		return (ft_error_null("Error of malloc.", ENOMEM));
 	lst->str = env[i];
 	lst->next = NULL;
 	while (--i >= 0)
 	{
 		new = malloc(sizeof(t_env *));
 		if (!new)
-			return (ft_error_null("Error of malloc."));
+			return (ft_error_null("Error of malloc.", ENOMEM));
 		new->str = ft_strdup(env[i]);
 		if (ft_strnstr(new->str, "SHLVL=", 6))
 		{

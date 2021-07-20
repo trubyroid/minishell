@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:36:30 by truby             #+#    #+#             */
-/*   Updated: 2021/07/18 18:13:10 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 02:47:00 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_env	*delete_enviroment_variable(t_all *command, t_env *env)
 		key = ft_strjoin(command->arg[i], "=");
 		if (key == NULL || second_key == NULL)
 		{
-			ft_error("Error of malloc.");
+			ft_error("Error of malloc.", ENOMEM);
 			return (env);
 		}
 		if (ft_strnstr(env->str, key, ft_strlen(key)) != NULL || (ft_strnstr(env->str, second_key, ft_strlen(second_key)) != NULL && env->str[ft_strlen(second_key)] == '\0'))

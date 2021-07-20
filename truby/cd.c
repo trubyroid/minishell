@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 21:12:00 by truby             #+#    #+#             */
-/*   Updated: 2021/07/18 17:42:52 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 02:58:20 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	change_env(t_env *env)
 	pwd = getcwd(pwd, 0);
 	env->str = ft_strjoin_shell("PWD=", pwd);
 	if (env->str == NULL || oldpwd == NULL)
-		return (ft_error("Error of malloc."));
+		return (ft_error("Error of malloc.", ENOMEM));
 	lst = find_variable(lst, "OLDPWD=", 7);
 	if (lst == NULL)
 		return ;
@@ -49,7 +49,7 @@ static void	change_env(t_env *env)
 	lst->str = NULL;
 	lst->str = ft_strjoin_shell("OLDPWD=", oldpwd);
 	if (lst->str == NULL)
-		return (ft_error("Error of malloc."));
+		return (ft_error("Error of malloc.", ENOMEM));
 }
 
 void use_cd(t_env *env, char **dir, char *home)
@@ -64,17 +64,28 @@ void use_cd(t_env *env, char **dir, char *home)
 		{
 			new_str = ft_substr(dir[1], 1, ft_strlen(dir[1]) - 1);
 			if (new_str == NULL)
-				return (ft_error("Error of malloc."));
+				return (ft_error("Error of malloc.", ENOMEM));
 			new_str = ft_strjoin_shell(home, new_str);
 			if (new_str == NULL)
-				return (ft_error("Error of malloc."));
-			chdir(new_str);
+				return (ft_error("Error of malloc.", ENOMEM));
+			if (chdir(new_str) == -1)
+			{
+				write(1, "ya_bash: cd: ", 13);
+				write(1, new_str, ft_strlen(new_str));
+				free(new_str);
+				new_str = NULL;
+				return (ft_error(": No such file or directory", 1));
+			}
 			free(new_str);
 			new_str = NULL;
 		}
 	}
 	else if (chdir(dir[1]) == -1)
-		return (ft_error("No such file or directory."));
+	{
+		write(1, "ya_bash: cd: ", 13);
+		write(1, dir[1], ft_strlen(dir[1]));
+		return (ft_error(": No such file or directory", 1));
+	}
 	change_env(env);
 	// exit(0);
 }

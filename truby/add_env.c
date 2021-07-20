@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 20:35:57 by truby             #+#    #+#             */
-/*   Updated: 2021/07/18 18:23:25 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 03:31:39 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int	add_enviroment_variable(t_all *command, t_env *env)
 		{
 			key = ft_substr(command->arg[q], 0, j);
 			key_two = ft_substr(command->arg[q], 0, j - 1);
+			if (!key || !key_two)
+				return (ft_error_int("Error of malloc.", ENOMEM));	
 			while (env->str)
 			{
 				if (ft_strnstr(env->str, key, j))
@@ -64,6 +66,8 @@ int	add_enviroment_variable(t_all *command, t_env *env)
 					free(env->str);
 					env->str = NULL;
 					env->str = ft_strdup(command->arg[q]);
+					if (!env->str)
+						return (ft_error_int("Error of malloc.", ENOMEM));	
 					fl = 1;
 					break ;
 				}
@@ -72,6 +76,8 @@ int	add_enviroment_variable(t_all *command, t_env *env)
 					free(env->str);
 					env->str = NULL;
 					env->str = ft_strdup(command->arg[q]);
+					if (!env->str)
+						return (ft_error_int("Error of malloc.", ENOMEM));	
 					fl = 1;
 					break ;
 				}
@@ -102,18 +108,18 @@ int	add_enviroment_variable(t_all *command, t_env *env)
 		{
 			write(1, "ya_bash: export: '", 18);
 			write(1, command->arg[q], ft_strlen(command->arg[q]));
-			ft_error_int("': not a valid identifier ");
+			ft_error_int("': not a valid identifier", 1);
 			break ;
 		}
 		if (fl == 0)
 		{
 			new = malloc(sizeof(t_env *));
 			if (!new)
-				return (ft_error_int("Error of malloc."));										//error
+				return (ft_error_int("Error of malloc.", ENOMEM));										//error
 			env->next = new;
 			new->str = malloc(sizeof(char) * ft_strlen(command->arg[q]));
 			if (!new->str)
-				return (ft_error_int("Error of malloc."));	
+				return (ft_error_int("Error of malloc.", ENOMEM));	
 			while (command->arg[q][++i] != '\0')
 				new->str[i] = command->arg[q][i];
 			new->str[i] = '\0';

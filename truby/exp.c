@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 20:30:05 by truby             #+#    #+#             */
-/*   Updated: 2021/07/18 17:43:38 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 03:02:46 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static t_env	*create_new_lsts(t_env *env)
 
 	new = malloc(sizeof(t_env *));
 	if (!new)
-		return (0);
+		return (ft_error_null("Error of malloc.", ENOMEM));
 	first = new;
 	new->str = env->str;
 	env = env->next;
@@ -88,7 +88,7 @@ static t_env	*create_new_lsts(t_env *env)
 	{
 		extra = malloc(sizeof(t_env *));
 		if (!extra)
-			return (0);
+			return (ft_error_null("Error of malloc.", ENOMEM));
 		new->next = extra;
 		extra->str = env->str;
 		new = extra;
@@ -96,7 +96,7 @@ static t_env	*create_new_lsts(t_env *env)
 	}
 	extra = malloc(sizeof(t_env *));
 	if (!extra)
-		return (0);
+		return (ft_error_null("Error of malloc.", ENOMEM));
 	new->next = extra;
 	extra->str = env->str;
 	extra->next = NULL;
@@ -123,6 +123,8 @@ void	print_export(t_env *env)
 		if (ft_strchr(next->str, '='))
 		{
 			value = ft_substr_shell(next->str, j, ft_strlen(next->str) - j + 1);
+			if (!value)
+				return (ft_error("Error of malloc.", ENOMEM));
 			write(1, value, ft_strlen(value));
 			free(value);
 			value = NULL;
@@ -140,6 +142,8 @@ void	print_export(t_env *env)
 			if (ft_strchr(first_lst->str, '='))
 			{
 				value = ft_substr_shell(first_lst->str, j, ft_strlen(first_lst->str) - j + 1);
+				if (!value)
+					return (ft_error("Error of malloc.", ENOMEM));
 				write(1, value, ft_strlen(value));
 				free(value);
 				value = NULL;

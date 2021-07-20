@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 20:11:45 by truby             #+#    #+#             */
-/*   Updated: 2021/04/28 19:24:26 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 03:59:51 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ t_list			*ft_lstmap(t_list *l, void *(*f)(void *), void (*d)(void *));
 char			*ft_calloc_char(int num, char a);
 int				ft_strlen_int(char *str);
 int				ft_number(char *line, int *i, int *rgb);
+int				ft_strcmp(char *str1, char *str2);
 
 #endif

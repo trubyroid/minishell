@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:15:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 00:01:45 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 04:07:57 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,39 @@ t_env		*preprocessor(t_all *command, t_env *env, char *home)
 	int		i;
 	int 	**fd;
 
-	// write(1, "nn", 2);
-	i = -1;
-	len = babylist_len(command);
-	fd_0 = dup(0);
-	fd = malloc(sizeof(int *) * len);
-	fd[len - 1] = NULL;
-	pid = malloc(sizeof(pid_t) * len);
-	while (++i < len)
-		fd[i] = malloc(sizeof(int) * 2);
-	i = -1;
-	while (++i < len)
-		pipe(fd[i]);
-	lst = command;
-	i = -1;
-	if (lst->baby_pipe == NULL)
-		env = processor(lst, env, home, 0);
+	if (command->baby_pipe == NULL)
+		env = processor(command, env, home, 0);
 	else
 	{
+		i = -1;
+		len = babylist_len(command);
+		fd_0 = dup(0);
+		fd = malloc(sizeof(int *) * len);
+		if (!fd)
+			return (ft_error_null("Error of malloc.", ENOMEM));
+		fd[len - 1] = NULL;
+		pid = malloc(sizeof(pid_t) * len);
+		if (!pid)
+			return (ft_error_null("Error of malloc.", ENOMEM));
+		while (++i < len)
+		{
+			fd[i] = malloc(sizeof(int) * 2);
+			if (!fd[i])
+				return (ft_error_null("Error of malloc.", ENOMEM));
+		}
+		i = -1;
+		while (++i < len)
+		{
+			if (pipe(fd[i]) == -1)
+				return (ft_error_null("Pipe failed.", errno));
+		}
+		lst = command;
+		i = -1;
 		while (lst != NULL && ++i < len + 1)
 		{
 			pid[i] = fork();
+			// if (pid[i] < 0)
+			// 	return (ft_error_null("Fork failed.", errno));							//спросить
 			if (pid[i] != 0)
 				close(fd[i][1]);
 			else if (!pid[i])
@@ -70,10 +82,9 @@ t_env		*preprocessor(t_all *command, t_env *env, char *home)
 		i = -1;
 		while (++i < len + 1)
 			wait(&pid[i]);
-
+		dup2(fd_0, 0);
 		// wait_close(command);
 	}
-	dup2(fd_0, 0);
 	return (env);
 }
 
@@ -81,19 +92,19 @@ t_env		*processor(t_all *command, t_env *env, char *home, int fl)
 {
 	if (ft_check(command) == 0)
     	return (env);
-	if (strcmp("env", command->command_name) == 0)
+	if (ft_strcmp("env", command->command_name) == 0)
 		print_env(env);
-	else if (strcmp("echo", command->command_name) == 0)						//заменить все strcmp
+	else if (ft_strcmp("echo", command->command_name) == 0)
 		use_echo(command);											
-	else if (strcmp("pwd", command->command_name) == 0)
+	else if (ft_strcmp("pwd", command->command_name) == 0)
 		use_pwd(command);
-	else if (strcmp("unset", command->command_name) == 0)
+	else if (ft_strcmp("unset", command->command_name) == 0)
 		env = delete_enviroment_variable(command, env);
-	else if (strcmp("cd", command->command_name) == 0)
+	else if (ft_strcmp("cd", command->command_name) == 0)
 		use_cd(env, command->arg, home);
-	// else if (strcmp("exit", command->command_name) == 0)
+	// else if (ft_strcmp("exit", command->command_name) == 0)
 	// 	close_minishell(env, home);												//не декомпозировал
-	else if (strcmp("export", command->command_name) == 0)
+	else if (ft_strcmp("export", command->command_name) == 0)
 		ft_export(command, env);												//не декомпозировал
 	else
 		implementation(command, env, fl);												//не декомпозировал

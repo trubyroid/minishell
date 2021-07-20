@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 20:38:02 by truby             #+#    #+#             */
-/*   Updated: 2021/07/19 18:45:02 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 04:02:14 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,15 @@ int	ft_check(t_all *command)
 	int	i;
 
 	i = -1;
-	if (strcmp("env", command->command_name) == 0)
+	if (ft_strcmp("env", command->command_name) == 0)
 	{
 		while (command->arg[++i] != NULL)
 		{
-			if (strcmp("env", command->arg[i]) != 0)
+			if (ft_strcmp("env", command->arg[i]) != 0)
 			{
 				write(1, "env: ", 5);
 				write(1, command->arg[i], ft_strlen(command->arg[i]));
-				return (ft_error_int(": No such file or directory"));
+				return (ft_error_int(": No such file or directory", 127));
 			}
 		}
 	}
