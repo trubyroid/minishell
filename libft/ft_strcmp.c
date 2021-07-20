@@ -6,15 +6,15 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 03:54:18 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 04:28:26 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 05:40:20 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_strcmp(char *str1, char *str2)
+int	ft_strcmp(char *str1, char *str2)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (!str1 || !str2)

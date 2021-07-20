@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 20:11:45 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 03:59:51 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/20 05:40:52 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include <unistd.h>
 
-typedef struct	s_list
+typedef struct s_list
 {
 	void				*content;
 	struct s_list		*next;
