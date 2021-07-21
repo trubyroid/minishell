@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 14:45:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 21:27:31 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/21 14:13:58 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ void	ft_error_exit(char *str, int i)
 	exit(i);
 }
 
-int	ft_error_int(char *str, int i)
+int	ft_error_int(char *str, int i, int fl)
 {
 	g_status = i;
 	write(1, str, ft_strlen(str));
 	write(1, "\n", 1);
+	if (fl == 1)
+		exit(i);
 	return (0);
 }
 

@@ -6,13 +6,13 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:36:30 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 19:43:07 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/21 18:21:27 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell_truby.h"
 
-static void freeshing(t_env *extra_env, char *key, char *second_key)
+static void	freeshing(t_env *extra_env, char *key, char *second_key)
 {
 	extra_env->next = NULL;
 	free(extra_env->str);
@@ -23,42 +23,44 @@ static void freeshing(t_env *extra_env, char *key, char *second_key)
 	key = NULL;
 	second_key = NULL;
 }
+
 static t_env	*first_variable(t_env *env, char *key, char *second_key)
 {
-	t_env *extra;
+	t_env	*extra;
 
 	extra = env;
 	env = env->next;
 	freeshing(extra, key, second_key);
-	return (env);	
+	return (env);
 }
 
-static t_env *not_a_first_variable(t_env *env, char *key, char *second_key)
+static t_env	*not_a_first_variable(t_env *env, char *key, char *second_key)
 {
-	t_env *previous;
-	t_env *first;
+	t_env	*previous;
+	t_env	*first;
 
 	first = env;
 	while (env->next != NULL)
 	{
 		previous = env;
 		env = env->next;
-		if (ft_strnstr(env->str, key, ft_strlen(env->str)) != NULL || (ft_strnstr(env->str, second_key, ft_strlen(second_key)) != NULL && env->str[ft_strlen(second_key)] == '\0'))
+		if (ft_strnstr(env->str, key, ft_strlen(env->str)) != NULL
+			|| (ft_strnstr(env->str, second_key, ft_strlen(second_key)) != NULL
+				&& env->str[ft_strlen(second_key)] == '\0'))
 		{
 			previous->next = env->next;
 			freeshing(env, key, second_key);
-			break;
+			break ;
 		}
 	}
 	return (first);
 }
 
-
 t_env	*delete_enviroment_variable(t_all *command, t_env *env)
 {
-	char *key;
-	char *second_key;
-	int i;
+	char	*key;
+	char	*second_key;
+	int		i;
 
 	i = 0;
 	while (command->arg[++i])
@@ -70,10 +72,13 @@ t_env	*delete_enviroment_variable(t_all *command, t_env *env)
 			ft_error("Error of malloc.", ENOMEM);
 			return (env);
 		}
-		if (ft_strnstr(env->str, key, ft_strlen(key)) != NULL || (ft_strnstr(env->str, second_key, ft_strlen(second_key)) != NULL && env->str[ft_strlen(second_key)] == '\0'))
-			env = first_variable(env, key, second_key);	
+		if (ft_strnstr(env->str, key, ft_strlen(key)) != NULL
+			|| (ft_strnstr(env->str, second_key, ft_strlen(second_key)) != NULL
+				&& env->str[ft_strlen(second_key)] == '\0'))
+			env = first_variable(env, key, second_key);
 		else
 			env = not_a_first_variable(env, key, second_key);
 	}
+	g_status = 0;
 	return (env);
 }

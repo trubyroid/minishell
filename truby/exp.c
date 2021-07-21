@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 20:30:05 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 03:02:46 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/21 13:38:01 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ void	print_export(t_env *env)
 	}
 	free(first_lst);
 	first_lst = NULL;
+	g_status = 0;
 }
 
 void	ft_export(t_all *command, t_env *env)

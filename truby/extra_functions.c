@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 20:38:02 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 21:55:35 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/21 21:55:08 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,25 +90,26 @@ int	ft_check(t_all *command)
 			{
 				write(1, "env: ", 5);
 				write(1, command->arg[i], ft_strlen(command->arg[i]));
-				return (ft_error_int(": No such file or directory", 127));
+				return (ft_error_int(": No such file or directory", 127, 0));
 			}
 		}
 	}
 	return (1);
 }
 
-t_env	*find_variable(t_env *env, char *str, int fl)
+t_env	*find_variable(t_env *env, char *str, char *str2, int fl)
 {
 	while (ft_strnstr(env->str, str, ft_strlen(str)) == NULL)
 	{
 		if (env->next == NULL)
 		{
 			if (fl == 1)
+				write(1, "ya_bash: cd: OLDPWD not set\n", 28);
+			if (fl == 2)
 			{
-				write(1, "ya_bash: cd: ", 13);
-				write(1, str, ft_strlen(str) - 1);
-				write(1, " not set", 8);
-				write (1, "\n", 1);
+				write(1, "ya_bash: ", 9);
+				write(1, str2, ft_strlen(str2));
+				ft_error_exit(": No such file or directory", 127);
 			}
 			return (NULL);
 		}

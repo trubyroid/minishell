@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:15:12 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 05:53:21 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/21 13:37:13 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,5 @@ void	use_echo(t_all *command)
 	}
 	else
 		write(command->fd_out, "\n", 1);
+	g_status = 0;
 }

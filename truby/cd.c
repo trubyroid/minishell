@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 21:12:00 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 22:00:17 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/21 19:13:58 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	change_env(t_env *env)
 
 	lst = env;
 	pwd = NULL;
-	env = find_variable(env, "PWD=", 0);
+	env = find_variable(env, "PWD=", NULL, 0);
 	if (env == NULL)
 		return ;
 	oldpwd = ft_substr(env->str, 4, ft_strlen(env->str) - 4);
@@ -31,7 +31,7 @@ static void	change_env(t_env *env)
 	env->str = ft_strjoin_shell("PWD=", pwd);
 	if (env->str == NULL || oldpwd == NULL)
 		return (ft_error("Error of malloc.", ENOMEM));
-	lst = find_variable(lst, "OLDPWD=", 0);
+	lst = find_variable(lst, "OLDPWD=", NULL, 0);
 	if (lst == NULL)
 		return ;
 	free(lst->str);
@@ -69,7 +69,7 @@ static void	back_to_previous(t_env *env)
 	char	*oldpwd;
 
 	i = 0;
-	env = find_variable(env, "OLDPWD=", 1);
+	env = find_variable(env, "OLDPWD=", NULL, 1);
 	if (env == NULL)
 		return ;
 	while (env->str[i] != '=')
@@ -105,4 +105,5 @@ void	use_cd(t_env *env, char **dir, char *home)
 		return (ft_error(": No such file or directory", 1));
 	}
 	change_env(env);
+	g_status = 0;
 }

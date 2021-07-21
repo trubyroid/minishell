@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:15:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 23:04:34 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/21 21:49:44 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ t_env	*processor(t_all *command, t_env *env, char *home, int fl)
 	else if (ft_strcmp("export", command->command_name) == 0)
 		ft_export(command, env);
 	else
-		implementation(command, env, fl);
+		fork_exec(command, env, fl);
 	return (env);
 }
