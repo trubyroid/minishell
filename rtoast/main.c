@@ -44,7 +44,7 @@ void	cycle(t_all *tmp, t_env *lst)
 			if (tmp->command_name)
 				lst = preprocessor(tmp, lst, home);
 		}
-		free_all(tmp);
+		// free_all(tmp);
 		tmp = (t_all *)malloc(sizeof(t_all));
 		string_creating(tmp);
 		signal(SIGQUIT, ctrl_slash);

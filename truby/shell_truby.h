@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 20:57:17 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 21:55:41 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/21 00:23:47 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@
 # include <stdlib.h>
 # include<sys/types.h>
 # include<sys/wait.h>
+
+typedef struct s_fork
+{
+	pid_t	*pid;
+	int		**fd;
+	int		len_list;
+	int		fd_0;
+	int		i;
+}				t_fork;
 
 void	use_cd(t_env *env, char **dir, char *root);
 void	use_pwd(t_all *command);
