@@ -175,8 +175,8 @@ t_all *init_baby(t_all *baby, t_all *tmp)
 
 	baby->str = (ft_strdup(tmp->str));
 	baby->baby_pipe = NULL;
-	tmp->colnum_fd = 0;
-	tmp->massiv_fd = NULL;
+	baby->colnum_fd = 0;
+	baby->massiv_fd = NULL;
 	baby->fd_out = 1;
 	baby->fd_in = 0;
 	baby->arg = NULL;
@@ -184,6 +184,7 @@ t_all *init_baby(t_all *baby, t_all *tmp)
 	baby->command_name = NULL;
 	baby->file_name = NULL;
 	baby->redirect_i = 0;
+
 	return (baby);
 }
 

@@ -74,6 +74,8 @@ int		check_for_dollar(char symbol)
 	res = 1;
 	if (symbol == '_')
 		res = 0;
+	if (symbol == '?')
+		res = 0;
 	if (symbol >= 'a' && symbol <= 'z')
 		res = 0;
 	if (symbol >= 'A' && symbol <= 'Z')
@@ -120,6 +122,9 @@ char	*substitution(char *original, t_env *lst)
 		}
 		lst = lst->next;
 	}
+	if (original[0] == '?')
+		replaced = ft_itoa(g_status);
+	g_status = 0;
 	return(replaced);
 }
 
