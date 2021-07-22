@@ -6,21 +6,25 @@ int	amount_of_elements(t_all *tmp, int i, int quotes)
 
 	colnum = 0;
 	if (quotes != 0)
+	{
 		while (quotes_checking(tmp->str[i]) != quotes)
 		{
 			i++;
 			colnum++;
 		}
+	}
 	else
+	{
 		while (block_checking(tmp->str[i]) == 0 && tmp->str[i] != ' ')
 		{
 			i++;
 			colnum++;
 		}
+	}
 	return (colnum);
 }
 
-int argc_amount_of_elements(t_all *tmp, int i)
+int	argc_amount_of_elements(t_all *tmp, int i)
 {
 	int	colnum;
 	int	quotes;
@@ -33,7 +37,8 @@ int argc_amount_of_elements(t_all *tmp, int i)
 		{
 			i++;
 			colnum++;
-			while (quotes_checking(tmp->str[i]) != quotes && tmp->str[i] != '\0')
+			while (quotes_checking(tmp->str[i]) != quotes \
+					&& tmp->str[i] != '\0')
 			{
 				i++;
 				colnum++;

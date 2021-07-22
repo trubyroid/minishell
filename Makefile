@@ -8,7 +8,7 @@ C_FILE =	$(SRCS)begin.c $(SRCS)additionally.c $(SRCS)before_parser.c $(SRCS)pars
 			$(SRCS_1)pwd.c $(SRCS_1)processor.c $(SRCS_1)add_env.c $(SRCS)redirect.c\
 			$(SRCS_1)execve.c $(SRCS)main.c $(SRCS_1)delete_env.c $(SRCS_1)extra_functions.c\
 			$(SRCS_1)closing.c $(SRCS_1)preprocessor.c $(SRCS_1)extra_functions2.c $(SRCS)utils.c\
-			$(SRCS)utils_for_remove.c $(SRCS)signal.c
+			$(SRCS)utils_for_remove.c $(SRCS)signal.c $(SRCS)utils2.c
 O_FILE = $(C_FILE:.c=.o)
 # RL = -L/Users/$(USER)/.brew/Cellar/readline/8.1/lib/ -I/Users/$(USER)/.brew/Cellar/readline/8.1/include -lreadline
 RL = -L/usr/local/Cellar/readline/8.1/lib/ -I/usr/local/Cellar/readline/8.1/include -lreadline

@@ -37,6 +37,8 @@ void	cycle(t_all *tmp, t_env *lst)
 	string_creating(tmp);
 	while (tmp->str)
 	{
+		signal(SIGINT, cntrl_c_cat);
+		signal(SIGQUIT, ctrl_slash_cat);
 		i = prepars(tmp);
 		if (i == 0)
 		{
@@ -47,6 +49,7 @@ void	cycle(t_all *tmp, t_env *lst)
 		free_all(tmp);
 		tmp = (t_all *)malloc(sizeof(t_all));
 		string_creating(tmp);
+		signal(SIGINT, ctrl_c);
 		signal(SIGQUIT, ctrl_slash);
 	}
 	conrol_d();

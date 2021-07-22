@@ -102,5 +102,11 @@ t_all	*init_baby(t_all *baby, t_all *tmp);
 void	one_symbol(t_all *tmp);
 void	ctrl_slash(int i);
 void	ctrl_c(int i);
+int		amout_elements_redirect(t_all *tmp, int j);
+void	free_file_name(t_all *tmp);
+void	fd_in(t_all *tmp);
+void	get_reverse_redirect(t_all *tmp, char **blok);
+void	ctrl_slash_cat(int i);
+void	cntrl_c_cat(int i);
 
 #endif

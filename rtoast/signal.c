@@ -23,3 +23,29 @@ void	conrol_d(void)
 	write(1, ANSI_COLOR_MAGENTA"\e[1A\e[11Cexit\n"ANSI_COLOR_RESET, 19);
 	exit(0);
 }
+
+void	fd_in(t_all *tmp)
+{
+	tmp->fd_in = open("./.ghost", O_RDWR | O_CREAT | O_TRUNC, 0777);
+	if (tmp->fd_in != -1)
+		add_fd(tmp, tmp->fd_in);
+}
+
+void	get_reverse_redirect(t_all *tmp, char **blok)
+{
+	char	*str;
+
+	printf("fd == %d\n", tmp->fd_in);
+	while (get_next_line(0, &str))
+	{
+		if ((ft_strncmp(str, *blok, ft_strlen(*blok)) == 0) \
+			 && ft_strlen(*blok) == ft_strlen(str))
+		{
+			free(str);
+			break ;
+		}
+		write(tmp->fd_in, str, ft_strlen(str));
+		write(tmp->fd_in, "\n", 1);
+		free(str);
+	}
+}
