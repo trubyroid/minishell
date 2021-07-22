@@ -78,3 +78,36 @@ t_env	*creating_list(char **env)
 	}
 	return (lst);
 }
+
+t_env	*copy_lst(t_env *env)
+{
+	t_env	*new;
+	t_env	*extra;
+	t_env	*first;
+	int i;
+	int j;
+
+	new = malloc(sizeof(t_env *));
+	if (!new)
+		return (ft_error_null("Error of malloc.", ENOMEM));
+	first = new;
+	new->str = env->str;
+	env = env->next;
+	while (env->next != NULL)
+	{
+		extra = malloc(sizeof(t_env *));
+		if (!extra)
+			return (ft_error_null("Error of malloc.", ENOMEM));
+		new->next = extra;
+		extra->str = env->str;
+		new = extra;
+		env = env->next;
+	}
+	extra = malloc(sizeof(t_env *));
+	if (!extra)
+		return (ft_error_null("Error of malloc.", ENOMEM));
+	new->next = extra;
+	extra->str = env->str;
+	extra->next = NULL;
+	return (first);
+}

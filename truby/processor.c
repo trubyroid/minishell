@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:15:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/22 13:37:53 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/23 01:43:03 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,16 @@ t_env	*processor(t_all *command, t_env *env, char *home, int fl)
 	else if (ft_strcmp("exit", command->command_name) == 0)
 		close_minishell(env, home);
 	else if (ft_strcmp("export", command->command_name) == 0)
-		ft_export(command, env);
+		print_or_add(command, env);
 	else
 		fork_exec(command, env, fl);
 	return (env);
+}
+
+void	print_or_add(t_all *command, t_env *env)
+{
+	if (command->arg[1] == NULL)
+		print_export(env);
+	else
+		add_enviroment_variable(command, env);
 }

@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 20:57:17 by truby             #+#    #+#             */
-/*   Updated: 2021/07/22 13:37:18 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/23 01:49:22 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_strjoin_shell(char *s1, char *s2);
 t_env	*processor(t_all *command, t_env *env, char *home, int fl);
 int		add_enviroment_variable(t_all *command, t_env *env);
 t_env	*delete_enviroment_variable(t_all *command, t_env *env);
-void	ft_export(t_all *command, t_env *env);
+void	print_or_add(t_all *command, t_env *env);
 void	fork_exec(t_all *command, t_env *env, int fl);
 void	ft_error(char *str, int i);
 int		ft_error_int(char *str, int i, int fl);
@@ -57,5 +57,6 @@ int		validation(char *arg_str);
 char	**create_massiv(t_env *env);
 void	free_massives(char **paths, char **env_massiv, char *pwd, int fl);
 void	close_dup(t_all *command);
+t_env	*copy_lst(t_env *env);
 
 #endif
