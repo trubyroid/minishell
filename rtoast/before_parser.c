@@ -86,35 +86,6 @@ void	redirect_pars(t_all *tmp)
 		tmp->redirect_i = redirect(tmp, i);
 }
 
-int	remove_symbol(t_all *tmp, int i)
-{
-	int remember;
-	int rem;
-	int j;
-	char *t_arr;
-
-	remember = i;
-	t_arr = NULL;
-	j = ft_strlen(tmp->str) - 1;
-	rem = j;
-	t_arr = (char *)malloc(sizeof(char) * (j + 1));
-	t_arr[j] = '\0';
-	j = -1;
-	while(++j < remember)
-		t_arr[j] = tmp->str[j];
-	while(tmp->str[++i] != '\0' && j < rem)
-	{
-		t_arr[j] = tmp->str[i];
-		j++;
-	}
-	free(tmp->str);
-	tmp->str = NULL;
-	tmp->str = t_arr;
-	if (tmp->str[remember] == '\0')
-		remember--;
-	return (remember);
-}
-
 int	syntax_error(t_all *tmp)
 {
 	int i;

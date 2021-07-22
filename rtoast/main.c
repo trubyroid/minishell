@@ -25,9 +25,9 @@ int	main(int argc, char **argv, char **env)
 
 void	cycle(t_all *tmp, t_env *lst)
 {
-	int i;
-	int j;
-	char *home;
+	int		i;
+	int		j;
+	char	*home;
 
 	home = find_home();
 	j = 0;
@@ -56,16 +56,15 @@ void	free_all(t_all *tmp)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	if (tmp->command_name)
 		free(tmp->command_name);
 	if (tmp->arg != NULL)
 	{
-		while (i < tmp->num_arg)
+		while (++i < tmp->num_arg)
 		{
 			free(tmp->arg[i]);
 			tmp->arg[i] = NULL;
-			i++;
 		}
 		free(tmp->arg);
 	}
@@ -80,21 +79,4 @@ void	free_all(t_all *tmp)
 		free_all(tmp->baby_pipe);
 	free(tmp);
 	tmp = NULL;
-}
-
-void	ctrl_c(int i)
-{
-	rl_on_new_line();
-	rl_redisplay();
-	write(1, "\e[0K\n", 6);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-void	ctrl_slash(int i)
-{
-	rl_on_new_line();
-	rl_redisplay();
-	write(1, "\e[0K", 5);
 }

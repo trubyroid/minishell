@@ -2,7 +2,7 @@
 
 int	amount_of_elements(t_all *tmp, int i, int quotes)
 {
-	int colnum;
+	int	colnum;
 
 	colnum = 0;
 	if (quotes != 0)
@@ -22,7 +22,7 @@ int	amount_of_elements(t_all *tmp, int i, int quotes)
 
 int argc_amount_of_elements(t_all *tmp, int i)
 {
-	int colnum;
+	int	colnum;
 	int	quotes;
 
 	colnum = 0;
@@ -45,25 +45,6 @@ int argc_amount_of_elements(t_all *tmp, int i)
 	return (colnum);
 }
 
-int	skipping_spaces(t_all *tmp, int i)
-{
-	while (tmp->str[i] == ' ')
-		i++;
-	return (i);
-}
-
-int	quotes_checking(char symbol)
-{
-	int	result;
-
-	result = 0;
-	if (symbol == '\'')
-		result = 1;
-	if (symbol == '\"')
-		result = 2;
-	return (result);
-}
-
 int	block_checking(char symbol)
 {
 	if (symbol == '\0')
@@ -77,7 +58,7 @@ int	block_checking(char symbol)
 	return (0);
 }
 
-void creating_name_argument(t_all *tmp)
+void	creating_name_argument(t_all *tmp)
 {
 	tmp->num_arg = 1;
 	tmp->arg = (char **)malloc((sizeof(char *)) * 2);
@@ -112,27 +93,4 @@ int	creating_next_argument(t_all *tmp, int i, int colnum, t_env *lst)
 	remove_quotes(tmp, tmp->num_arg);
 	tmp->num_arg++;
 	return (i);
-}
-
-void	remove_quotes(t_all *tmp, int i)
-{
-	int s;
-	int quotes;
-
-	s = 0;
-	while (tmp->arg[i][s] != '\0')
-	{
-		quotes = quotes_checking(tmp->arg[i][s]);
-		if (quotes != 0)
-		{
-			remove_symbol_arguments(tmp, i, s);
-			while (quotes_checking(tmp->arg[i][s]) != quotes && tmp->arg[i][s] != '\0')
-			{
-				s++;
-			}
-			remove_symbol_arguments(tmp, i, s);
-		}
-		else
-			s++;
-	}
 }
