@@ -35,7 +35,6 @@ void	get_reverse_redirect(t_all *tmp, char **blok)
 {
 	char	*str;
 
-	printf("fd == %d\n", tmp->fd_in);
 	while (get_next_line(0, &str))
 	{
 		if ((ft_strncmp(str, *blok, ft_strlen(*blok)) == 0) \
