@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:15:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/21 21:49:44 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/22 13:37:53 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 t_env	*processor(t_all *command, t_env *env, char *home, int fl)
 {
+	close_dup(command);
 	if (ft_check(command) == 0)
 		return (env);
 	if (ft_strcmp("env", command->command_name) == 0)

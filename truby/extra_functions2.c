@@ -6,13 +6,13 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 15:34:14 by truby             #+#    #+#             */
-/*   Updated: 2021/07/21 23:21:13 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/22 18:44:26 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell_truby.h"
 
-static void	close_dup(t_all *command)
+void	close_dup(t_all *command)
 {
 	if (command->fd_out != 1)
 	{
@@ -35,7 +35,6 @@ void	fork_exec(t_all *command, t_env *env, int fl)
 
 	fd_0 = dup(0);
 	fd_1 = dup(1);
-	close_dup(command);
 	if (fl == 0)
 	{
 		p = fork();

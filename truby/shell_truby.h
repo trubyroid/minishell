@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 20:57:17 by truby             #+#    #+#             */
-/*   Updated: 2021/07/21 21:52:57 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/22 13:37:18 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ t_env	*find_variable(t_env *env, char *str, char *str2, int fl);
 int		validation(char *arg_str);
 char	**create_massiv(t_env *env);
 void	free_massives(char **paths, char **env_massiv, char *pwd, int fl);
+void	close_dup(t_all *command);
 
 #endif

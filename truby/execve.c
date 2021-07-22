@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 17:09:51 by truby             #+#    #+#             */
-/*   Updated: 2021/07/21 22:24:29 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/22 18:46:12 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,13 @@ static void	find_prog(t_all *command, char **paths, char **env, char *pwd)
 	i = -1;
 	while (paths[++i] != NULL)
 		try_that_direction(command, paths[i], env);
-	free_massives(paths, env, pwd, 0);
-	write(1, "ya_bash: ", 9);
-	write(1, command->arg[0], ft_strlen(command->arg[0]));
-	return (ft_error_exit(": command not found", 127));
+	if (command->fd_in == 0 && command->fd_out == 1)
+	{
+		free_massives(paths, env, pwd, 0);
+		write(1, "ya_bash: ", 9);
+		write(1, command->arg[0], ft_strlen(command->arg[0]));
+		return (ft_error_exit(": command not found", 127));
+	}
 }
 
 static void	exec_processor(t_all *command, char *pwd, char **env, char **paths)

@@ -11,8 +11,8 @@ C_FILE =	$(SRCS)begin.c $(SRCS)additionally.c $(SRCS)before_parser.c $(SRCS)pars
 			$(SRCS)utils_for_remove.c $(SRCS)signal.c $(SRCS)utils2.c $(SRCS)before_parser_utils.c\
 			$(SRCS)error.c $(SRCS)dollar_utils.c $(SRCS)parser_utils.c
 O_FILE = $(C_FILE:.c=.o)
-# RL = -L/Users/$(USER)/.brew/Cellar/readline/8.1/lib/ -I/Users/$(USER)/.brew/Cellar/readline/8.1/include -lreadline
-RL = -L/usr/local/Cellar/readline/8.1/lib/ -I/usr/local/Cellar/readline/8.1/include -lreadline
+RL = -L/Users/$(USER)/.brew/Cellar/readline/8.1/lib/ -I/Users/$(USER)/.brew/Cellar/readline/8.1/include -lreadline
+# RL = -L/usr/local/Cellar/readline/8.1/lib/ -I/usr/local/Cellar/readline/8.1/include -lreadline
 all:
 	$(MAKE) $(NAME) -j 4
 $(NAME): $(O_FILE)

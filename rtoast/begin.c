@@ -1,6 +1,28 @@
 #include "../shell.h"
 #include "../truby/shell_truby.h"
 
+static void	increase_shlvl(t_env *new)
+{
+	int	k;
+	int	shlvl;
+
+	k = 0;
+	while (!ft_isdigit(new->str[k]))
+		k++;
+	shlvl = 0;
+	while (new->str[k] != '\0')
+	{
+		shlvl = shlvl * 10 + (new->str[k] - '0');
+		k++;
+	}
+	shlvl++;
+	free(new->str);
+	new->str = NULL;
+	new->str = ft_strjoin_shell("SHLVL=", ft_itoa(shlvl));
+	if (new->str == NULL)
+		return (ft_error_exit("Error of malloc.", ENOMEM));
+}
+
 char	*find_home(void)
 {
 	char	*pwd;
@@ -32,13 +54,10 @@ char	*find_home(void)
 t_env	*creating_list(char **env)
 {
 	int		i;
-	int		k;
-	int		shlvl;
 	t_env	*lst;
 	t_env	*new;
 
 	i = 0;
-	k = 0;
 	while (env[i + 1] != NULL)
 		i++;
 	lst = malloc(sizeof(t_env *));
@@ -53,20 +72,7 @@ t_env	*creating_list(char **env)
 			return (ft_error_null("Error of malloc.", ENOMEM));
 		new->str = ft_strdup(env[i]);
 		if (ft_strnstr(new->str, "SHLVL=", 6))
-		{
-			while (!ft_isdigit(new->str[k]))
-				k++;
-			shlvl = 0;
-			while (new->str[k] != '\0')
-			{
-				shlvl = shlvl * 10 + (new->str[k] - '0');
-				k++;
-			}
-			shlvl++;
-			free(new->str);
-			new->str = NULL;
-			new->str = ft_strjoin_shell("SHLVL=", ft_itoa(shlvl));
-		}
+			increase_shlvl(new);
 		new->next = lst;
 		lst = new;
 	}
