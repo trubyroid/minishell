@@ -31,14 +31,12 @@ void	cycle(t_all *tmp, t_env *lst)
 
 	home = find_home();
 	j = 0;
-	signal(SIGINT, ctrl_c);
-	signal(SIGQUIT, ctrl_slash);
+	signal_normal();
 	tmp = (t_all *)malloc(sizeof(t_all));
 	string_creating(tmp);
 	while (tmp->str)
 	{
-		signal(SIGINT, cntrl_c_cat);
-		signal(SIGQUIT, ctrl_slash_cat);
+		signal_cat();
 		i = prepars(tmp);
 		if (i == 0)
 		{
@@ -49,8 +47,7 @@ void	cycle(t_all *tmp, t_env *lst)
 		free_all(tmp);
 		tmp = (t_all *)malloc(sizeof(t_all));
 		string_creating(tmp);
-		signal(SIGINT, ctrl_c);
-		signal(SIGQUIT, ctrl_slash);
+		signal_normal();
 	}
 	conrol_d();
 }
