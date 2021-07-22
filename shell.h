@@ -108,5 +108,14 @@ void	fd_in(t_all *tmp);
 void	get_reverse_redirect(t_all *tmp, char **blok);
 void	ctrl_slash_cat(int i);
 void	cntrl_c_cat(int i);
+void	signal_cat(void);
+void	signal_normal(void);
+void	init_tmp(t_all *tmp);
+int		remove_dollar(t_all *tmp, int i);
+int		chek_symbol_dollar(char symbol);
+void	command_dollar(t_all *tmp, t_env *lst);
+void	arg_dollar(t_all *tmp, t_env *lst, int j);
+char	*func(char **str, char *original, char *replaced, int j);
+void	command_slash(t_all *tmp, int i);
 
 #endif

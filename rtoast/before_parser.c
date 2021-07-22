@@ -1,24 +1,10 @@
 #include "../shell.h"
 
-void	error(int i, char *str)
+int	prepars(t_all *tmp)
 {
-		g_status = i;
-		printf("%s\n", str);
-}
+	int	cod;
 
-int		prepars(t_all *tmp)
-{
-	int cod;
-	tmp->colnum_fd = 0;
-	tmp->massiv_fd = NULL;
-	tmp->baby_pipe = NULL;
-	tmp->fd_out = 1;
-	tmp->fd_in = 0;
-	tmp->arg = NULL;
-	tmp->num_arg = 0;
-	tmp->command_name = NULL;
-	tmp->file_name = NULL;
-	tmp->redirect_i = 0;
+	init_tmp(tmp);
 	cod = syntax_error(tmp);
 	cod = cod - quotes_error(tmp);
 	if (tmp->str != NULL)
@@ -32,10 +18,10 @@ int		prepars(t_all *tmp)
 
 void	dollar_parser(t_all *tmp)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(tmp->str[i] != '\0')
+	while (tmp->str[i] != '\0')
 	{
 		if (tmp->str[i] == '\'')
 		{
@@ -45,50 +31,23 @@ void	dollar_parser(t_all *tmp)
 		}
 		if (tmp->str[i] == '$')
 		{
-			if (tmp->str[i + 1] == '!' || tmp->str[i + 1] == '$' || tmp->str[i + 1] == '*')
-			{
-				i = remove_symbol(tmp, i);
-				i = remove_symbol(tmp, i);
-				add_spase(i, tmp);
-			}
-			if (tmp->str[i + 1] == '#' || tmp->str[i + 1] == '@' || tmp->str[i + 1] == '-')
-			{
-				i = remove_symbol(tmp, i);
-				i = remove_symbol(tmp, i);
-				add_spase(i, tmp);
-			}
-			if((tmp->str[i + 1] >= '0' && tmp->str[i + 1] <= '9') && tmp->str[i + 2] == ' ')
-			{
-				i = remove_symbol(tmp, i);
-				i = remove_symbol(tmp, i);
-				add_spase(i, tmp);
-			}
+			if (chek_symbol_dollar(tmp->str[i + 1]) == 1)
+				i = remove_dollar(tmp, i);
+			if ((tmp->str[i + 1] >= '0' && tmp->str[i + 1] <= '9') \
+					&& tmp->str[i + 2] == ' ')
+				i = remove_dollar(tmp, i);
 			if (tmp->str[i] != '$' && (check_for_dollar(tmp->str[i + 1]) != 0))
 				i++;
 		}
-		if(tmp->str[i] == '$' && tmp->str[i + 1] == '$')
-		{
-			i = remove_symbol(tmp, i);
-			i = remove_symbol(tmp, i);
-			add_spase(i, tmp);
-		}
+		if (tmp->str[i] == '$' && tmp->str[i + 1] == '$')
+			i = remove_dollar(tmp, i);
 		i++;
 	}
 }
 
-void	redirect_pars(t_all *tmp)
-{
-	int i;
-
-	i = 0;
-	i = skipping_spaces(tmp, i);
-	if (tmp->str[i] == '>' || tmp->str[i] == '<')
-		tmp->redirect_i = redirect(tmp, i);
-}
-
 int	syntax_error(t_all *tmp)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tmp->str[i] != '\0')
@@ -152,7 +111,7 @@ int	syntax_error(t_all *tmp)
 
 int	quotes_error(t_all *tmp)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tmp->str[i] != '\0')
@@ -181,14 +140,14 @@ int	quotes_error(t_all *tmp)
 		}
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
-void add_spase(int i, t_all *tmp)
+void	add_spase(int i, t_all *tmp)
 {
-	char *temp;
-	int j;
-	int rem;
+	char	*temp;
+	int		j;
+	int		rem;
 
 	j = ft_strlen(tmp->str) + 1;
 	if (i != (j - 2))
@@ -206,32 +165,5 @@ void add_spase(int i, t_all *tmp)
 		}
 		free(tmp->str);
 		tmp->str = temp;
-	}
-}
-
-void one_symbol(t_all *tmp)
-{
-	int i;
-
-	i = 0;
-	while (tmp->str[i] != '\0')
-	{
-		if (tmp->str[i] == '\'')
-		{
-			i++;
-			while (tmp->str[i] != '\'')
-				i++;
-		}
-		if (tmp->str[i] == '\"')
-		{
-			i++;
-			while (tmp->str[i] != '\"')
-				i++;
-		}
-		if (tmp->str[i] == '&')
-			error(258, "bash: syntax error near unexpected token `&'");
-		if (tmp->str[i] == ')' && tmp->str[i + 1] == '(')
-			error(258, "bash: syntax error near unexpected token `)'");
-		i++;
 	}
 }

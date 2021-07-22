@@ -2,9 +2,9 @@
 
 void	command_name(t_all *tmp, t_env *lst, int i)
 {
-	int colnum;
+	int	colnum;
 	int	q;
-	int count;
+	int	count;
 
 	if (tmp->str[0] == '\0')
 	{
@@ -75,57 +75,11 @@ void	arg(t_all *tmp, int i, t_env *lst)
 		creating_file_name_elem(tmp);
 }
 
-int		remove_symbol_arguments(t_all *tmp, int i, int s)
+void	for_bash(t_all *tmp)
 {
-	int remember;
-	int j;
-	char *t_arr;
-
-	j = 0;
-	remember = s;
-	t_arr = NULL;
-	while (tmp->arg[i][j] != '\0')
-		j++;
-	j--;
-	t_arr = (char *)malloc(sizeof(char) * (j + 1));
-	t_arr[j] = '\0';
-	j = -1;
-	while(++j < remember)
-		t_arr[j] = tmp->arg[i][j];
-	s = j;
-	while(tmp->arg[i][++j] != '\0')
-	{
-		t_arr[s] = tmp->arg[i][j];
-		s++;
-	}
-	free(tmp->arg[i]);
-	tmp->arg[i] = t_arr;
-	if (remember == '\0')
-		remember--;
-	return (remember);
-}
-
-void	creating_file_name_elem(t_all *tmp)
-{
-	char	**new_arg;
-	int		count;
-
-	count = -1;
-	new_arg = (char **)malloc(sizeof(char *) * (tmp->num_arg + 2));
-	while (++count < tmp->num_arg)
-		new_arg[count] = tmp->arg[count];
-	free(tmp->arg);
-	tmp->arg = new_arg;
-	tmp->arg[tmp->num_arg + 1] = NULL;
-	tmp->arg[tmp->num_arg] = tmp->file_name;
-	tmp->num_arg++;
-}
-
-void for_bash(t_all *tmp)
-{
-	int i;
-	int j;
-	char *temp;
+	int		i;
+	int		j;
+	char	*temp;
 
 	i = 0;
 	j = 2;
@@ -141,13 +95,10 @@ void for_bash(t_all *tmp)
 		temp[i] = '\0';
 		free(tmp->arg[0]);
 		tmp->arg[0] = temp;
-		free(tmp->command_name);
-		tmp->command_name = (char *)malloc(sizeof(char) * 3);
-		tmp->command_name[0] = '.';
-		tmp->command_name[1] = '/';
-		tmp->command_name[2] = '\0';
+		command_slash(tmp, 1);
 	}
-	if (tmp->command_name[i] == '.' && tmp->command_name[i + 1] == '.' && tmp->command_name[i + 2])
+	if (tmp->command_name[i] == '.' && tmp->command_name[i + 1] == '.' && \
+		 tmp->command_name[i + 2] == '/')
 	{
 		temp = (char *)malloc(sizeof(char) * (ft_strlen(tmp->arg[0]) - 1));
 		j = 3;
@@ -160,81 +111,6 @@ void for_bash(t_all *tmp)
 		temp[i] = '\0';
 		free(tmp->arg[0]);
 		tmp->arg[0] = temp;
-		free(tmp->command_name);
-		tmp->command_name = (char *)malloc(sizeof(char) * 3);
-		tmp->command_name[0] = '.';
-		tmp->command_name[1] = '.';
-		tmp->command_name[2] = '/';
-		tmp->command_name[3] = '\0';
+		command_slash(tmp, 2);
 	}
-}
-
-t_all *init_baby(t_all *baby, t_all *tmp)
-{
-	baby = (t_all *)malloc(sizeof(t_all));
-
-	baby->str = (ft_strdup(tmp->str));
-	baby->baby_pipe = NULL;
-	baby->colnum_fd = 0;
-	baby->massiv_fd = NULL;
-	baby->fd_out = 1;
-	baby->fd_in = 0;
-	baby->arg = NULL;
-	baby->num_arg = 0;
-	baby->command_name = NULL;
-	baby->file_name = NULL;
-	baby->redirect_i = 0;
-
-	return (baby);
-}
-
-void	quotes_name(t_all *tmp)
-{
-	int i;
-
-	i = 0;
-	while(tmp->command_name[i] != '\0')
-	{
-		if (tmp->command_name[i] == '\'' && tmp->command_name[i + 1] == '\'')
-		{
-			i = remove_symbol_name(tmp, i);
-			i = remove_symbol_name(tmp, i);
-		}
-		if (tmp->command_name[i] == '\"' && tmp->command_name[i + 1] == '\"')
-		{
-			i = remove_symbol_name(tmp, i);
-			i = remove_symbol_name(tmp, i);
-		}
-		else
-			i++;
-	}
-}
-
-int remove_symbol_name(t_all *tmp, int i)
-{
-	int remember;
-	int rem;
-	int j;
-	char *t_arr;
-
-	remember = i;
-	t_arr = NULL;
-	j = ft_strlen(tmp->command_name) - 1;
-	rem = j;
-	t_arr = (char *)malloc(sizeof(char) * (j + 1));
-	t_arr[j] = '\0';
-	j = -1;
-	while(++j < remember)
-		t_arr[j] = tmp->command_name[j];
-	while(tmp->command_name[++i] != '\0' && j < rem)
-	{
-		t_arr[j] = tmp->command_name[i];
-		j++;
-	}
-	free(tmp->command_name);
-	tmp->command_name = NULL;
-	tmp->command_name = t_arr;
-	if (tmp->command_name[remember] == '\0')
-		remember--;
-	return (remember);
 }
