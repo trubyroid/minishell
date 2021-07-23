@@ -33,6 +33,7 @@ typedef struct s_all
 	int				fd_in;
 	int				redirect_i;
 	int				ret_dollar;
+	char			*home;
 	struct s_all	*baby_pipe;
 }				t_all;
 

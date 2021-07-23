@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 03:54:18 by truby             #+#    #+#             */
-/*   Updated: 2021/07/23 01:52:58 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/24 01:37:29 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_strcmp(char *str1, char *str2)
 		return (-1);
 	while (str1[++i] != '\0')
 	{
-		if (str1[i] > str2[i])
+		if (str1[i] != str2[i])
 			return (-1);
 	}
 	return (0);

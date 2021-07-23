@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:15:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/23 21:13:39 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/24 01:38:38 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,25 @@
 
 t_env	*processor(t_all *command, t_env *env, char *home, int fl)
 {
-	// int i;
-
-	// close_dup(command);
-	// if (ft_check(command) == 0)
-	// 	return (env);
-	// if (ft_strcmp("env", command->command_name) == 0)
-	// 	print_env(env);
-	// else if (ft_strcmp("echo", command->command_name) == 0)
-	// 	use_echo(command);
-	// else if (ft_strcmp("pwd", command->command_name) == 0)
-	// 	use_pwd(command);
-	// else if (ft_strcmp("unset", command->command_name) == 0)
-	// 	env = delete_enviroment_variable(command, env);
-	// else if (ft_strcmp("cd", command->command_name) == 0)
-	// 	use_cd(env, command->arg, home);
-	// else if (ft_strcmp("exit", command->command_name) == 0)
+	close_dup(command);
+	if (ft_check(command) == 0)
+		return (env);
+	if (ft_strcmp("exit", command->command_name) == 0)
 		close_minishell(env, command, home);
-	// else if (ft_strcmp("export", command->command_name) == 0)
-	// 	print_or_add(command, env);
-	// else
-	// 	fork_exec(command, env, fl);
+	else if (ft_strcmp("env", command->command_name) == 0)
+		print_env(env);
+	else if (ft_strcmp("echo", command->command_name) == 0)
+		use_echo(command);
+	else if (ft_strcmp("pwd", command->command_name) == 0)
+		use_pwd(command);
+	else if (ft_strcmp("unset", command->command_name) == 0)
+		env = delete_enviroment_variable(command, env);
+	else if (ft_strcmp("cd", command->command_name) == 0)
+		use_cd(env, command->arg, home);
+	else if (ft_strcmp("export", command->command_name) == 0)
+		print_or_add(command, env);
+	else
+		fork_exec(command, env, fl);
 	return (env);
 }
 

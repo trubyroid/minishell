@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 20:38:02 by truby             #+#    #+#             */
-/*   Updated: 2021/07/21 21:55:08 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/24 01:28:34 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	ft_check(t_all *command)
 
 t_env	*find_variable(t_env *env, char *str, char *str2, int fl)
 {
-	while (ft_strnstr(env->str, str, ft_strlen(str)) == NULL)
+	while (ft_strnstr(env->str, str, ft_strlen(env->str)) == NULL)
 	{
 		if (env->next == NULL)
 		{

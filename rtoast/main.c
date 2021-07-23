@@ -29,10 +29,10 @@ void	cycle(t_all *tmp, t_env *lst)
 	int		j;
 	char	*home;
 
-	home = find_home();
 	j = 0;
 	signal_normal();
 	tmp = (t_all *)malloc(sizeof(t_all));
+	tmp->home = find_home();
 	string_creating(tmp);
 	while (tmp->str)
 	{
@@ -42,7 +42,7 @@ void	cycle(t_all *tmp, t_env *lst)
 		{
 			command_name(tmp, lst, j);
 			if (tmp->command_name)
-				lst = preprocessor(tmp, lst, home);
+				lst = preprocessor(tmp, lst);
 		}
 		free_all(tmp);
 		tmp = (t_all *)malloc(sizeof(t_all));
