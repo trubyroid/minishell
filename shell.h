@@ -50,7 +50,7 @@ typedef struct s_hist
 
 void	rl_replace_line(const char *str, int a);
 
-void	close_minishell(t_env *env, char *home);
+void	close_minishell(t_env *env, t_all *command, char *home);
 void	command_name(t_all *tmp, t_env *lst, int i);
 void	error(int i, char *str);
 int		prepars(t_all *tmp);

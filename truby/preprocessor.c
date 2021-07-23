@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 23:01:58 by truby             #+#    #+#             */
-/*   Updated: 2021/07/21 13:34:15 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/23 21:12:11 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,6 @@ t_env		*preprocessor(t_all *command, t_env *env, char *home)
 		while (++i < len + 1)
 			wait(&pid[i]);
 		dup2(fd_0, 0);
-		// wait_close(command);
 	}
 	return (env);
 }
