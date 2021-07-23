@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 14:45:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/21 14:13:58 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/23 03:35:06 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,37 +45,12 @@ void	*ft_error_null(char *str, int i)
 	return (NULL);
 }
 
-// void	wait_close(t_all *command)
-// {
-// 	int i;
-// 	int res;
-
-// 	i = 0;
-// 	res = 0;
-// 	while (i < babylist_len(command))
-// 	{
-// 		wait(&res);
-// 		// g_status=
-// 		res = 0;
-// 		i++;
-// 	}
-// 	while (command != NULL)
-// 	{
-// 		if (command->baby_pipe != NULL)
-// 		{
-// 			if (command->fd_pipe[0] > 0)
-// 				close(command->fd_pipe[0]);
-// 		}
-// 		// if (command->fd_in > 0)
-// 		// 	close(command->fd_in);
-// 		command = command->baby_pipe;
-// 	}
-// }
-
-void	close_minishell(t_env *env, char *home)
+void	close_minishell(t_env *env, t_all *command, char *home)
 {
 	t_env	*lst;
+	int		i;
 
+	i = -1;
 	while (env != NULL)
 	{
 		lst = env;
@@ -93,5 +68,15 @@ void	close_minishell(t_env *env, char *home)
 	free(home);
 	env = NULL;
 	home = NULL;
+	if (ft_isdigit(command->arg[1][++i])
+	{
+		while (ft_command->arg[1][++i] != '\0')
+		{
+			if (!ft_isdigit(command->arg[1][i])
+				exit(0);
+		}
+		g_status = ft_atoi(command->arg[1]);								//добавить обновление счетчика
+		exit(g_status);
+	}
 	exit(0);
 }
