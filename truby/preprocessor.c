@@ -6,47 +6,57 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 23:01:58 by truby             #+#    #+#             */
-/*   Updated: 2021/07/24 02:07:20 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/24 13:36:57 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell_truby.h"
 
-static void cycle_if_pipe(t_all *command, t_env *env, pid_t *pid, int **fd)
+static void	ft_check_malloc(void *obj)
 {
-	int	len;
-	int	i;
-	t_all *lst;
+	if (obj == NULL)
+		return (ft_error_exit("Error of malloc.", ENOMEM));
+}
 
-	lst = command;
+static int	**dup_close(int i, int **fd, int len)
+{
+	if (i == 0)
+	{
+		close(fd[i][0]);
+		dup2(fd[i][1], 1);
+	}
+	else if (i < len - 1)
+	{
+		close(fd[i - 1][1]);
+		dup2(fd[i - 1][0], 0);
+		close(fd[i][0]);
+		dup2(fd[i][1], 1);
+	}
+	else
+	{
+		close(fd[i - 1][1]);
+		dup2(fd[i - 1][0], 0);
+	}
+	return (fd);
+}
+
+static void	cycle_if_pipe(t_all *command, t_env *env, pid_t *pid, int **fd)
+{
+	int		len;
+	int		i;
+	t_all	*lst;
+
 	len = babylist_len(lst);
 	i = -1;
+	lst = command;
 	while (lst != NULL && ++i < len + 1)
 	{
 		pid[i] = fork();
-		// if (pid[i] < 0)
-		// 	return (ft_error_null("Fork failed.", errno));							//спросить
 		if (pid[i] != 0)
 			close(fd[i][1]);
 		else if (!pid[i])
 		{
-			if (i == 0)
-			{
-				close(fd[i][0]);
-				dup2(fd[i][1], 1);
-			}
-			else if (i < len - 1)
-			{
-				close(fd[i - 1][1]);
-				dup2(fd[i - 1][0], 0);
-				close(fd[i][0]);
-				dup2(fd[i][1], 1);
-			}
-			else 
-			{
-				close(fd[i - 1][1]);
-				dup2(fd[i - 1][0], 0);
-			}
+			fd = dup_close(i, fd, len);
 			env = processor(lst, env, command->home, 1);
 			exit(errno);
 		}
@@ -55,20 +65,13 @@ static void cycle_if_pipe(t_all *command, t_env *env, pid_t *pid, int **fd)
 	i = -1;
 	while (++i < len + 1)
 		wait(&pid[i]);
-	dup2(fd_0, 0);
 }
 
-static void	ft_check_malloc(void *obj)
+static void	ft_if_pipe(t_all *command, t_env *env)
 {
-	if (obj == NULL)
-		return (ft_error_exit("Error of malloc.", ENOMEM));
-}
-
-static void ft_if_pipe(t_all *command, t_env *env)
-{
-	int len;
-	int **fd;
-	pid_t *pid;
+	int		len;
+	int		**fd;
+	pid_t	*pid;
 	int		i;
 
 	i = -1;
@@ -87,22 +90,23 @@ static void ft_if_pipe(t_all *command, t_env *env)
 	while (++i < len)
 	{
 		if (pipe(fd[i]) == -1)
-			return (ft_error_null("Pipe failed.", errno));
+			return (ft_error_exit("Pipe failed.", errno));
 	}
 	cycle_if_pipe(command, env, pid, fd);
 }
 
-
-t_env		*preprocessor(t_all *command, t_env *env)
+t_env	*preprocessor(t_all *command, t_env *env)
 {
 	int		fd_0;
-	int 	len;
+	int		len;
 	int		i;
-	int 	**fd;
+	int		**fd;
 
+	fd_0 = dup(0);
 	if (command->baby_pipe == NULL)
 		env = processor(command, env, command->home, 0);
 	else
 		ft_if_pipe(command, env);
+	dup2(fd_0, 0);
 	return (env);
 }

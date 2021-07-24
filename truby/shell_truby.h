@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 20:57:17 by truby             #+#    #+#             */
-/*   Updated: 2021/07/23 01:49:22 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/24 13:02:22 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		ft_error_int(char *str, int i, int fl);
 void	*ft_error_null(char *str, int i);
 void	ft_error_exit(char *str, int i);
 char	*ft_substr_shell(char *s, unsigned int start, size_t len);
-t_env	*preprocessor(t_all *command, t_env *env, char *home);
+t_env	*preprocessor(t_all *command, t_env *env);
 void	wait_close(t_all *command);
 int		babylist_len(t_all *command);
 int		ft_check(t_all *command);
