@@ -32,10 +32,11 @@ void	cycle(t_all *tmp, t_env *lst)
 	j = 0;
 	signal_normal();
 	tmp = (t_all *)malloc(sizeof(t_all));
-	tmp->home = find_home();
+	home = find_home();
 	string_creating(tmp);
 	while (tmp->str)
 	{
+		tmp->home = ft_strdup(home);
 		signal_cat();
 		i = prepars(tmp);
 		if (i == 0)
@@ -68,6 +69,8 @@ void	free_all(t_all *tmp)
 		}
 		free(tmp->arg);
 	}
+	if (tmp->home)
+		free(tmp->home);
 	if (tmp->str)
 		free(tmp->str);
 	tmp->str = NULL;
