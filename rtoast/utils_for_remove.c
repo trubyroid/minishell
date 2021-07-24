@@ -12,12 +12,14 @@ void	remove_quotes(t_all *tmp, int i)
 		if (quotes != 0)
 		{
 			remove_symbol_arguments(tmp, i, s);
-			while (quotes_checking(tmp->arg[i][s]) != quotes \
-					&& tmp->arg[i][s] != '\0')
+			while (quotes_checking(tmp->arg[i][s]) != quotes && \
+					tmp->arg[i][s] != '\0')
 				s++;
-			remove_symbol_arguments(tmp, i, s);
+			if (tmp->arg[i][s] != '\0')
+				remove_symbol_arguments(tmp, i, s);
 		}
 		else
+		if (tmp->arg[i][s] != '\0')
 			s++;
 	}
 }
@@ -68,7 +70,7 @@ int	remove_symbol_arguments(t_all *tmp, int i, int s)
 	j = -1;
 	remember = s;
 	t_arr = NULL;
-	j = ft_strlen(tmp->arg[i]);
+	j = ft_strlen(tmp->arg[i]) - 1;
 	t_arr = (char *)malloc(sizeof(char) * (j + 1));
 	t_arr[j] = '\0';
 	while (++j < remember)

@@ -74,6 +74,7 @@ void	arg(t_all *tmp, int i, t_env *lst)
 				break ;
 		}
 	}
+	g_status = 0;
 	if (tmp->arg[1] == NULL && tmp->file_name)
 		creating_file_name_elem(tmp);
 }

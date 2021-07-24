@@ -74,7 +74,6 @@ char	*substitution(char *original, t_env *lst)
 	}
 	if (original[0] == '?')
 		replaced = ft_itoa(g_status);
-	g_status = 0;
 	return (replaced);
 }
 
