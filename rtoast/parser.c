@@ -20,6 +20,8 @@ void	command_name(t_all *tmp, t_env *lst, int i)
 		colnum = amount_of_elements(tmp, ++i, q);
 	else
 		colnum = amount_of_elements(tmp, i, 0);
+	if (colnum == 0)
+		return ;
 	tmp->command_name = (char *)malloc(sizeof(char) * (colnum + 1));
 	tmp->command_name[colnum] = '\0';
 	create(tmp, i, colnum, lst);
