@@ -125,7 +125,7 @@ int	reverse_double_redirect(t_all *tmp, int i)
 		blok[++count] = tmp->str[i];
 		i++;
 	}
-	fd_in(tmp);
+	fd_in_funk(tmp);
 	get_reverse_redirect(tmp, &blok);
 	tmp->file_name = ft_strdup("./.ghost");
 	free(blok);

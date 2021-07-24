@@ -24,7 +24,7 @@ void	conrol_d(void)
 	exit(0);
 }
 
-void	fd_in(t_all *tmp)
+void	fd_in_funk(t_all *tmp)
 {
 	tmp->fd_in = open("./.ghost", O_RDWR | O_CREAT | O_TRUNC, 0777);
 	if (tmp->fd_in != -1)
