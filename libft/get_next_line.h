@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 20:27:39 by truby             #+#    #+#             */
-/*   Updated: 2021/07/20 05:44:21 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/24 14:43:22 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ char		*ft_strdup_rem(char *src);
 int			ft_strchr_n(char *s);
 int			ft_len_gnl(const char *str);
 
-#endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 30
+# endif
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 30
 #endif
