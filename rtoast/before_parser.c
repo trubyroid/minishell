@@ -47,59 +47,21 @@ void	dollar_parser(t_all *tmp)
 
 int	syntax_error(t_all *tmp)
 {
-	int	i;
+	int		i;
+	char	q;
 
-	i = 0;
-	while (tmp->str[i] != '\0')
+	i = -1;
+	while (tmp->str[++i] != '\0')
 	{
-		if (tmp->str[i] == '\'')
+		if (tmp->str[i] == '\'' || tmp->str[i] == '\"')
 		{
+			q = tmp->str[i];
 			i++;
-			while (tmp->str[i] != '\'')
+			while (tmp->str[i] != q)
 				i++;
 		}
-		if (tmp->str[i] == '\"')
-		{
-			i++;
-			while (tmp->str[i] != '\"')
-				i++;
-		}
-		if (tmp->str[i] == ';' && tmp->str[i + 1] == ';')
-		{
-			error(258, "bash: syntax error near unexpected token `;;'");
+		if (error_cheker(tmp->str[i], tmp->str[i + 1], tmp->str[i + 2]) == 1)
 			return (1);
-		}
-		if (tmp->str[i] == '<' && tmp->str[i + 1] == '<' && tmp->str[i + 2] == '<')
-		{
-			error(258, "bash: syntax error near unexpected token `newline'");
-			return (1);
-		}
-		if (tmp->str[i] == '>' && tmp->str[i + 1] == '>' && tmp->str[i + 2] == '>')
-		{
-			error(258, "bash: syntax error near unexpected token `>'");
-			return (1);
-		}
-		if (tmp->str[i] == '>' && tmp->str[i + 1] == '<')
-		{
-			error(258, "bash: syntax error near unexpected token `<'");
-			return (1);
-		}
-		if (tmp->str[i] == '<' && tmp->str[i + 1] == '>')
-		{
-			error(258, "bash: syntax error near unexpected token `newline'");
-			return (1);
-		}
-		if (tmp->str[i] == '|' && tmp->str[i + 1] == '|' && tmp->str [i + 2] != '|')
-		{
-			i = remove_symbol(tmp, i);
-			i = remove_symbol(tmp, i);
-		}
-		if (tmp->str[i] == '|' && tmp->str[i + 1] == '|' && tmp->str [i + 2] == '|')
-		{
-			error(258, "bash: syntax error near unexpected token `||'");
-			return (1);
-		}
-		i++;
 	}
 	if (i > 0 && tmp->str[i - 1] == '\\')
 	{
@@ -111,26 +73,17 @@ int	syntax_error(t_all *tmp)
 
 int	quotes_error(t_all *tmp)
 {
-	int	i;
+	int		i;
+	char	q;
 
 	i = 0;
 	while (tmp->str[i] != '\0')
 	{
-		if (tmp->str[i] == '\'')
+		if (tmp->str[i] == '\'' || tmp->str[i] == '\"')
 		{
+			q = tmp->str[i];
 			i++;
-			while (tmp->str[i] != '\'' && tmp->str[i] != '\0')
-				i++;
-			if (tmp->str[i] == '\0')
-			{
-				error(1, "bash: syntax error near unexpected token quotes");
-				return (1);
-			}
-		}
-		if (tmp->str[i] == '\"')
-		{
-			i++;
-			while (tmp->str[i] != '\"' && tmp->str[i] != '\0')
+			while (tmp->str[i] != q && tmp->str[i] != '\0')
 				i++;
 			if (tmp->str[i] == '\0')
 			{

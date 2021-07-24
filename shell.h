@@ -118,5 +118,9 @@ void	command_dollar(t_all *tmp, t_env *lst);
 void	arg_dollar(t_all *tmp, t_env *lst, int j);
 char	*func(char **str, char *original, char *replaced, int j);
 void	command_slash(t_all *tmp, int i);
+void	create(t_all *tmp, int i, int colnum, t_env *lst);
+int		arg_create(t_all *tmp, int i, t_env *lst);
+int		error_cheker_one(char one, char two, char three);
+int		error_cheker(char one, char two, char three);
 
 #endif
