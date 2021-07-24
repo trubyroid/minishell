@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 23:01:58 by truby             #+#    #+#             */
-/*   Updated: 2021/07/24 13:36:57 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/24 14:28:40 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	cycle_if_pipe(t_all *command, t_env *env, pid_t *pid, int **fd)
 	int		i;
 	t_all	*lst;
 
-	len = babylist_len(lst);
+	len = babylist_len(command);
 	i = -1;
 	lst = command;
 	while (lst != NULL && ++i < len + 1)
