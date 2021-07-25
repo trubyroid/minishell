@@ -18,7 +18,6 @@ void	remove_quotes(t_all *tmp, int i)
 			if (tmp->arg[i][s] != '\0')
 				remove_symbol_arguments(tmp, i, s);
 		}
-		else
 		if (tmp->arg[i][s] != '\0')
 			s++;
 	}
