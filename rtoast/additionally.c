@@ -1,25 +1,14 @@
 #include "../shell.h"
 
-int	amount_of_elements(t_all *tmp, int i, int quotes)
+int	amount_of_elements(t_all *tmp, int i)
 {
 	int	colnum;
 
 	colnum = 0;
-	if (quotes != 0)
+	while (block_checking(tmp->str[i]) == 0 && tmp->str[i] != ' ')
 	{
-		while (quotes_checking(tmp->str[i]) != quotes)
-		{
-			i++;
-			colnum++;
-		}
-	}
-	else
-	{
-		while (block_checking(tmp->str[i]) == 0 && tmp->str[i] != ' ')
-		{
-			i++;
-			colnum++;
-		}
+		i++;
+		colnum++;
 	}
 	return (colnum);
 }

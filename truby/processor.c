@@ -14,7 +14,6 @@
 
 t_env	*processor(t_all *command, t_env *env, char *home, int fl)
 {
-	close_dup(command);
 	if (ft_check(command) == 0)
 		return (env);
 	if (ft_strcmp("exit", command->command_name) == 0)

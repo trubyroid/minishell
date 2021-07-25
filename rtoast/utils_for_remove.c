@@ -11,14 +11,14 @@ void	remove_quotes(t_all *tmp, int i)
 		quotes = quotes_checking(tmp->arg[i][s]);
 		if (quotes != 0)
 		{
-			remove_symbol_arguments(tmp, i, s);
+			s = remove_symbol_arguments(tmp, i, s);
 			while (quotes_checking(tmp->arg[i][s]) != quotes && \
 					tmp->arg[i][s] != '\0')
 				s++;
 			if (tmp->arg[i][s] != '\0')
-				remove_symbol_arguments(tmp, i, s);
+				s = remove_symbol_arguments(tmp, i, s);
 		}
-		if (tmp->arg[i][s] != '\0')
+		else if (tmp->arg[i][s] != '\0')
 			s++;
 	}
 }
@@ -66,12 +66,12 @@ int	remove_symbol_arguments(t_all *tmp, int i, int s)
 	int		j;
 	char	*t_arr;
 
-	j = -1;
 	remember = s;
 	t_arr = NULL;
-	j = ft_strlen(tmp->arg[i]) - 1;
+	j = (ft_strlen(tmp->arg[i])) - 1;
 	t_arr = (char *)malloc(sizeof(char) * (j + 1));
 	t_arr[j] = '\0';
+	j = -1;
 	while (++j < remember)
 		t_arr[j] = tmp->arg[i][j];
 	s = j;
@@ -82,28 +82,24 @@ int	remove_symbol_arguments(t_all *tmp, int i, int s)
 	}
 	free(tmp->arg[i]);
 	tmp->arg[i] = t_arr;
-	if (remember == '\0')
-		remember--;
 	return (remember);
 }
 
 int	remove_symbol_name(t_all *tmp, int i)
 {
 	int		remember;
-	int		rem;
 	int		j;
 	char	*t_arr;
 
 	remember = i;
 	t_arr = NULL;
 	j = ft_strlen(tmp->command_name) - 1;
-	rem = j;
 	t_arr = (char *)malloc(sizeof(char) * (j + 1));
 	t_arr[j] = '\0';
 	j = -1;
 	while (++j < remember)
 		t_arr[j] = tmp->command_name[j];
-	while (tmp->command_name[++i] != '\0' && j < rem)
+	while (tmp->command_name[++i] != '\0')
 	{
 		t_arr[j] = tmp->command_name[i];
 		j++;
@@ -111,7 +107,5 @@ int	remove_symbol_name(t_all *tmp, int i)
 	free(tmp->command_name);
 	tmp->command_name = NULL;
 	tmp->command_name = t_arr;
-	if (tmp->command_name[remember] == '\0')
-		remember--;
 	return (remember);
 }

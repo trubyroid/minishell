@@ -25,7 +25,6 @@ int	main(int argc, char **argv, char **env)
 
 void	cycle(t_all *tmp, t_env *lst)
 {
-	int		i;
 	int		j;
 	char	*home;
 
@@ -38,14 +37,14 @@ void	cycle(t_all *tmp, t_env *lst)
 	{
 		tmp->home = ft_strdup(home);
 		signal_cat();
-		i = prepars(tmp);
-		if (i == 0)
+		if (prepars(tmp) == 0)
 		{
 			command_name(tmp, lst, j);
 			if (tmp->command_name)
 				lst = preprocessor(tmp, lst);
 		}
 		free_all(tmp);
+		// tmp->str = NULL;
 		tmp = (t_all *)malloc(sizeof(t_all));
 		string_creating(tmp);
 		signal_normal();
@@ -69,8 +68,6 @@ void	free_all(t_all *tmp)
 		}
 		free(tmp->arg);
 	}
-	if (tmp->home)
-		free(tmp->home);
 	if (tmp->str)
 		free(tmp->str);
 	tmp->str = NULL;

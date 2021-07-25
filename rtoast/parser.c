@@ -15,11 +15,7 @@ void	command_name(t_all *tmp, t_env *lst, int i)
 	i = skipping_spaces(tmp, i);
 	if (tmp->str[i] == '\\')
 		i++;
-	q = quotes_checking(tmp->str[i]);
-	if (q != 0)
-		colnum = amount_of_elements(tmp, ++i, q);
-	else
-		colnum = amount_of_elements(tmp, i, 0);
+	colnum = amount_of_elements(tmp, i);
 	if (colnum == 0)
 		return ;
 	tmp->command_name = (char *)malloc(sizeof(char) * (colnum + 1));
@@ -39,8 +35,7 @@ void	create(t_all *tmp, int i, int colnum, t_env *lst)
 		i++;
 		count++;
 	}
-	if (quotes_checking(tmp->str[i] != 0))
-		i++;
+	remove_quotes_name(tmp);
 	if (tmp->command_name)
 		creating_name_argument(tmp);
 	if (tmp->str[i] == '|')
@@ -90,4 +85,25 @@ int	arg_create(t_all *tmp, int i, t_env *lst)
 	if (tmp->str[i] == '\"' || tmp->str[i] == '\'')
 		i++;
 	return (i);
+}
+
+void	remove_quotes_name(t_all *tmp)
+{
+	int		i;
+	char	q;
+
+	i = 0;
+	while (tmp->command_name[i] != '\0')
+	{
+		q = quotes_checking(tmp->command_name[i]);
+		if (q != 0)
+		{
+			i = remove_symbol_name(tmp, i);
+			while (quotes_checking(tmp->command_name[i]) != q)
+				i++;
+			i = remove_symbol_name(tmp, i);
+		}
+		else
+			i++;
+	}
 }

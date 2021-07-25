@@ -41,7 +41,10 @@ void	fork_exec(t_all *command, t_env *env, int fl)
 		if (p < 0)
 			return (ft_error("Fork failed.", errno));
 		else if (p == 0)
+		{
+			close_dup(command);
 			implementation(command, env);
+		}
 		wait(&res);
 		dup2(fd_0, 0);
 		dup2(fd_1, 1);

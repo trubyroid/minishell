@@ -61,7 +61,7 @@ int		quotes_checking(char symbol);
 int		skipping_spaces(t_all *tmp, int i);
 void	creating_name_argument(t_all *tmp);
 int		creating_next_argument(t_all *tmp, int i, int colnum, t_env *lst);
-int		amount_of_elements(t_all *tmp, int i, int quotes);
+int		amount_of_elements(t_all *tmp, int i);
 t_env	*creating_list(char **env);
 int		quotes_in_quotes(t_all *tmp, int i);
 int		check_for_dollar(char symbol);
@@ -122,5 +122,6 @@ void	create(t_all *tmp, int i, int colnum, t_env *lst);
 int		arg_create(t_all *tmp, int i, t_env *lst);
 int		error_cheker_one(char one, char two, char three);
 int		error_cheker(char one, char two, char three);
+void	remove_quotes_name(t_all *tmp);
 
 #endif
