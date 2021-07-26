@@ -44,12 +44,27 @@ void	add_fd(t_all *tmp, int fd)
 int	amout_elements_redirect(t_all *tmp, int j)
 {
 	int	count;
+	int	q;
 
 	count = 0;
 	while (tmp->str[j] != ' ' && block_checking(tmp->str[j]) == 0)
 	{
-		j++;
-		count++;
+		q = quotes_checking(tmp->str[j]);
+		if (q != 0)
+		{
+			j++;
+			count++;
+			while (quotes_checking(tmp->str[j]) != q && tmp->str[j] != '\0')
+			{
+				j++;
+				count++;
+			}
+		}
+		if (tmp->str[j] != '\0')
+		{
+			j++;
+			count++;
+		}
 	}
 	return (count);
 }

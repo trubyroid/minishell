@@ -29,26 +29,27 @@ int	single_redirect(t_all *tmp, int i)
 {
 	int		j;
 	int		count;
-	char	*file_name;
 
 	tmp->fd_in = 0;
 	i = skipping_spaces(tmp, i);
 	j = i;
 	count = amout_elements_redirect(tmp, j);
 	j = j + count;
-	file_name = (char *)malloc(sizeof(char) * count);
-	file_name[count] = '\0';
+	tmp->file_name = (char *)malloc(sizeof(char) * count);
+	tmp->file_name[count] = '\0';
 	count = 0;
 	while (i < j)
 	{
-		file_name[count] = tmp->str[i];
+		tmp->file_name[count] = tmp->str[i];
 		count++;
 		i++;
 	}
-	tmp->fd_out = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	quotes_for_redirect(tmp);
+	tmp->fd_out = open(tmp->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (tmp->fd_out != -1)
 		add_fd(tmp, tmp->fd_out);
-	free(file_name);
+	free(tmp->file_name);
+	tmp->file_name = NULL;
 	i = skipping_spaces(tmp, i);
 	return (i);
 }
@@ -57,25 +58,26 @@ int	double_redirect(t_all *tmp, int i)
 {
 	int		j;
 	int		count;
-	char	*file_name;
 
 	i = skipping_spaces(tmp, i);
 	j = i;
 	count = amout_elements_redirect(tmp, j);
 	j = j + count;
-	file_name = (char *)malloc(sizeof(char) * count);
-	file_name[count] = '\0';
+	tmp->file_name = (char *)malloc(sizeof(char) * count);
+	tmp->file_name[count] = '\0';
 	count = 0;
 	while (i < j)
 	{
-		file_name[count] = tmp->str[i];
+		tmp->file_name[count] = tmp->str[i];
 		count++;
 		i++;
 	}
-	tmp->fd_out = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	quotes_for_redirect(tmp);
+	tmp->fd_out = open(tmp->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (tmp->fd_out != -1)
 		add_fd(tmp, tmp->fd_out);
-	free(file_name);
+	free(tmp->file_name);
+	tmp->file_name = NULL;
 	i = skipping_spaces(tmp, i);
 	return (i);
 }
@@ -98,6 +100,7 @@ int	reverse_redirect(t_all *tmp, int i)
 		count++;
 		i++;
 	}
+	quotes_for_redirect(tmp);
 	if (ft_strncmp(tmp->command_name, "cat", 3) != 0)
 		free_file_name(tmp);
 	tmp->fd_in = open(tmp->file_name, O_RDONLY, 0644);

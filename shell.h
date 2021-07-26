@@ -123,5 +123,7 @@ int		arg_create(t_all *tmp, int i, t_env *lst);
 int		error_cheker_one(char one, char two, char three);
 int		error_cheker(char one, char two, char three);
 void	remove_quotes_name(t_all *tmp);
+void	quotes_for_redirect(t_all *tmp);
+int		remove_symbol_redirect(t_all *tmp, int i);
 
 #endif
