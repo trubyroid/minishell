@@ -125,5 +125,7 @@ int		error_cheker(char one, char two, char three);
 void	remove_quotes_name(t_all *tmp);
 void	quotes_for_redirect(t_all *tmp);
 int		remove_symbol_redirect(t_all *tmp, int i);
+int		chek_for_bash(t_all *tmp);
+void	free_two(t_all *tmp);
 
 #endif
