@@ -49,6 +49,7 @@ void	cycle(t_all *tmp, t_env *lst)
 		string_creating(tmp);
 		signal_normal();
 	}
+	free(home);
 	conrol_d();
 }
 
@@ -79,6 +80,8 @@ void	free_all(t_all *tmp)
 		free_all(tmp->baby_pipe);
 	if (tmp->file_name)
 		free(tmp->file_name);
+	if (tmp->home)
+		free(tmp->home);
 	free(tmp);
 	tmp = NULL;
 }
