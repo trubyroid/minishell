@@ -67,8 +67,6 @@ void	free_all(t_all *tmp)
 		}
 		free(tmp->arg);
 	}
-	free(tmp->home);
-	tmp->home = NULL;
 	free_two(tmp);
 }
 
