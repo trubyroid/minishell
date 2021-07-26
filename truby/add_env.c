@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 20:35:57 by truby             #+#    #+#             */
-/*   Updated: 2021/07/21 15:51:54 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/26 19:07:45 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	add_enviroment_variable(t_all *command, t_env *env)
 
 	q = 0;
 	fl = 0;
-	while (command->arg[++q])
+	while (command->arg[++q] != NULL)
 	{
 		j = validation(command->arg[q]);
 		if (j > 0)
@@ -104,8 +104,8 @@ int	add_enviroment_variable(t_all *command, t_env *env)
 			fl = var_without_equal(env, command->arg[q], fl);
 		else if (j < 0)
 		{
-			write(1, "ya_bash: export: '", 18);
-			write(1, command->arg[q], ft_strlen(command->arg[q]));
+			write(command->fd_out, "ya_bash: export: '", 18);
+			write(command->fd_out, command->arg[q], ft_strlen(command->arg[q]));
 			ft_error_int("': not a valid identifier", 1, 0);
 			continue ;
 		}

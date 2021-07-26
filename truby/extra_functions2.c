@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 15:34:14 by truby             #+#    #+#             */
-/*   Updated: 2021/07/26 13:53:18 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/26 19:07:22 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ int	validation(char *arg_str)
 	int	k;
 
 	i = 1;
-	if (!ft_isalpha(arg_str[0]) && arg_str[k] != '_')
+	if (!ft_isalpha(arg_str[0]) && arg_str[0] != '_')
 		return (-1);
-	while (arg_str[i] != '=' && arg_str[i])
+	while (arg_str[i] != '=' && arg_str[i] != '\0')
 	{
 		if (!ft_isalnum(arg_str[i]))
 			return (-1);
@@ -129,5 +129,5 @@ void	free_massives(char **paths, char **env_massiv, char *pwd, int fl)
 	}
 	free(paths);
 	free(env_massiv);
-	free(pwd);
+	// free(pwd);
 }
