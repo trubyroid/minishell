@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 23:01:58 by truby             #+#    #+#             */
-/*   Updated: 2021/07/24 14:28:40 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/26 12:18:17 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ t_env	*preprocessor(t_all *command, t_env *env)
 	else
 		ft_if_pipe(command, env);
 	dup2(fd_0, 0);
+	free(command->home);
 	return (env);
 }
