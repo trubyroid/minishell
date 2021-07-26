@@ -77,6 +77,8 @@ void	free_all(t_all *tmp)
 		free(tmp->massiv_fd);
 	if (tmp->baby_pipe)
 		free_all(tmp->baby_pipe);
+	if (tmp->file_name)
+		free(tmp->file_name);
 	free(tmp);
 	tmp = NULL;
 }
