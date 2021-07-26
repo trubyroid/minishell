@@ -6,10 +6,7 @@ void	command_name(t_all *tmp, t_env *lst, int i)
 	int	q;
 
 	if (tmp->str[0] == '\0')
-	{
-		tmp->str = NULL;
 		return ;
-	}
 	if (i == 0)
 		i = tmp->redirect_i;
 	i = skipping_spaces(tmp, i);
