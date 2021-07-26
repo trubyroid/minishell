@@ -68,6 +68,11 @@ void	free_all(t_all *tmp)
 		}
 		free(tmp->arg);
 	}
+	free_two(tmp);
+}
+
+void	free_two(t_all *tmp)
+{
 	if (tmp->str)
 		free(tmp->str);
 	tmp->str = NULL;

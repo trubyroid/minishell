@@ -7,22 +7,15 @@ void	for_bash(t_all *tmp)
 	int		slash;
 	char	*temp;
 
-	i = 0;
-	j = 0;
-	if (tmp->command_name[i] == '.' && tmp->command_name[i + 1] == '/' && \
-		tmp->command_name[i + 2] != '\0')
-		j = 2;
-	if (tmp->command_name[i] == '.' && tmp->command_name[i + 1] == '.' && \
-		 tmp->command_name[i + 2] == '/' && tmp->command_name[i + 3] != '\0')
-		j = 3;
+	i = -1;
+	j = chek_for_bash(tmp);
 	if (j == 0)
 		return ;
 	slash = j - 1;
 	temp = (char *)malloc(sizeof(char) * (ft_strlen(tmp->arg[0]) - (j - 1)));
 	while (tmp->arg[0][j] != '\0')
 	{
-		temp[i] = tmp->arg[0][j];
-		i++;
+		temp[++i] = tmp->arg[0][j];
 		j++;
 	}
 	temp[i] = '\0';
@@ -78,4 +71,20 @@ int	error_cheker_one(char one, char two, char three)
 		return (1);
 	}
 	return (0);
+}
+
+int	chek_for_bash(t_all *tmp)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (tmp->command_name[i] == '.' && tmp->command_name[i + 1] == '/' && \
+		tmp->command_name[i + 2] != '\0')
+		j = 2;
+	if (tmp->command_name[i] == '.' && tmp->command_name[i + 1] == '.' && \
+		 tmp->command_name[i + 2] == '/' && tmp->command_name[i + 3] != '\0')
+		j = 3;
+	return (j);
 }
