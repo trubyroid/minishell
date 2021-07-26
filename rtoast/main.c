@@ -35,13 +35,12 @@ void	cycle(t_all *tmp, t_env *lst)
 	string_creating(tmp);
 	while (tmp->str)
 	{
-		tmp->home = ft_strdup(home);
 		signal_cat();
 		if (prepars(tmp) == 0)
 		{
 			command_name(tmp, lst, j);
 			if (tmp->command_name)
-				lst = preprocessor(tmp, lst);
+				lst = preprocessor(tmp, lst, home);
 		}
 		free_all(tmp);
 		tmp = (t_all *)malloc(sizeof(t_all));
@@ -86,5 +85,6 @@ void	free_two(t_all *tmp)
 		free_all(tmp->baby_pipe);
 	if (tmp->file_name)
 		free(tmp->file_name);
+	free(tmp);
 	tmp = NULL;
 }
