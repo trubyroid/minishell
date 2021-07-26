@@ -44,10 +44,9 @@ void	cycle(t_all *tmp, t_env *lst)
 				lst = preprocessor(tmp, lst);
 		}
 		free_all(tmp);
-		// tmp->str = NULL;
 		tmp = (t_all *)malloc(sizeof(t_all));
-		string_creating(tmp);
 		signal_normal();
+		string_creating(tmp);
 	}
 	free(home);
 	conrol_d();
@@ -80,8 +79,5 @@ void	free_all(t_all *tmp)
 		free_all(tmp->baby_pipe);
 	if (tmp->file_name)
 		free(tmp->file_name);
-	if (tmp->home)
-		free(tmp->home);
-	free(tmp);
 	tmp = NULL;
 }

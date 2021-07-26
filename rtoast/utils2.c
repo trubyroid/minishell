@@ -8,6 +8,7 @@ void	ctrl_slash_cat(int i)
 void	cntrl_c_cat(int i)
 {
 	write(1, "\e[1C\n", 6);
+	g_status = 1;
 }
 
 void	signal_normal(void)

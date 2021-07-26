@@ -9,10 +9,11 @@ void	for_bash(t_all *tmp)
 
 	i = 0;
 	j = 0;
-	if (tmp->command_name[i] == '.' && tmp->command_name[i + 1] == '/')
+	if (tmp->command_name[i] == '.' && tmp->command_name[i + 1] == '/' && \
+		tmp->command_name[i + 2] != '\0')
 		j = 2;
 	if (tmp->command_name[i] == '.' && tmp->command_name[i + 1] == '.' && \
-		 tmp->command_name[i + 2] == '/')
+		 tmp->command_name[i + 2] == '/' && tmp->command_name[i + 3] != '\0')
 		j = 3;
 	if (j == 0)
 		return ;
@@ -35,9 +36,9 @@ int	error_cheker(char one, char two, char three)
 	int	i;
 
 	i = 0;
-	if (one == ';' && two == ';')
+	if (one == ';')
 	{
-		error(258, "bash: syntax error near unexpected token `;;'");
+		error(258, "bash: syntax error near unexpected token");
 		return (1);
 	}
 	if (one == '<' && two == '<' && three == '<')

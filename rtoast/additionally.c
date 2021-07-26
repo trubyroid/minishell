@@ -3,12 +3,27 @@
 int	amount_of_elements(t_all *tmp, int i)
 {
 	int	colnum;
+	int	q;
 
 	colnum = 0;
 	while (block_checking(tmp->str[i]) == 0 && tmp->str[i] != ' ')
 	{
-		i++;
-		colnum++;
+		q = quotes_checking(tmp->str[i]);
+		if (q != 0)
+		{
+			i++;
+			colnum++;
+			while (quotes_checking(tmp->str[i]) != q && tmp->str[i] != '\0')
+			{
+				i++;
+				colnum++;
+			}
+		}
+		if (tmp->str[i] != '\0')
+		{
+			i++;
+			colnum++;
+		}
 	}
 	return (colnum);
 }

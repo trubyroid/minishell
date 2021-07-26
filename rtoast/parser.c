@@ -86,8 +86,8 @@ int	arg_create(t_all *tmp, int i, t_env *lst)
 
 void	remove_quotes_name(t_all *tmp)
 {
-	int		i;
-	char	q;
+	int	i;
+	int	q;
 
 	i = 0;
 	while (tmp->command_name[i] != '\0')
