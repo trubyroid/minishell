@@ -6,17 +6,11 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 23:01:58 by truby             #+#    #+#             */
-/*   Updated: 2021/07/26 12:18:17 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/26 12:31:04 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell_truby.h"
-
-static void	ft_check_malloc(void *obj)
-{
-	if (obj == NULL)
-		return (ft_error_exit("Error of malloc.", ENOMEM));
-}
 
 static int	**dup_close(int i, int **fd, int len)
 {
@@ -62,9 +56,7 @@ static void	cycle_if_pipe(t_all *command, t_env *env, pid_t *pid, int **fd)
 		}
 		lst = lst->baby_pipe;
 	}
-	i = -1;
-	while (++i < len + 1)
-		wait(&pid[i]);
+	post_work(len, pid, fd);
 }
 
 static void	ft_if_pipe(t_all *command, t_env *env)
