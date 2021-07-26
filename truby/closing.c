@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 14:45:19 by truby             #+#    #+#             */
-/*   Updated: 2021/07/26 12:42:51 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/26 12:46:20 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ static void	freeshing(t_env *env, char *home)
 		}
 	}
 	free(env);
-	// free(home);
+	free(home);
 	env = NULL;
-	// home = NULL;
+	home = NULL;
 }
 
 void	close_minishell(t_env *env, t_all *command, char *home)
