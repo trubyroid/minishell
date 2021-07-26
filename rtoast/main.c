@@ -48,7 +48,7 @@ void	cycle(t_all *tmp, t_env *lst)
 		signal_normal();
 		string_creating(tmp);
 	}
-	free(home);
+	// free(home);
 	conrol_d();
 }
 
@@ -68,6 +68,8 @@ void	free_all(t_all *tmp)
 		}
 		free(tmp->arg);
 	}
+	free(tmp->home);
+	tmp->home = NULL;
 	free_two(tmp);
 }
 
