@@ -6,11 +6,28 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:15:12 by truby             #+#    #+#             */
-/*   Updated: 2021/07/21 13:37:13 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/26 14:01:43 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell_truby.h"
+
+static int	valid_flag(t_all *command, int i)
+{
+	int		j;
+
+	j = 0;
+	if (command->arg[i][0] == '-')
+	{
+		while (command->arg[i][++j] != '\0')
+		{
+			if (command->arg[i][j] != 'n')
+				return (-1);
+		}
+		return (0);
+	}
+	return (-1);
+}
 
 static void	writing(t_all *command, int i, int fl)
 {
@@ -32,9 +49,9 @@ void	use_echo(t_all *command)
 	i = 1;
 	if (command->num_arg > 1)
 	{
-		if (strcmp(command->arg[i], "-n") == 0)
+		if (ft_strnstr(command->arg[i], "-n", 2) != NULL)
 		{
-			while (strcmp(command->arg[i], "-n") == 0)
+			while (valid_flag(command, i) == 0)
 				i++;
 			writing(command, i, 0);
 		}
