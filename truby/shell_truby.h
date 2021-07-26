@@ -48,7 +48,7 @@ int		ft_error_int(char *str, int i, int fl);
 void	*ft_error_null(char *str, int i);
 void	ft_error_exit(char *str, int i);
 char	*ft_substr_shell(char *s, unsigned int start, size_t len);
-t_env	*preprocessor(t_all *command, t_env *env);
+t_env	*preprocessor(t_all *command, t_env *env, char *home);
 void	wait_close(t_all *command);
 int		babylist_len(t_all *command);
 int		ft_check(t_all *command);

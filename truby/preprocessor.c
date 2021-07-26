@@ -87,7 +87,7 @@ static void	ft_if_pipe(t_all *command, t_env *env)
 	cycle_if_pipe(command, env, pid, fd);
 }
 
-t_env	*preprocessor(t_all *command, t_env *env)
+t_env	*preprocessor(t_all *command, t_env *env, char *home)
 {
 	int		fd_0;
 	int		len;
@@ -95,6 +95,7 @@ t_env	*preprocessor(t_all *command, t_env *env)
 	int		**fd;
 
 	fd_0 = dup(0);
+	command->home = ft_strdup(home);
 	if (command->baby_pipe == NULL)
 		env = processor(command, env, command->home, 0);
 	else
