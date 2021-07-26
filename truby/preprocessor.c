@@ -108,6 +108,8 @@ t_env	*preprocessor(t_all *command, t_env *env)
 	else
 		ft_if_pipe(command, env);
 	dup2(fd_0, 0);
-	free(command->home);
+	if (command->home)
+		free(command->home);
+	command->home = NULL;
 	return (env);
 }
