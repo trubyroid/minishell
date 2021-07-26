@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 20:57:17 by truby             #+#    #+#             */
-/*   Updated: 2021/07/24 13:02:22 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/26 11:41:26 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	use_cd(t_env *env, char **dir, char *root);
 void	use_pwd(t_all *command);
 void	implementation(t_all *command, t_env *env);
 void	use_echo(t_all *command);
-void	print_env(t_env *env);
-void	print_export(t_env *env);
+void	print_env(t_all *command, t_env *env);
+void	print_export(t_all *command, t_env *env);
 char	*ft_strjoin_shell(char *s1, char *s2);
 t_env	*processor(t_all *command, t_env *env, char *home, int fl);
 int		add_enviroment_variable(t_all *command, t_env *env);
