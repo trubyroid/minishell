@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 20:57:17 by truby             #+#    #+#             */
-/*   Updated: 2021/07/26 11:41:26 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/26 12:31:30 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,7 @@ char	**create_massiv(t_env *env);
 void	free_massives(char **paths, char **env_massiv, char *pwd, int fl);
 void	close_dup(t_all *command);
 t_env	*copy_lst(t_env *env);
+void	post_work(int len, pid_t *pid, int **fd);
+void	ft_check_malloc(void *obj);
 
 #endif
