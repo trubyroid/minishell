@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 17:09:51 by truby             #+#    #+#             */
-/*   Updated: 2021/07/26 18:47:14 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/26 19:10:28 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,11 @@ static void	find_prog(t_all *command, char **paths, char **env, char *pwd)
 
 static void	exec_processor(t_all *command, char *pwd, char **env, char **paths)
 {
-	if (ft_strcmp("./", command->command_name) == 0 && command->arg[0] != NULL)
+	if (ft_strcmp("./", command->command_name) == 0
+		&& command->arg[0] != NULL)
 		try_that_direction(command, pwd, env);
-	else if (ft_strcmp("../", command->command_name) == 0 && command->arg[0] != NULL)
+	else if (ft_strcmp("../", command->command_name) == 0
+		&& command->arg[0] != NULL)
 		previous_direction(command, pwd, env);
 	else if (ft_strchr(command->command_name, '/'))
 		execve(command->command_name, command->arg, env);

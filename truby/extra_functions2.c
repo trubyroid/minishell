@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 15:34:14 by truby             #+#    #+#             */
-/*   Updated: 2021/07/26 19:07:22 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/26 19:08:54 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,4 @@ void	free_massives(char **paths, char **env_massiv, char *pwd, int fl)
 	}
 	free(paths);
 	free(env_massiv);
-	// free(pwd);
 }
