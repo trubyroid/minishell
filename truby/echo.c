@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 19:15:12 by truby             #+#    #+#             */
-/*   Updated: 2021/07/26 14:01:43 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/28 15:21:23 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	valid_flag(t_all *command, int i)
 	int		j;
 
 	j = 0;
+	if (!command->arg[i])
+		return (-1);
 	if (command->arg[i][0] == '-')
 	{
 		while (command->arg[i][++j] != '\0')

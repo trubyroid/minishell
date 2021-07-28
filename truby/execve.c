@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 17:09:51 by truby             #+#    #+#             */
-/*   Updated: 2021/07/26 19:10:28 by truby            ###   ########.fr       */
+/*   Updated: 2021/07/28 15:17:07 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	implementation(t_all *command, t_env *env)
 	str = NULL;
 	exec_processor(command, pwd, env_massiv, paths);
 	free_massives(paths, env_massiv, pwd, 1);
-	write(1, "ya_bash: ", 9);
+	write(1, "ya_bass: ", 9);
 	write(1, command->arg[0], ft_strlen(command->arg[0]));
 	return (ft_error_exit(": No such file", 127));
 }
