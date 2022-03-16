@@ -9,6 +9,7 @@ void	for_bash(t_all *tmp)
 
 	i = -1;
 	j = chek_for_bash(tmp);
+
 	if (j == 0)
 		return ;
 	slash = j - 1;
@@ -21,6 +22,7 @@ void	for_bash(t_all *tmp)
 	temp[i] = '\0';
 	free(tmp->arg[0]);
 	tmp->arg[0] = temp;
+
 	command_slash(tmp, slash);
 }
 
@@ -58,6 +60,11 @@ int	error_cheker_one(char one, char two, char three)
 	if (one == '<' && two == '>')
 	{
 		error(258, "bash: syntax error near unexpected token `newline'");
+		return (1);
+	}
+	if (one == '|' && two == '\0')
+	{
+		error(258, "bash: syntax error near unexpected token `|'");
 		return (1);
 	}
 	if (one == '|' && two == '|')

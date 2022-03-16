@@ -1,4 +1,5 @@
 #include "../shell.h"
+#include <stdio.h>
 
 int	prepars(t_all *tmp)
 {
@@ -68,7 +69,7 @@ int	syntax_error(t_all *tmp)
 		error(258, "bash: syntax error near unexpected token `\'");
 		return (1);
 	}
-	return (0);
+	return (0); 
 }
 
 int	quotes_error(t_all *tmp)

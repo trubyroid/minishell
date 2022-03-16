@@ -24,9 +24,10 @@ void	create(t_all *tmp, int i, int colnum, t_env *lst)
 {
 	int	count;
 
+
 	count = 0;
 	colnum = i + colnum;
-	while (i < colnum)
+	while (i <= colnum)
 	{
 		tmp->command_name[count] = tmp->str[i];
 		i++;
